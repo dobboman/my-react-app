@@ -1,0 +1,81 @@
+.themeFontColour{
+    color: white;
+}
+.banner{
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    background-color: #5EB55E;
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    left: 0;
+}
+.sidebar{
+    background-color: #5EB55E;
+    height: 88vh;
+    position: fixed;
+    margin-top: 11vh;
+    width: 8vw;
+    top: 0vh;
+    left: 0;
+}
+.sidebarContent{
+    margin-top: 4vh;
+}
+.shoppingCart{
+    background-color: #5EB55E;
+    height: 88vh;
+    position: fixed;
+    margin-top: 11vh;
+    width: 8vw;
+    top: 0vh;
+    right: 0;
+}
+.aboutus{
+    background-color: #4F8857;
+    height: 20vh;
+    padding: 1vh;
+    margin-top: 11vh;
+
+}
+.products{
+    background-color: #4F8857;
+    padding: 1vh;
+    height: auto;
+    min-height: 68vh;
+}
+.spacerCol{
+    height: 100vh;
+}
+.dropdown{
+    background-color: #5EB55E;
+    border-radius: 1vh;
+    border-color: white;
+    height: 5vh;
+    margin-top: 2vh;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    width: 80vw;
+    padding: 1vh;
+    cursor: pointer;
+}
+h1{
+    align-self: center;
+    align-items: center;
+    text-align: center;
+    height: 10vh;
+}
+h2{
+    text-align: center;
+}
+h3{
+    text-align: center;
+}
+p{
+    text-align: center;
+}
+header{
+    position: fixed;
+    width: 100vw;
+}
