@@ -8,7 +8,20 @@ function ProductDropdown(props){
     const [drop, setDrop] = useState(false);
     const [tableData, setTableData] = useState([]);
 
-    function getTableData(catagory){
+    const getTableData = async() =>{
+        /*switch(props.catagory){
+            case "Vegetables":*/
+                    console.log("breast of the jimmy");
+                        const requestData = await fetch("http://localhost/PHP/getItems.php");
+                        const responseData = await requestData.json();
+                        console.log(responseData);
+                        
+                    
+               /* break;
+            default:
+                console.log("fuck my ass")
+                break;
+        }*/
         setTableData([
 
         ]);
@@ -17,7 +30,7 @@ function ProductDropdown(props){
     function handleClick(){
         if(drop === false){
             //console.log("da fug");
-            getTableData(props.catagory);
+            getTableData();
             setDrop(true);
         }else{
             //console.log("da fug 2");
@@ -53,7 +66,7 @@ function ProductDropdown(props){
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductGrid catagory={props.catagory}/>
+                    <ProductGrid catagory={props.catagory} data={tableData}/>
                 </div>
             );
         }
