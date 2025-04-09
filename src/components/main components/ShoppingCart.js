@@ -2,7 +2,7 @@ function ShoppingCart(){
     return(
         <div className="col-1 shoppingCart">
             <h2>My Cart</h2>
-            <button>Checkout</button>
+            <button className="checkoutBtn">Checkout</button>
         </div>
     );
 }

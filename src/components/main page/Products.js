@@ -1,12 +1,12 @@
-import MeatDropdown from "./dropdowns/MeatDropdown";
-import VegDropdown from "./dropdowns/VegDropdown";
+import ProductDropdown from "./dropdowns/ProductDropdown";
+
 
 function Products(){
     return(
         <div className="row">
             <h2>Products</h2>
-            <MeatDropdown/>
-            <VegDropdown/>
+            <ProductDropdown className="dropdown" catagory="Meats" />
+            <ProductDropdown className="dropdown" catagory="vegetables"/>
         </div>
     );
 }

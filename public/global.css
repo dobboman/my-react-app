@@ -22,6 +22,12 @@
 }
 .sidebarContent{
     margin-top: 4vh;
+    width: 8vw;
+    border-radius: 2px;
+    border-width: 2px;
+    border-color: white;
+    background-color: #5EB55E;
+    cursor: pointer;
 }
 .shoppingCart{
     background-color: #5EB55E;
@@ -52,14 +58,59 @@
     background-color: #5EB55E;
     border-radius: 1vh;
     border-color: white;
+    border-width: 2px;
     height: 5vh;
     margin-top: 2vh;
-    margin-left: 2vh;
-    margin-right: 2vh;
-    width: 80vw;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
     padding: 1vh;
     cursor: pointer;
 }
+.dropdownSml{
+    background-color: #5EB55E;
+    border-radius: 1vh;
+    border-color: white;
+    border-width: 2px;
+    height: 5vh;
+    margin-top: 2vh;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    padding: 1vh;
+    cursor: pointer;
+}
+.productTable{
+    margin-left: auto;
+    margin-right: auto;
+}
+.tableContent{
+    width: 22vw;
+}
+.checkoutBtn{
+    bottom: 100%;
+    width: 8vw;
+    border-radius: 2px;
+    border-width: 2px;
+    border-color: white;
+    background-color: #5EB55E;
+    cursor: pointer;
+}
+
+table{
+    margin-right: auto;
+    margin-left: auto;
+    width: 80%;  
+}
+td{
+    width: 33%;
+    text-align: center;
+}
+th{
+    width: 33%;
+    text-align: center;
+}
+
 h1{
     align-self: center;
     align-items: center;
@@ -78,4 +129,7 @@ p{
 header{
     position: fixed;
     width: 100vw;
+}
+button{
+    text-align: center;
 }
