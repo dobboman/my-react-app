@@ -6,25 +6,16 @@ import {useState} from "react"
 function ProductDropdown(props){
     //const drop = props.drop;
     const [drop, setDrop] = useState(false);
-    const [tableData, setTableData] = useState([]);
+    const [tableData, setTableData] = useState([[]]);
 
     const getTableData = async() =>{
-        /*switch(props.catagory){
-            case "Vegetables":*/
-                    console.log("breast of the jimmy");
-                        const requestData = await fetch("http://localhost/PHP/getItems.php");
-                        const responseData = await requestData.json();
-                        console.log(responseData);
-                        
-                    
-               /* break;
-            default:
-                console.log("fuck my ass")
-                break;
-        }*/
-        setTableData([
-
-        ]);
+        console.log("breast of the jimmy");
+        const requestData = await fetch("http://localhost/PHP/getItems.php");
+        const responseData = await requestData.json();
+        console.log(responseData);
+        setTableData(
+            responseData
+        );
     }
 
     function handleClick(){

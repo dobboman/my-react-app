@@ -38,13 +38,17 @@
         $db->query($sqlQuery);
         $sqlQuery = "CREATE TABLE Items(
                         ItemID int UNSIGNED AUTO_INCREMENT NOT NULL,
+                        ItemName varchar(30) NOT NULL,
                         ImageID int UNSIGNED NOT NULL,
                         Price float UNSIGNED NOT NULL,
+                        Catagory varchar(30) NOT NULL,
+                        Type varchar(30),
+
                         PRIMARY KEY (ItemID)
 
                     );";
         $db->query($sqlQuery);
-        $sqlQuery = "   INSERT INTO Items (ImageID, price) VALUES (0, 10.00), (1,10.50), (2, 11.99);
+        $sqlQuery = "   INSERT INTO Items (ItemName, ImageID, price, Catagory) VALUES ('Carrot', 0, 10.00, 'Veg'), ('Cabbage', 1, 10.50, 'Veg'), ('Sprout', 2, 11.99, 'Veg');
         ";
         $db->query($sqlQuery);  
 
