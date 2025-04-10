@@ -6,10 +6,13 @@
     align-content: center;
     align-self: center;
     background-color: #5EB55E;
-    position: fixed;
+    position: fixed; 
+    z-index: 1;
     width: 100vw;
     top: 0;
     left: 0;
+    
+    
 }
 .sidebar{
     background-color: #5EB55E;
@@ -38,9 +41,26 @@
     top: 0vh;
     right: 0;
 }
+.shoppingCartHidden{
+    height: 88vh;
+    position: fixed;
+    margin-top: 11vh;
+    width: 8vw;
+    top: 0vh;
+    right: 0;
+}
+.shoppingCartBtn{
+    max-width: 8vw;
+    max-height: 8vw;
+    border-radius: 0;
+}
+.youfuckingsuck{
+    height: auto;
+}
 .aboutus{
     background-color: #4F8857;
-    height: 20vh;
+    min-height: 20vh;
+    height: auto;
     padding: 1vh;
     margin-top: 11vh;
 
@@ -66,6 +86,8 @@
     width: 90%;
     padding: 1vh;
     cursor: pointer;
+    position: relative; z-index: -1;
+
 }
 .dropdownSml{
     background-color: #5EB55E;
@@ -79,6 +101,8 @@
     width: 80%;
     padding: 1vh;
     cursor: pointer;
+    position: relative; 
+    z-index: -1;
 }
 .productTable{
     margin-left: auto;
@@ -127,9 +151,12 @@ p{
     text-align: center;
 }
 header{
-    position: fixed;
+    position: fixed; 
+    z-index: 1;
     width: 100vw;
 }
 button{
     text-align: center;
+    position: relative; 
+    z-index: -1;
 }

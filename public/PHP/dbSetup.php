@@ -41,15 +41,18 @@
                         ItemName varchar(30) NOT NULL,
                         ImageID int UNSIGNED NOT NULL,
                         Price float UNSIGNED NOT NULL,
-                        Catagory varchar(30) NOT NULL,
-                        Type varchar(30),
+                        ProductCatagory varchar(30) NOT NULL,
+                        SubCatagory varchar(30),
 
                         PRIMARY KEY (ItemID)
 
                     );";
         $db->query($sqlQuery);
-        $sqlQuery = "   INSERT INTO Items (ItemName, ImageID, price, Catagory) VALUES ('Carrot', 0, 10.00, 'Veg'), ('Cabbage', 1, 10.50, 'Veg'), ('Sprout', 2, 11.99, 'Veg');
-        ";
+        $sqlQuery = "   INSERT INTO Items (ItemName, ImageID, price, ProductCatagory) VALUES ('Carrot', 0, 10.00, 'Vegetables'), ('Cabbage', 1, 10.50, 'Vegetables'), ('Sprout', 2, 11.99, 'Vegetables'),
+                                                                                        ('8oz Rump Steak', 3, 14.99, 'Beef'), ('Minced Beef 500g', 4, 8.89, 'Beef'), ('10oz Sirlion Steak', 4, 16.00, 'Beef'),
+                                                                                        ('Salmon Slices', 5, 6.50, 'Fish'), ('Tuna Can', 6, 4.59, 'Fish'), ('Sushi Box', 7, 5.70, 'Fish'),
+                                                                                        ('Smoked Bacon', 8, 3.50, 'Pork'), ('Non-Smoked Bacon', 9, 3.50, 'Pork'), ('Gammon Steak', 10, 3.50, 'Pork'),
+                                                                                        ('Rotisery Chicken', 11, 6.80, 'Chicken'), ('Chicken Drumsticks', 12, 4.50, 'Chicken'), ('Chiken Ceasar Salad', 13, 3.50, 'Chicken');";
         $db->query($sqlQuery);  
 
         mysqli_close($conn);

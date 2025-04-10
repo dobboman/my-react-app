@@ -1,6 +1,25 @@
 <?php
     $db = new mysqli("localhost", "root", "","GrocceryGuyDatabase");
-    $q = "SELECT * FROM Items";
+    $raw_req = file_get_contents('php://input');
+    $catagory = json_decode($raw_req);
+
+    if($catagory == "Vegetables"){
+        $q = "SELECT * FROM Items WHERE ProductCatagory = 'Vegetables'";
+    }
+    if($catagory == "Chicken"){
+        $q = "SELECT * FROM Items WHERE ProductCatagory = 'Chicken'";
+    }
+    if($catagory == "Beef"){
+        $q = "SELECT * FROM Items WHERE ProductCatagory = 'Beef'";
+    }
+    if($catagory == "Pork"){
+        $q = "SELECT * FROM Items WHERE ProductCatagory = 'Pork'";
+    }
+    if($catagory == "Fish"){
+        $q = "SELECT * FROM Items WHERE ProductCatagory = 'Fish'";
+    }
+
+    
     
     $result = mysqli_query($db, $q);
     $data = mysqli_fetch_all($result);

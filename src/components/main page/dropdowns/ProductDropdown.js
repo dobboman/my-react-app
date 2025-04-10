@@ -10,7 +10,12 @@ function ProductDropdown(props){
 
     const getTableData = async() =>{
         console.log("breast of the jimmy");
-        const requestData = await fetch("http://localhost/PHP/getItems.php");
+        console.log(JSON.stringify(props.catagory));
+        const requestData = await fetch("http://localhost/PHP/getItems.php",{
+            method: "POST",
+            //headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(props.catagory)
+        });
         const responseData = await requestData.json();
         console.log(responseData);
         setTableData(

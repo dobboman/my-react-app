@@ -1,6 +1,6 @@
 function Aboutus(){
     return(
-        <div clasName="row pr-2 pl-2">
+        <div clasName="row aboutus">
             <h2>About Us</h2>
             <p>
             Welcome to The Grocery Guys, your trusted online grocery store!

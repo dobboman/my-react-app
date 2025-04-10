@@ -1,4 +1,3 @@
-import {map} from 'react'
 function ProductGrid(props){
     const data = props.data;
     //const numOfRows = props.tableData.numOfRows;
@@ -14,7 +13,7 @@ function ProductGrid(props){
             <tbody>
                 {
                     data.map(d => (
-                        <tr key={d[0]}>
+                        <tr key={d[0]}>     
                             <td>{d[1]}</td>
                             <td>{d[2]}</td>
                             <td>{d[3]}</td>

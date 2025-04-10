@@ -6,7 +6,7 @@ function Products(){
         <div className="row">
             <h2>Products</h2>
             <ProductDropdown className="dropdown" catagory="Meats" />
-            <ProductDropdown className="dropdown" catagory="vegetables"/>
+            <ProductDropdown className="dropdown" catagory="Vegetables"/>
         </div>
     );
 }
