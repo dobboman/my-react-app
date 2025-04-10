@@ -15,7 +15,8 @@
         $sqlQuery = "CREATE TABLE Users(
                         UserID int(10) UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY ,
                         Email varchar(50) NOT NULL, 
-                        PhoneNumber int
+                        PhoneNumber int NOT NULL,
+                        PasswordHash varchar(256) NOT NULL
                         );";
         $db->query($sqlQuery);
         $sqlQuery = "CREATE TABLE Orders(
@@ -53,7 +54,10 @@
                                                                                         ('Salmon Slices', 5, 6.50, 'Fish'), ('Tuna Can', 6, 4.59, 'Fish'), ('Sushi Box', 7, 5.70, 'Fish'),
                                                                                         ('Smoked Bacon', 8, 3.50, 'Pork'), ('Non-Smoked Bacon', 9, 3.50, 'Pork'), ('Gammon Steak', 10, 3.50, 'Pork'),
                                                                                         ('Rotisery Chicken', 11, 6.80, 'Chicken'), ('Chicken Drumsticks', 12, 4.50, 'Chicken'), ('Chiken Ceasar Salad', 13, 3.50, 'Chicken');";
-        $db->query($sqlQuery);  
+        $db->query($sqlQuery);
+        
+        $sqlQuery = "INSERT INTO Users (Email,PhoneNumber,PasswordHash) VALUES (test@test.co.uk,07711111111,boob)";
+        $db->query($sqlQuery);
 
         mysqli_close($conn);
         mysqli_close($db);

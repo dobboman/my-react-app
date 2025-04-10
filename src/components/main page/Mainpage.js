@@ -1,8 +1,18 @@
 import Aboutus from "./Aboutus";
 import Products from "./Products";
+import Sidebar from "../main components/Sidebar";
+import ShoppingCart from "../main components/ShoppingCart";
+import { useState } from "react";
 
-function Mainpage(){
+function Mainpage(props){
+    const [loginORout, setLoggedIn] = useState("Login");
+    const handleClick = () =>{
+        props.setPage("login");
+    }
+
     return(
+        <>
+        <Sidebar setLogin={setLoggedIn} handleClick = {handleClick} loginORout={loginORout}/>
         <div className="row">
             <div className="col-1 spacerCol">
                 <p>stuff</p>
@@ -18,6 +28,8 @@ function Mainpage(){
                 </div>
             </div>
         </div>
+        <ShoppingCart/>
+        </>
     );
 }
 

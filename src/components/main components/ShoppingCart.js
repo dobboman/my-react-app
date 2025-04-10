@@ -1,12 +1,20 @@
 import { useState } from "react";
 
 function ShoppingCart(){
-    const [hidden, setHidden] = useState(true)
+    const [hidden, setHidden] = useState(true);
+
+    const handleClick = () => {
+        if(hidden){
+            setHidden(false);
+        }else{
+            setHidden(true);
+        }
+    }
 
     if(hidden){
         return(
             <div className="col-1 shoppingCartHidden">
-                <button className="shoppingCartBtn"><img src="./cartIcon.png" alt="cannyfind"></img></button>
+                <button className="shoppingCartBtn" onClick={handleClick}><img src="./cartIcon.png" alt="cannyfind"></img></button>
             </div>
         );
     }else{
