@@ -5,25 +5,26 @@ import ShoppingCart from "../components/main components/ShoppingCart";
 import { useState } from "react";
 
 function Mainpage(props){
-    /*const [loginORout, setLoggedIn] = useState("Login");
-    const handleClick = () =>{
-        props.setPage("login");
-    }*/
-   /*const [username, setUsername] = useState('');
-   const [password, setPassword] = useState('');*/
    const [loggedIn, setLoggedIn] = useState(false);
 
-    if(props.username !== '' && props.password !== '' ){
+    if(props.username !== '' && props.password !== '' && loggedIn === false ){
         setLoggedIn(true);
+        console.log(props.username);
+        console.log(props.password);
+        //console.log(loggedIn);
     }
 
-    console.log(props.username);
-    console.log(props.password);
-    console.log(loggedIn);
+    const logout = () =>{
+        props.setUsername('');
+        props.setPassword('');
+        setLoggedIn(false);
+        console.log("usrnm & psswrd should be reset");
+        
+    }
 
     return(
         <>
-        <Sidebar setUsername= {props.setUsername} setPassword={props.setPassword} loggedIn={loggedIn}/>
+        <Sidebar logout={logout} loggedIn={loggedIn}/>
         <div className="row">
             <div className="col-1 spacerCol">
                 <p>stuff</p>

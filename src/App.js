@@ -17,7 +17,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={ <Layout/> }>
-          <Route index element={ <Mainpage username={username} password={password}/> }/>
+          <Route index element={ <Mainpage setPassword={setPassword} setUsername={setUsername} username={username} password={password}/> }/>
           <Route path='Login' element={ <Login setPassword={setPassword} setUsername={setUsername}/> }/>
           <Route path='SignUp' element={<SignUp setPassword={setPassword} setUsername={setUsername}/>}/>
         </Route>

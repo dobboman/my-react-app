@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 
 function Sidebar(props) {
     const logout = () =>{
-        props.setPassword('');
-        props.setUsername('');
+        //props.setPassword('');
+        //props.setUsername('');
+        props.logout();
     }
 
     if(props.loggedIn){
         return(
             <div className="sidebar">
-                <button type="button" className="loginBtn" onClick={logout}>Login</button>
+                <button type="button" className="loginBtn" onClick={logout}>Logout</button>
             </div> 
         );
     }else {
