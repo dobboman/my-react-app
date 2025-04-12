@@ -17,7 +17,7 @@ const Login = (props) =>{
             nav(-1);
             //redirect("http://localhost");
         } else{
-            alert("Email address already associated with account");
+            alert("Email address or password is incorrect");
         }
         
     }
@@ -61,7 +61,9 @@ const Login = (props) =>{
             </div>
             <div className="row">
                 <h3>Dont have an account with us?</h3>
-                <button id="signUpBtn" className="signUpBtn">Signup</button>
+                <Link to="/SignUp">
+                    <button id="signUpBtn" className="signUpBtn">Signup</button>
+                </Link>
             </div>
         </div>
         <div className="col-1">

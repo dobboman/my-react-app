@@ -15,10 +15,13 @@ function Mainpage(props){
     }
 
     const logout = () =>{
-        props.setUsername('');
-        props.setPassword('');
-        setLoggedIn(false);
-        console.log("usrnm & psswrd should be reset");
+        //const confirmLogout = confirm("Are you sure you want to logout");
+        if(window.confirm("Are you sure you want to logout") === true){
+            props.setUsername('');
+            props.setPassword('');
+            setLoggedIn(false);
+            console.log("usrnm & psswrd should be reset");
+        }
         
     }
 
