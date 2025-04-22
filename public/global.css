@@ -135,6 +135,12 @@
     margin-left: 10%;
     margin-right: 10%;
 }
+.invalid{
+    color: crimson;   
+}
+.valid{
+    color: floralwhite;
+}
 
 table{
     margin-right: auto;

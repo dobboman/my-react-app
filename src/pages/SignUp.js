@@ -1,10 +1,17 @@
 import { sha256 } from "js-sha256";
+import { useState } from "react";
 import { Link, redirect, useNavigate } from "react-router-dom";
 
 
 
 const SignUp = (props) =>{
     const nav = useNavigate();
+    const [lowercaseClass, setLowercaseClass] = useState("invalid");
+    const [uppercaseClass, setUppercaseClass] = useState("invalid");
+    const [numberClass, setNumberClass] = useState("invalid");
+    const [specialCharClass, setSpecialCharClass] = useState("invalid");
+    const [lengthClass, setLengthClass] = useState("invalid");
+    const [passwordClass, setPasswordClass] = useState("invalid");
     const sigupHandeler = (event) =>{
         event.preventDefault();
         
@@ -51,50 +58,47 @@ const SignUp = (props) =>{
     const specialChars = /D/g;
     const validatePassword = () => {
         const pass = document.getElementById("password").value;
-        const lowercase = document.getElementById("lower").value;
+        const passConfirm = document.getElementById("passwordConfirm").value;
+        /*const lowercase = document.getElementById("lower").value;
         const uppercase = document.getElementById("caps").value;
         const number = document.getElementById("number").value;
         const length = document.getElementById("length").value;
-        const specialChar = document.getElementById("specialChar").value;
+        const specialChar = document.getElementById("specialChar").value;*/
 
         if(pass.match(lowercaseLetters)){
-            lowercase.classList.remove("invalid");
-            lowercase.classList.add("valid");
+            setLowercaseClass("valid");
         }else{
-            lowercase.classList.remove("valid");
-            lowercase.classList.add("invalid");
+            setLowercaseClass("invalid")
         }
 
         if(pass.match(uppercaseLetters)){
-            uppercase.classList.remove("invalid");
-            uppercase.classList.add("valid");
+            setUppercaseClass("valid");
         }else{
-            uppercase.classList.remove("valid");
-            uppercase.classList.add("invalid");
+            setUppercaseClass("invalid");
         }
 
         if(pass.match(numbers)){
-            number.classList.remove("invalid");
-            number.classList.add("valid");
+            setNumberClass("valid");
         }else{
-            number.classList.remove("valid");
-            number.classList.add("invalid");
+            setNumberClass("invalid");
         }
 
         if(pass.match(specialChars)){
-            specialChar.classList.remove("invalid");
-            specialChar.classList.add("valid");
+            setSpecialCharClass("valid");
         }else{
-            specialChar.classList.remove("valid");
-            specialChar.classList.add("invalid");
+            setSpecialCharClass("invalid");
         }
 
         if(pass.length > 8){
-            length.classList.remove("invalid");
-            length.classList.add("valid");
+            setLengthClass("valid");
         }else{
-            length.classList.remove("valid");
-            length.classList.add("invalid");
+            setLengthClass("invalid");
+        }
+
+        if(passConfirm === pass){
+            setPasswordClass("valid");
+        }else{
+            setPasswordClass("invalid");
         }
 
 
@@ -118,12 +122,12 @@ const SignUp = (props) =>{
                         <h3>Re-enter Password</h3>
                         <input id="passwordConfirm" type="password" required onKeyUp={validatePassword} pattern="(?=.*\d)(?=.*\D)(?=.*[A-Z])(?=.*[a-z]) (?=.*[]).{8,}"></input>
                         <div className="passwordPrompts">
-                            <p id="lower" className="invalid">A <b>Lowercase</b>letter</p>
-                            <p id="caps" className="invalid">A <b>Uppercase</b>letter</p>
-                            <p id="number" className="invalid">A <b>number</b></p>
-                            <p id="length" className="invalid">A <b>length</b></p>
-                            <p id="specialChar" className="invalid">A <b>Special</b>Character</p>
-                            <p id="passwordMatch" className="invalid">A <b>Passwords</b>match</p>
+                            <p id="lower" className={lowercaseClass}>A <b>Lowercase</b>letter</p>
+                            <p id="caps" className={uppercaseClass}>A <b>Uppercase</b>letter</p>
+                            <p id="number" className={numberClass}>A <b>number</b></p>
+                            <p id="length" className={lengthClass}> <b>length</b>larger than<b>8</b></p>
+                            <p id="specialChar" className={specialCharClass}>A <b>Special</b>Character</p>
+                            <p id="passwordMatch" className={passwordClass}>A <b>Passwords</b>match</p>
 
                         </div>
                         <button type="submit">SignUp</button>
