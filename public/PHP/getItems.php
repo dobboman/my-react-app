@@ -35,7 +35,7 @@
     );*/
 
     $dataJSON = json_encode($data);
+    mysqli_close($db);
     echo $dataJSON;
 
-    mysqli_close($db);
 ?>

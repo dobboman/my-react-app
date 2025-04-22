@@ -2,6 +2,7 @@ import { useRef } from "react";
 import Sidebar from "../components/main components/Sidebar";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { useNavigation } from "react-router-dom";
+import {sha256} from 'js-sha256';
 
 
 const Login = (props) =>{
@@ -13,32 +14,41 @@ const Login = (props) =>{
     const loginHandler = (event) =>{
         event.preventDefault();
         console.log("login handeler callled")
-        if(loginRequest()){
+        loginRequest();
+        /*const success = loginRequest();
+        console.log("rtn form loginReq ".success);
+        if(success){
             nav(-1);
             //redirect("http://localhost");
         } else{
-            alert("Email address or password is incorrect");
-        }
+            window.alert("Email address or password is incorrect");
+        }*/
         
     }
     const loginRequest = async() =>{
-        const data = [usernameRef.current.value, passwordRef.current.value];
-        const pass = passwordRef.current.value;
+        const pass = sha256(passwordRef.current.value); //hashed client side aswell as it will be stored for later use
         const usrnm = usernameRef.current.value;
-        const requestData = await fetch("http://localhost/PHP/login.php" ,{ 
+        const data = {
+                username: usrnm,
+                password: pass
+            };
+           
+        const requestData = await fetch("http://localhost/GroceryGuys/PHP/login.php" ,{ 
             method: "POST",
             body: JSON.stringify(data)
         });
         const responseData = await requestData.json();
         console.log(responseData);
-        console.log(responseData.data);
+        //console.log(responseData.data);
         if(responseData === true){
-            console.log('entered set pass and usr statement')
+            console.log('entered set pass and usr statement');
             props.setUsername(usrnm);
             props.setPassword(pass);
-            return true;
+            nav(-1);
+        }else{
+            console.log("alert should show");
+            window.alert("Email or Password was incorrect");
         }
-        return false;
     }
     
     return(

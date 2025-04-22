@@ -16,7 +16,8 @@
                         UserID int(10) UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY ,
                         Email varchar(50) NOT NULL, 
                         PhoneNumber int NOT NULL,
-                        PasswordHash varchar(256) NOT NULL
+                        PasswordHash varchar(256) NOT NULL,
+                        Salt varchar(64) NOT NULL
                         );";
         $db->query($sqlQuery);
         $sqlQuery = "CREATE TABLE Orders(
@@ -56,8 +57,8 @@
                                                                                         ('Rotisery Chicken', 11, 6.80, 'Chicken'), ('Chicken Drumsticks', 12, 4.50, 'Chicken'), ('Chiken Ceasar Salad', 13, 3.50, 'Chicken');";
         $db->query($sqlQuery);
         
-        $sqlQuery = "INSERT INTO Users (Email,PhoneNumber,PasswordHash) VALUES (test@test.co.uk,07711111111,boob)";
-        $db->query($sqlQuery);
+        $sqlQuery = "INSERT INTO Users (Email,PhoneNumber,PasswordHash,Salt) VALUES ('oscar3098@googlemail.com',07711111111,'efed9e17f63ad0801351f7dae1bf5a5e5f9213e24de45cd23c965bc2ef775e10' , '3jH7mP1q9Rz5Tn4X')";
+        $db->query($sqlQuery);                                                                                     //'61ae4764bcaa044f04b0e6674d621673c6f5335dac36ac5f7cdb93d2eba5530a'
 
         mysqli_close($conn);
         mysqli_close($db);
