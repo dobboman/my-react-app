@@ -6,7 +6,7 @@
     $responseData = mysqli_fetch_all($result);
 
     for ($i=0; $i < $result->num_rows; $i++) {
-        echo $responseData[$i][0]." ".$responseData[$i][1]." ".$responseData[$i][2]." ".$responseData[$i][3]." ".$responseData[$i][4]."\r\n";
+        echo "(".$responseData[$i][0].") (".$responseData[$i][1].") (".$responseData[$i][2].") (".$responseData[$i][3].") (".$responseData[$i][4].")\r\n";
     }
 
     $q = "DELETE FROM Users WHERE Email = 'dobboz2001@gmail.com' ";

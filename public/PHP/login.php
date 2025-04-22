@@ -8,9 +8,10 @@
     $salt = mysqli_query( $db, $q );
     $salt = mysqli_fetch_all($salt); 
     //var_dump($salt);
-    $passwordSalt = strval($req_data->password) . $salt[0][0];
+    //$passwordSalt = strval($req_data->password) . $salt[0][0];
     //var_dump($passwordSalt);
-    $hash = hash('sha256',$passwordSalt);
+    //$hash = hash('sha256',$passwordSalt);
+    //$password = password_hash($req_data->password, PASSWORD_DEFAULT);
         
 
     $q = "SELECT PasswordHash FROM Users WHERE Email = '" . $req_data->username ."'";
@@ -19,10 +20,15 @@
     //var_dump($passwordHash);
     //var_dump($hash);
 
-    if ($passwordHash != $hash) {
+    /*if ($passwordHash != $password) {
         $response = false;
     } else {
         $response = true;
+    }*/
+    if(password_verify($req_data->password, $passwordHash)){
+        $response = true;
+    }else{
+        $response = false;
     }
     $responseData = json_encode($response);
     mysqli_close($db);

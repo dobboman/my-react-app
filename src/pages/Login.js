@@ -44,7 +44,7 @@ const Login = (props) =>{
             console.log('entered set pass and usr statement');
             props.setUsername(usrnm);
             props.setPassword(pass);
-            nav(-1);
+            nav("http://localhost/GrocerGuys/HomePage");
         }else{
             console.log("alert should show");
             window.alert("Email or Password was incorrect");

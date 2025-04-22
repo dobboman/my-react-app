@@ -51,10 +51,10 @@
                     );";
         $db->query($sqlQuery);
         $sqlQuery = "   INSERT INTO Items (ItemName, ImageID, price, ProductCatagory) VALUES ('Carrot', 0, 10.00, 'Vegetables'), ('Cabbage', 1, 10.50, 'Vegetables'), ('Sprout', 2, 11.99, 'Vegetables'),
-                                                                                        ('8oz Rump Steak', 3, 14.99, 'Beef'), ('Minced Beef 500g', 4, 8.89, 'Beef'), ('10oz Sirlion Steak', 4, 16.00, 'Beef'),
-                                                                                        ('Salmon Slices', 5, 6.50, 'Fish'), ('Tuna Can', 6, 4.59, 'Fish'), ('Sushi Box', 7, 5.70, 'Fish'),
-                                                                                        ('Smoked Bacon', 8, 3.50, 'Pork'), ('Non-Smoked Bacon', 9, 3.50, 'Pork'), ('Gammon Steak', 10, 3.50, 'Pork'),
-                                                                                        ('Rotisery Chicken', 11, 6.80, 'Chicken'), ('Chicken Drumsticks', 12, 4.50, 'Chicken'), ('Chiken Ceasar Salad', 13, 3.50, 'Chicken');";
+                                                                                        ('8oz Rump Steak', 3, 14.99, 'Beef'), ('Minced Beef 500g', 4, 8.89, 'Beef'), ('10oz Sirlion Steak', 5, 16.00, 'Beef'),
+                                                                                        ('Salmon Slices', 6, 6.50, 'Fish'), ('Tuna Can', 7, 4.59, 'Fish'), ('Sushi Box', 8, 5.70, 'Fish'),
+                                                                                        ('Smoked Bacon', 9, 3.50, 'Pork'), ('Non-Smoked Bacon', 10, 3.50, 'Pork'), ('Gammon Steak', 11, 3.50, 'Pork'),
+                                                                                        ('Rotisery Chicken', 12, 6.80, 'Chicken'), ('Chicken Drumsticks', 13, 4.50, 'Chicken'), ('Chiken Ceasar Salad', 14, 3.50, 'Chicken');";
         $db->query($sqlQuery);
         
         $sqlQuery = "INSERT INTO Users (Email,PhoneNumber,PasswordHash,Salt) VALUES ('oscar3098@googlemail.com',07711111111,'efed9e17f63ad0801351f7dae1bf5a5e5f9213e24de45cd23c965bc2ef775e10' , '3jH7mP1q9Rz5Tn4X')";

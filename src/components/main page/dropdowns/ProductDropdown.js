@@ -11,7 +11,7 @@ function ProductDropdown(props){
     const getTableData = async() =>{
         console.log("breast of the jimmy");
         console.log(JSON.stringify(props.catagory));
-        const requestData = await fetch("http://localhost/PHP/getItems.php",{
+        const requestData = await fetch("http://localhost/GroceryGuys/PHP/getItems.php",{
             method: "POST",
             //headers: { "Content-Type": "application/json"},
             body: JSON.stringify(props.catagory)
