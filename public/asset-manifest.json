@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/GroceryGuys/static/css/main.f855e6bc.css",
+    "main.js": "/GroceryGuys/static/js/main.b9d572c9.js",
+    "static/js/453.ad6eb26e.chunk.js": "/GroceryGuys/static/js/453.ad6eb26e.chunk.js",
+    "index.html": "/GroceryGuys/index.html",
+    "main.f855e6bc.css.map": "/GroceryGuys/static/css/main.f855e6bc.css.map",
+    "main.b9d572c9.js.map": "/GroceryGuys/static/js/main.b9d572c9.js.map",
+    "453.ad6eb26e.chunk.js.map": "/GroceryGuys/static/js/453.ad6eb26e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.b9d572c9.js"
+  ]
+}

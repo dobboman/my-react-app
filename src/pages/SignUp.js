@@ -11,7 +11,8 @@ const SignUp = (props) =>{
     const [numberClass, setNumberClass] = useState("invalid");
     const [specialCharClass, setSpecialCharClass] = useState("invalid");
     const [lengthClass, setLengthClass] = useState("invalid");
-    const [passwordClass, setPasswordClass] = useState("invalid");
+    const [passwordClass, setPasswordClass] = useState("valid");
+    const [spaceClass, setspaceClass] = useState("valid");
     const sigupHandeler = (event) =>{
         event.preventDefault();
         
@@ -55,7 +56,8 @@ const SignUp = (props) =>{
     const lowercaseLetters = /[a-z]/g;
     const uppercaseLetters = /[A-Z]/g;
     const numbers = /[0-9]/g;
-    const specialChars = /D/g;
+    const specialChars = /[!-\/:-@[-`{-~]/g;
+    
     const validatePassword = () => {
         const pass = document.getElementById("password").value;
         const passConfirm = document.getElementById("passwordConfirm").value;
@@ -65,31 +67,31 @@ const SignUp = (props) =>{
         const length = document.getElementById("length").value;
         const specialChar = document.getElementById("specialChar").value;*/
 
-        if(pass.match(lowercaseLetters)){
+        if(pass.match(lowercaseLetters) || passConfirm.match(lowercaseLetters)){
             setLowercaseClass("valid");
         }else{
             setLowercaseClass("invalid")
         }
 
-        if(pass.match(uppercaseLetters)){
+        if(pass.match(uppercaseLetters) || passConfirm.match(uppercaseLetters)){
             setUppercaseClass("valid");
         }else{
             setUppercaseClass("invalid");
         }
 
-        if(pass.match(numbers)){
+        if(pass.match(numbers) || passConfirm.match(numbers)){
             setNumberClass("valid");
         }else{
             setNumberClass("invalid");
         }
 
-        if(pass.match(specialChars)){
+        if(pass.match(specialChars) || passConfirm.match(specialChars)){
             setSpecialCharClass("valid");
         }else{
             setSpecialCharClass("invalid");
         }
 
-        if(pass.length > 8){
+        if(pass.length > 8  || passConfirm.length > 8){
             setLengthClass("valid");
         }else{
             setLengthClass("invalid");
@@ -120,14 +122,15 @@ const SignUp = (props) =>{
                         <h3>Password</h3>
                         <input id="password" type="password" required onKeyUp={validatePassword}></input>
                         <h3>Re-enter Password</h3>
-                        <input id="passwordConfirm" type="password" required onKeyUp={validatePassword} pattern="(?=.*\d)(?=.*\D)(?=.*[A-Z])(?=.*[a-z]) (?=.*[]).{8,}"></input>
+                        <input id="passwordConfirm" type="password" required onKeyUp={validatePassword} pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]) (?=.*[]).{8,}"></input>
                         <div className="passwordPrompts">
-                            <p id="lower" className={lowercaseClass}>A <b>Lowercase</b>letter</p>
-                            <p id="caps" className={uppercaseClass}>A <b>Uppercase</b>letter</p>
+                            <p id="spaces" className={}><b>No Spaces</b> in password</p>
+                            <p id="lower" className={lowercaseClass}>A <b>Lowercase</b> letter</p>
+                            <p id="caps" className={uppercaseClass}>A <b>Uppercase</b> letter</p>
                             <p id="number" className={numberClass}>A <b>number</b></p>
-                            <p id="length" className={lengthClass}> <b>length</b>larger than<b>8</b></p>
-                            <p id="specialChar" className={specialCharClass}>A <b>Special</b>Character</p>
-                            <p id="passwordMatch" className={passwordClass}>A <b>Passwords</b>match</p>
+                            <p id="length" className={lengthClass}><b>password </b>longer than 8<b> character</b></p>
+                            <p id="specialChar" className={specialCharClass}>A <b>Special</b> Character</p>
+                            <p id="passwordMatch" className={passwordClass}>A <b>Passwords</b> match</p>
 
                         </div>
                         <button type="submit">SignUp</button>

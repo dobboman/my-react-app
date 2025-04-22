@@ -14,7 +14,7 @@ function ShoppingCart(){
     if(hidden){
         return(
             <div className="col-1 shoppingCartHidden">
-                <button className="shoppingCartBtn" onClick={handleClick}><img src="./cartIcon.png" alt="cannyfind"></img></button>
+                <button className="shoppingCartBtn" onClick={handleClick}><img src="./leftArrow.png"></img><img src="./cartIcon.png" alt="cannyfind"></img></button>
             </div>
         );
     }else{

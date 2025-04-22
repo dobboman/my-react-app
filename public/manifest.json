@@ -6,6 +6,11 @@
       "src": "cartIcon.png",
       "sizes": "800x800",
       "type": "image/png"
+    },
+    {
+      "src": "leftArrow.png",
+      "sizes": "900x900",
+      "type": "image/png"
     }
   ],
   "start_url": ".",
