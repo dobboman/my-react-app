@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import {BrowserRouter, Routes, Route, createBrowserRouter, RouterProvider} from "react-router-dom";
 import SignUp from './pages/SignUp';
 import Layout from './pages/Layout';
+import StaffOrdersPage from './pages/StaffOrdersPage';
 //import ShoppingCart from './components/main components/ShoppingCart';
 //import Sidebar from './components/main components/Sidebar';
 
@@ -30,6 +31,7 @@ function App() {
         </Route>
           <Route path='/Login' element={ <Login setPassword={setPassword} setUsername={setUsername}/> }/>
           <Route path='/SignUp' element={<SignUp setPassword={setPassword} setUsername={setUsername}/>}/>
+          <Route path='/Orders' element={<StaffOrdersPage password={password} username={username}/>}/>
       </Routes>
     </BrowserRouter>
   );

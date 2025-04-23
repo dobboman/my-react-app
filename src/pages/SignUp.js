@@ -1,6 +1,9 @@
 import { sha256 } from "js-sha256";
 import { useState } from "react";
 import { Link, redirect, useNavigate } from "react-router-dom";
+import EmailInput from "../components/SignUp Prompts/EmailInput";
+import PasswordInput from "../components/SignUp Prompts/PasswordInput";
+import PhoneInput from "../components/SignUp Prompts/PhoneInput";
 
 
 
@@ -72,6 +75,7 @@ const SignUp = (props) =>{
     const specialChars = /[!-\/:-@[-`{-~]/g;
     
     const validatePassword = () => {
+        console.log("validate pass")
         const pass = document.getElementById("password").value;
         const passConfirm = document.getElementById("passwordConfirm").value;
 
@@ -112,30 +116,57 @@ const SignUp = (props) =>{
         }
     };
     const showPrompts = (prompt) =>{
-        if(prompt === "password"){
-        }
+        
         switch(prompt){
             case "password":
-                if(passwordPromptsClass != "visible"){setPasswordPromptsClass("passwordPromtsVisible");}
+                console.log("password focused");
+                /*if(passwordPromptsClass != "passwordPromtsVisible"){
+                    setPasswordPromptsClass("passwordPromtsVisible");
+                }*/
+                /*hidePrompts("email");
+                hidePrompts("phone");*/
                 break;
             case "email":
-                if(emailPromtsClass != "visible"){setEmailPromptsClass("visible");}
+                console.log("email focused");
+                /*if(emailPromtsClass != "visible"){
+                    setEmailPromptsClass("visible");
+                }*/
+                /*hidePrompts("password");
+                hidePrompts("phone");*/
                 break;
             case "phone":
-                if(phonePromtsClass != "visible"){setPhonePromptsClass("visible");}
+                console.log("phone focused");
+                /*if(phonePromtsClass != "visible"){
+                    setPhonePromptsClass("visible");
+                }*/
+                /*hidePrompts("email");
+                hidePrompts("password");*/
+                break;
+            default:
                 break;
             }
     };
     const hidePrompts = (prompt) =>{
         switch(prompt){
             case "password":
-                if(passwordPromptsClass != "invisible"){setPasswordPromptsClass("passwordPromptsHidden");}
+                console.log("password unFocused");
+                /*if(passwordPromptsClass != "passwordPromptsHidden"){
+                    setPasswordPromptsClass("passwordPromptsHidden");
+                }*/
                 break;
             case "email":
-                if(emailPromtsClass != "invisible"){setEmailPromptsClass("invisible");}
+                console.log("email unfocused");
+                /*if(emailPromtsClass != "invisible"){
+                    setEmailPromptsClass("invisible");
+                }*/
                 break;
             case "phone":
-                if(phonePromtsClass != "invisible"){setPhonePromptsClass("invisible");}
+                console.log("phone unfocused");
+                /*if(phonePromtsClass != "invisible"){
+                    setPhonePromptsClass("invisible");
+                }*/
+                break;
+            default:
                 break;
         }
     };
@@ -149,32 +180,14 @@ const SignUp = (props) =>{
                 </div>
                 <div className="row">
                     <form onSubmit={sigupHandeler}>
-                        <h3>Email</h3>
-                        <input id="email" type="email" required onKeyUp={validateEmail} onFocus={showPrompts("email")} onBlur={hidePrompts("email")}></input>
-                        <div className={emailPromtsClass}>
-                            <p className={emailClass}>{emailClass} email address</p>
-                        </div>
+                        <EmailInput validate={validateEmail} promptClass={emailPromtsClass} pClass={emailClass} showPrompts={showPrompts} hidePrompts={hidePrompts}/>
 
-                        <h3>Phone Number</h3>
-                        <input id="phoneNum" type="tel" required onKeyUp={validatePhoneNum} onFocus={showPrompts("phone")} onBlur={hidePrompts("phone")}></input>
-                        <div className={phonePromtsClass}>
-                            <p className={phoneClass}>{phoneClass} phone number</p>
-                        </div>
+                        <PhoneInput validate={validatePhoneNum} promptClass={phonePromtsClass} pClass={phoneClass} showPrompts={showPrompts} hidePrompts={hidePrompts}/>
 
-                        <h3>Password</h3>
-                        <input id="password" type="password" required onKeyUp={validatePassword}></input>
-                        <h3>Re-enter Password</h3>
-                        <input id="passwordConfirm" type="password" required onKeyUp={validatePassword} onFocus={showPrompts("password")} onBlur={hidePrompts("password")} pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]) (?=.*[]).{8,}"></input>
-                        <div className={passwordPromptsClass}>
-                            <p id="spaces" className={spaceClass}><b>No Spaces</b> in password</p>
-                            <p id="lower" className={lowercaseClass}>A <b>Lowercase</b> letter</p>
-                            <p id="caps" className={uppercaseClass}>A <b>Uppercase</b> letter</p>
-                            <p id="number" className={numberClass}>A <b>number</b></p>
-                            <p id="length" className={lengthClass}><b>password </b>longer than 8<b> character</b></p>
-                            <p id="specialChar" className={specialCharClass}>A <b>Special</b> Character</p>
-                            <p id="passwordMatch" className={passwordClass}>A <b>Passwords</b> match</p>
-
-                        </div>
+                        <PasswordInput validate={validatePassword} promptClass={passwordPromptsClass} pClass={passwordClass} showPrompts={showPrompts} hidePrompts={hidePrompts}
+                                    spaces={spaceClass} lower={lowercaseClass} caps={uppercaseClass} number={numberClass} length={lengthClass}
+                                    specialChar={specialCharClass} passwordMatch={passwordClass}   
+                        />                       
                         <button type="submit">SignUp</button>
                     </form>
                 </div>

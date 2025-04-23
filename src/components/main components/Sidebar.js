@@ -11,9 +11,15 @@ function Sidebar(props) {
 
     if(props.loggedIn){
         return(
-            <div className="sidebar">
-                <button type="button" className="loginBtn" onClick={logout}>Logout</button>
-            </div> 
+            <>
+                <div className="sidebar">
+                    <button type="button" className="loginBtn" onClick={logout}>Logout</button>
+                </div>
+                //if admin show orders button
+                <Link to="/Orders">
+                        <button type="button" className="loginbtn">Orders</button>
+                </Link> 
+            </>
         );
     }else {
         return (
@@ -21,6 +27,10 @@ function Sidebar(props) {
                 <Link to="/login">
                     <button type="button" className="loginBtn">Login</button>
                 </Link>
+                
+                {
+                    //if(){} if admin show orders page button
+                }
             </div>
         );
     }
