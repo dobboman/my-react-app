@@ -138,8 +138,26 @@
 .invalid{
     color: crimson;   
 }
+.invalid::before{
+    content: "✖";
+}
 .valid{
     color: floralwhite;
+}
+.valid::before{
+    content: "✔";
+}
+.passwordPromptsHidden{
+    display: none;
+}
+.passwordPromptsVisible{
+    display: block;
+}
+.visible{
+    display: none;
+}
+.invisible{
+    display: block;
 }
 
 table{

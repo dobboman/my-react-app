@@ -6,6 +6,14 @@ import { Link, redirect, useNavigate } from "react-router-dom";
 
 const SignUp = (props) =>{
     const nav = useNavigate();
+    const [passwordPromptsClass, setPasswordPromptsClass] = useState("passwordPromptsHidden");
+    const [emailPromtsClass, setEmailPromptsClass] = useState("invisible");
+    const [phonePromtsClass, setPhonePromptsClass] = useState("invisible");
+
+    const [emailClass, setEmailClass] = useState("invalid");
+
+    const [phoneClass, setPhoneClass] = useState("invalid")
+
     const [lowercaseClass, setLowercaseClass] = useState("invalid");
     const [uppercaseClass, setUppercaseClass] = useState("invalid");
     const [numberClass, setNumberClass] = useState("invalid");
@@ -13,15 +21,20 @@ const SignUp = (props) =>{
     const [lengthClass, setLengthClass] = useState("invalid");
     const [passwordClass, setPasswordClass] = useState("valid");
     const [spaceClass, setspaceClass] = useState("valid");
+
     const sigupHandeler = (event) =>{
         event.preventDefault();
         
-        if(document.getElementById('password').value === document.getElementById('passwordConfirm').value){
+        if(lowercaseClass === "valid" && uppercaseClass === "valid" && numberClass === "valid" && specialCharClass === "valid" && lengthClass === "valid" && passwordClass === "valid" && spaceClass === "valid"){
             signupRequest();
         }else{
-            window.alert("Passwors do not match");
+            /*if(lowercaseClass === "invalid"){window.alert("Lowercase letters needed");};
+            if(passwordClass === "invalid"){window.alert("Passwors do not match");};*/
+            window.alert("Password invalid or don't match please see below");
+            
         };
     };
+
     const signupRequest = async() =>{
         const pass = sha256(document.getElementById('password').value);
         const email = document.getElementById('email').value;
@@ -61,11 +74,6 @@ const SignUp = (props) =>{
     const validatePassword = () => {
         const pass = document.getElementById("password").value;
         const passConfirm = document.getElementById("passwordConfirm").value;
-        /*const lowercase = document.getElementById("lower").value;
-        const uppercase = document.getElementById("caps").value;
-        const number = document.getElementById("number").value;
-        const length = document.getElementById("length").value;
-        const specialChar = document.getElementById("specialChar").value;*/
 
         if(pass.match(lowercaseLetters) || passConfirm.match(lowercaseLetters)){
             setLowercaseClass("valid");
@@ -102,9 +110,35 @@ const SignUp = (props) =>{
         }else{
             setPasswordClass("invalid");
         }
-
-
-    }
+    };
+    const showPrompts = (prompt) =>{
+        if(prompt === "password"){
+        }
+        switch(prompt){
+            case "password":
+                if(passwordPromptsClass != "visible"){setPasswordPromptsClass("passwordPromtsVisible");}
+                break;
+            case "email":
+                if(emailPromtsClass != "visible"){setEmailPromptsClass("visible");}
+                break;
+            case "phone":
+                if(phonePromtsClass != "visible"){setPhonePromptsClass("visible");}
+                break;
+            }
+    };
+    const hidePrompts = (prompt) =>{
+        switch(prompt){
+            case "password":
+                if(passwordPromptsClass != "invisible"){setPasswordPromptsClass("passwordPromptsHidden");}
+                break;
+            case "email":
+                if(emailPromtsClass != "invisible"){setEmailPromptsClass("invisible");}
+                break;
+            case "phone":
+                if(phonePromtsClass != "invisible"){setPhonePromptsClass("invisible");}
+                break;
+        }
+    };
     
     return(
         <>
@@ -116,15 +150,23 @@ const SignUp = (props) =>{
                 <div className="row">
                     <form onSubmit={sigupHandeler}>
                         <h3>Email</h3>
-                        <input id="email" type="email" required onKeyUp={validateEmail}></input>
+                        <input id="email" type="email" required onKeyUp={validateEmail} onFocus={showPrompts("email")} onBlur={hidePrompts("email")}></input>
+                        <div className={emailPromtsClass}>
+                            <p className={emailClass}>{emailClass} email address</p>
+                        </div>
+
                         <h3>Phone Number</h3>
-                        <input id="phoneNum" type="tel" required onKeyUp={validatePhoneNum}></input>
+                        <input id="phoneNum" type="tel" required onKeyUp={validatePhoneNum} onFocus={showPrompts("phone")} onBlur={hidePrompts("phone")}></input>
+                        <div className={phonePromtsClass}>
+                            <p className={phoneClass}>{phoneClass} phone number</p>
+                        </div>
+
                         <h3>Password</h3>
                         <input id="password" type="password" required onKeyUp={validatePassword}></input>
                         <h3>Re-enter Password</h3>
-                        <input id="passwordConfirm" type="password" required onKeyUp={validatePassword} pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]) (?=.*[]).{8,}"></input>
-                        <div className="passwordPrompts">
-                            <p id="spaces" className={}><b>No Spaces</b> in password</p>
+                        <input id="passwordConfirm" type="password" required onKeyUp={validatePassword} onFocus={showPrompts("password")} onBlur={hidePrompts("password")} pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]) (?=.*[]).{8,}"></input>
+                        <div className={passwordPromptsClass}>
+                            <p id="spaces" className={spaceClass}><b>No Spaces</b> in password</p>
                             <p id="lower" className={lowercaseClass}>A <b>Lowercase</b> letter</p>
                             <p id="caps" className={uppercaseClass}>A <b>Uppercase</b> letter</p>
                             <p id="number" className={numberClass}>A <b>number</b></p>
