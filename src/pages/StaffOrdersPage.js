@@ -4,7 +4,7 @@ import {useState} from 'react';
 
 const StaffOrdersPage = (props) =>{
     const [selectedOrder, setSelectedOrder] = useState("none");
-    //const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState("");
 
 
     const getOrders = () =>{
@@ -22,14 +22,13 @@ const StaffOrdersPage = (props) =>{
             body: JSON.stringify(data)
         });
         const parsedData = await requestData.json();
-        //setOrders(parsedData);
-        return parsedData;
+        setOrders(parsedData);
     }
-    //const [orders, setOrders] = useState(getOrders());
-    requestOrders().then( result => {
-        console.log(result);
-        const orders = result;
-    });
+    if(orders === ""){
+        requestOrders();
+        console.log(orders);
+    }else{
+        console.log(selectedOrder);
         return(
             <>
                 <div className="col-1"></div>
@@ -37,6 +36,7 @@ const StaffOrdersPage = (props) =>{
                     <div className="row">
                         {selectedOrder === "none" &&
                             <OrdersTable data = {orders} setSelectedOrder = {setSelectedOrder} username={props.username} password={props.password} />
+                            //requestOrders()
                         }
                         {selectedOrder !== "none" &&
                         <OrderViewer selectedOrder = {selectedOrder} username={props.username} password={props.password} />
@@ -46,13 +46,7 @@ const StaffOrdersPage = (props) =>{
                 <div className="col-1"></div>
             </>
         );
-    /*}else{
-        return(
-            <>
-
-            </>
-        );
-    }*/
+    }
 }
 
 export default StaffOrdersPage;

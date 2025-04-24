@@ -1,7 +1,11 @@
 import {useNavigate} from 'react-router-dom';
+import { useState } from 'react';
 
 const OrderViewer = (props) =>{
     const nav = useNavigate();
+    const [orderData, setOrderData] = useState(null);
+    //const setSelected = (id) =>{props.setSelectedOrder(id)}
+
     const getOrderDetails = async() =>{
         const data = {
             username: props.username,
@@ -12,7 +16,8 @@ const OrderViewer = (props) =>{
             method: "POST",
             body: JSON.stringify(data)
         });
-        return requestData.json();
+        const parsedData = await requestData.json();
+        setOrderData(parsedData);
     }
     const completeOrder = async(orderID)=>{
         //const orderID = document.getElementById("")
@@ -35,32 +40,38 @@ const OrderViewer = (props) =>{
         }
 
     }
-    const orderData = getOrderDetails();
-    return(
-        <>
-            <button onClick={props.setSelectedOrder("none")}>Back to orders</button>
-            <table>
-                <thead>
-                    <th>Item</th>
-                    <th>Qauntity</th>
-                    <th>Price</th>
-                    <th>Complete order</th>
-                </thead>
-                <tbody>
-                    {
-                        orderData.map(d=> (
-                            <tr key = {d[0]} >
-                                <td>{d[1]}</td>
-                                <td>{d[2]}</td>
-                                <td>{d[3]}</td>
-                                <td><button id={d[0]} onClick={completeOrder(d[0])}>Complete Order</button></td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-        </>
-    );
+    const clickHandler = (e) =>{
+        completeOrder(e.target.id);
+    }
+    getOrderDetails();
+
+    if(orderData !== null){
+        return(
+            <>
+                <button onClick={props.setSelectedOrder("none")}>Back to orders</button>
+                <table>
+                    <thead>
+                        <th>Item</th>
+                        <th>Qauntity</th>
+                        <th>Price</th>
+                        <th>Complete order</th>
+                    </thead>
+                    <tbody>
+                        {
+                            orderData.map(d=> (
+                                <tr key = {d[0]} >
+                                    <td>{d[1]}</td>
+                                    <td>{d[2]}</td>
+                                    <td>{d[3]}</td>
+                                    <td><button id={d[0]} onClick={clickHandler}>Complete Order</button></td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </>
+        );
+    }
 }
 
 export default OrderViewer;
