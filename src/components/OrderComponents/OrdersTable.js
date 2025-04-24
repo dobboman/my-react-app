@@ -14,6 +14,7 @@ const OrdersTable = (props) =>{
                 <tr>
                     <th>OrderID</th>
                     <th>User Email</th>
+                    <th>Name</th>
                     <th>Date</th>
                     <th>Status</th>
                     <th>Price</th>
@@ -29,6 +30,7 @@ const OrdersTable = (props) =>{
                                     <td>{d[2]}</td>
                                     <td>{d[3]}</td>
                                     <td>{d[4]}</td>
+                                    <td>{d[5]}</td>
                                     <td><button id={d[0]} onClick={handleClick}>View</button></td>
                                 </tr>
                             ))

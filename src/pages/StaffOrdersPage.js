@@ -39,7 +39,7 @@ const StaffOrdersPage = (props) =>{
                             //requestOrders()
                         }
                         {selectedOrder !== "none" &&
-                        <OrderViewer selectedOrder = {selectedOrder} username={props.username} password={props.password} />
+                        <OrderViewer selectedOrder = {selectedOrder} username={props.username} password={props.password} orderData={orders} />
                         }
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const OrderViewer = (props) =>{
     const nav = useNavigate();
-    const [orderData, setOrderData] = useState(null);
+    const [orderDetails, setOrderDetails] = useState(null);
     //const setSelected = (id) =>{props.setSelectedOrder(id)}
 
     const getOrderDetails = async() =>{
@@ -17,7 +17,7 @@ const OrderViewer = (props) =>{
             body: JSON.stringify(data)
         });
         const parsedData = await requestData.json();
-        setOrderData(parsedData);
+        setOrderDetails(parsedData);
     }
     const completeOrder = async(orderID)=>{
         //const orderID = document.getElementById("")
@@ -40,37 +40,47 @@ const OrderViewer = (props) =>{
         }
 
     }
-    const clickHandler = (e) =>{
+    const clickHandlerComplete = (e) =>{
         completeOrder(e.target.id);
     }
-    getOrderDetails();
+    const clickHandlerBack = (e) =>{
+        props.selectedOrder("none");
+    }
+    
+    const orderData = props.orderData;
 
-    if(orderData !== null){
+    if(orderDetails !== null){
         return(
             <>
-                <button onClick={props.setSelectedOrder("none")}>Back to orders</button>
+                <button id="back" onClick={clickHandlerBack}>Back to orders</button>        
+                <p>OrderID:        {orderData[props.selectedOrder][0]}</p>
+                <p>Order Status:   {orderData[props.selectedOrder][1]}</p>
+                <p>Order Price:    {orderData[props.selectedOrder][2]}</p>
+                <p>Customer Name:  {orderData[props.selectedOrder][3]}</p>
+                <p>Customer Email: {orderData[props.selectedOrder][4]}</p>
                 <table>
                     <thead>
                         <th>Item</th>
                         <th>Qauntity</th>
                         <th>Price</th>
-                        <th>Complete order</th>
                     </thead>
                     <tbody>
                         {
-                            orderData.map(d=> (
+                            orderDetails.map(d=> (
                                 <tr key = {d[0]} >
                                     <td>{d[1]}</td>
                                     <td>{d[2]}</td>
                                     <td>{d[3]}</td>
-                                    <td><button id={d[0]} onClick={clickHandler}>Complete Order</button></td>
                                 </tr>
                             ))
                         }
                     </tbody>
                 </table>
+                <button id={orderDetails.map(d=>(d[0]))} onClick={clickHandlerComplete}>Complete Order</button>
             </>
         );
+    }else{
+        getOrderDetails();
     }
 }
 

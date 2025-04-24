@@ -8,7 +8,8 @@
     $passwordHash = mysqli_fetch_all($passwordHash)[0][0];
     
     if(password_verify($req_data->password, $passwordHash)){*/ //comented out for testing 
-        $q = "SELECT * FROM Orders";
+        $q = "SELECT Orders.OrderID, Users.Email, Users.FullName, Orders.OrderDate, Orders.OrderStatus, Orders.OrderPrice FROM Orders
+                INNER JOIN Users ON Users.UserID=Orders.UserID;";
         $orderData = mysqli_query($db,$q);
         $orderData = mysqli_fetch_all($orderData);
         echo json_encode($orderData);
