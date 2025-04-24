@@ -3,10 +3,10 @@
     $req_data = json_decode($raw_req);
 
     $db = new mysqli("localhost","root","","GrocceryGuyDatabase");
-    $q = "SELECT Salt FROM Users WHERE Email = '" . $req_data->username ."'";
+    /*$q = "SELECT Salt FROM Users WHERE Email = '" . $req_data->username ."'";
 
     $salt = mysqli_query( $db, $q );
-    $salt = mysqli_fetch_all($salt); 
+    $salt = mysqli_fetch_all($salt); */
     //var_dump($salt);
     //$passwordSalt = strval($req_data->password) . $salt[0][0];
     //var_dump($passwordSalt);

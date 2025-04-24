@@ -15,7 +15,7 @@ function Sidebar(props) {
                 <div className="sidebar">
                     <button type="button" className="loginBtn" onClick={logout}>Logout</button>
                 </div>
-                //if admin show orders button
+                
                 <Link to="/Orders">
                         <button type="button" className="loginbtn">Orders</button>
                 </Link> 
@@ -26,6 +26,9 @@ function Sidebar(props) {
             <div className="sidebar">
                 <Link to="/login">
                     <button type="button" className="loginBtn">Login</button>
+                </Link>
+                <Link to="/Orders">
+                        <button type="button" className="loginbtn">Orders</button>
                 </Link>
                 
                 {

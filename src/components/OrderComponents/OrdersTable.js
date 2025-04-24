@@ -1,8 +1,12 @@
+
+
 const OrdersTable = (props) =>{
-    const getOrders = async()=>{
+    /*const getOrders = async()=>{
+        const user = props.username;
+        const pass = props.password;
         const data ={
-            username: props.username,
-            password: props.password
+            username: user,
+            password: pass
         }
         const requestData = await fetch("http://localhost/GroceryGuys/PHP/getOrders.php",{
             method: "POST",
@@ -10,13 +14,14 @@ const OrdersTable = (props) =>{
         });
         const returnedData = await requestData.json();
         return returnedData;
-    }
+    }*/
     const handleClick = (orderID) =>{
         props.setSelectedOrder(orderID);
     }
-    const ordersData = getOrders();
-
-    <table className="ordersTable">
+    //const ordersData = getOrders();
+    const data = props.data;
+    return(
+                    <table className="ordersTable">
                         <thead>
                             <tr>
                                 <th>OrderID</th>
@@ -28,7 +33,7 @@ const OrdersTable = (props) =>{
                         </thead>
                         <tbody>
                             {
-                                ordersData.map(d=> (
+                                data.map(d=> (
                                     <tr key = {d[0]}>
                                         <td>{d[0]}</td>
                                         <td>{d[1]}</td>
@@ -40,6 +45,7 @@ const OrdersTable = (props) =>{
                             }
                         </tbody>
                     </table>
+    );
 }
 
 export default OrdersTable;
