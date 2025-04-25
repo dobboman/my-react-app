@@ -153,11 +153,11 @@
 .passwordPromptsVisible{
     display: block;
 }
-.visible{
+.invisible{
     display: none;
 }
-.invisible{
-    display: block;
+.visible{
+    display:block;
 }
 
 table{

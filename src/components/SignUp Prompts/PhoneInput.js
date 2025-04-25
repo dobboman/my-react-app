@@ -1,10 +1,16 @@
 const PhoneInput = (props) =>{
+    const focusHandler = (e) =>{
+        props.showPrompts("phone");
+    }
+    const blurHandler = (e) =>{
+        props.hidePrompts("phone");
+    }
     return(
         <>
             <h3>Phone Number</h3>
-            <input id="phoneNum" type="tel" required onKeyUp={props.validate} onFocus={props.showPrompts("phone")} onBlur={props.hidePrompts("phone")}/>
+            <input id="phoneNum" type="tel" required onKeyUp={props.validate} onFocus={focusHandler} onBlur={blurHandler}/>
             <div className={props.promptClass}>
-                <p className={props.pClass}>{props.pClass} phone number</p>
+                <p id="phonePrompts" className={props.pClass}>{props.pClass} phone number</p>
             </div>
         </>
     );

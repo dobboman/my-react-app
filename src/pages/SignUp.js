@@ -23,7 +23,7 @@ const SignUp = (props) =>{
     const [specialCharClass, setSpecialCharClass] = useState("invalid");
     const [lengthClass, setLengthClass] = useState("invalid");
     const [passwordClass, setPasswordClass] = useState("valid");
-    const [spaceClass, setspaceClass] = useState("valid");
+    const [spaceClass, setSpaceClass] = useState("valid");
 
     const sigupHandeler = (event) =>{
         event.preventDefault();
@@ -73,6 +73,7 @@ const SignUp = (props) =>{
     const uppercaseLetters = /[A-Z]/g;
     const numbers = /[0-9]/g;
     const specialChars = /[!-\/:-@[-`{-~]/g;
+    const spaces = /\s/g;
     
     const validatePassword = () => {
         console.log("validate pass")
@@ -103,6 +104,12 @@ const SignUp = (props) =>{
             setSpecialCharClass("invalid");
         }
 
+        if(pass.match(spaces) || passConfirm.match(spaces)){
+            setSpaceClass("invalid");
+        }else{
+            setSpaceClass("valid");
+        }
+
         if(pass.length > 8  || passConfirm.length > 8){
             setLengthClass("valid");
         }else{
@@ -120,25 +127,25 @@ const SignUp = (props) =>{
         switch(prompt){
             case "password":
                 console.log("password focused");
-                /*if(passwordPromptsClass != "passwordPromtsVisible"){
+                if(passwordPromptsClass !== "passwordPromtsVisible"){
                     setPasswordPromptsClass("passwordPromtsVisible");
-                }*/
+                }
                 /*hidePrompts("email");
                 hidePrompts("phone");*/
                 break;
             case "email":
                 console.log("email focused");
-                /*if(emailPromtsClass != "visible"){
+                if(emailPromtsClass !== "visible"){
                     setEmailPromptsClass("visible");
-                }*/
+                }
                 /*hidePrompts("password");
                 hidePrompts("phone");*/
                 break;
             case "phone":
                 console.log("phone focused");
-                /*if(phonePromtsClass != "visible"){
+                if(phonePromtsClass !== "visible"){
                     setPhonePromptsClass("visible");
-                }*/
+                }
                 /*hidePrompts("email");
                 hidePrompts("password");*/
                 break;
@@ -150,21 +157,21 @@ const SignUp = (props) =>{
         switch(prompt){
             case "password":
                 console.log("password unFocused");
-                /*if(passwordPromptsClass != "passwordPromptsHidden"){
+                if(passwordPromptsClass !== "passwordPromptsHidden"){
                     setPasswordPromptsClass("passwordPromptsHidden");
-                }*/
+                }
                 break;
             case "email":
                 console.log("email unfocused");
-                /*if(emailPromtsClass != "invisible"){
+                if(emailPromtsClass !== "invisible"){
                     setEmailPromptsClass("invisible");
-                }*/
+                }
                 break;
             case "phone":
                 console.log("phone unfocused");
-                /*if(phonePromtsClass != "invisible"){
+                if(phonePromtsClass !== "invisible"){
                     setPhonePromptsClass("invisible");
-                }*/
+                }
                 break;
             default:
                 break;
