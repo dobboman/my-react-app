@@ -64,7 +64,7 @@
         /*$sqlQuery = "INSERT INTO OrderItems,  (OrderID, ItemID, Qauntity) VALUES (0,12,2), (0,7,1), (0,8,4)";
         $db->query($sqlQuery);*/
 
-        $sqlQuery = "INSERT INTO Orders (UserID, OrderDate, OrderPrice) VALUES (1,'2025-03-13 11:20:00','20.00'),(1,'2025-03-13 11:00:00','40.00'),(1,'2025-03-13 10:01:00','20.00'),(1,'2025-03-14 09:15:00','20.00');";
+        $sqlQuery = "INSERT INTO Orders (UserID, OrderDate, OrderPrice, OrderStatus) VALUES (1,'2025-03-13 11:20:00','20.00','Pending'),(1,'2025-03-13 11:00:00','40.00','Pending'),(1,'2025-03-13 10:01:00','20.00','Pending'),(1,'2025-03-14 09:15:00','20.00','Pending');";
                                                                 //SELECT UserID FROM Users WHERE UserID = 0;";
         $db->query($sqlQuery);
 

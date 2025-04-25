@@ -34,9 +34,10 @@ const OrderViewer = (props) =>{
         if(requestComplete === false){
             window.alert("Complete order request failed");
         }else{
+            props.setOrders("");
             props.setSelectedOrder("none");
             window.alert("Order has been marked as completed");
-            nav("http://localhost/GroceryGuys/HomePage");
+            //nav("http://localhost/GroceryGuys/HomePage");
         }
 
     }
@@ -44,8 +45,9 @@ const OrderViewer = (props) =>{
         completeOrder(e.target.id);
     }
     const clickHandlerBack = (e) =>{
-        props.selectedOrder("none");
+        selectOrder("none");
     }
+    const selectOrder = (id) =>{props.setSelectedOrder(id)}
     
     const orderData = props.orderData;
 
@@ -53,11 +55,11 @@ const OrderViewer = (props) =>{
         return(
             <>
                 <button id="back" onClick={clickHandlerBack}>Back to orders</button>        
-                <p>OrderID:        {orderData[props.selectedOrder][0]}</p>
-                <p>Order Status:   {orderData[props.selectedOrder][1]}</p>
-                <p>Order Price:    {orderData[props.selectedOrder][2]}</p>
-                <p>Customer Name:  {orderData[props.selectedOrder][3]}</p>
-                <p>Customer Email: {orderData[props.selectedOrder][4]}</p>
+                <p>OrderID:        {orderData[props.selectedOrder - 1][0]}</p>
+                <p>Order Status:   {orderData[props.selectedOrder - 1][4]}</p>
+                <p>Order Price:    {orderData[props.selectedOrder - 1][5]}</p>
+                <p>Customer Name:  {orderData[props.selectedOrder - 1][2]}</p>
+                <p>Customer Email: {orderData[props.selectedOrder - 1][1]}</p>
                 <table>
                     <thead>
                         <th>Item</th>
@@ -70,13 +72,13 @@ const OrderViewer = (props) =>{
                                 <tr key = {d[0]} >
                                     <td>{d[1]}</td>
                                     <td>{d[2]}</td>
-                                    <td>{d[3]}</td>
+                                    <td>{d[2]} x {d[3]}</td>
                                 </tr>
                             ))
                         }
                     </tbody>
                 </table>
-                <button id={orderDetails.map(d=>(d[0]))} onClick={clickHandlerComplete}>Complete Order</button>
+                <button id={orderData[props.selectedOrder - 1][0]} onClick={clickHandlerComplete}>Complete Order</button>
             </>
         );
     }else{

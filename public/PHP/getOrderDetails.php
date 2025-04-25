@@ -8,8 +8,13 @@
     $passwordHash = mysqli_fetch_all($passwordHash)[0][0];
     
     /*if(password_verify($req_data->password, $passwordHash)){*/
-        $q = "SELECT (OrderID, UserID, OrderDate, OrderStatus, OrderPrice) FROM Orders WHERE OrderID = '". $req_data->orderID ."'";
+        $q = "SELECT OrderItems.ItemID, Items.ItemName, OrderItems.Qauntity, Items.Price FROM 
+                        OrderItems INNER JOIN Items ON OrderItems.ItemID = Items.ItemID
+                            WHERE OrderItems.OrderID = '". $req_data->orderID ."';";
+        //echo $q;
+        //WHERE OrderItems.OrderID = '". $req_data->orderID ."';";
         $orderDetails = mysqli_query($db,$q);
+        //mysqli_fetch_array($orderDetails);
         $orderDetails = mysqli_fetch_all($orderDetails);
         mysqli_close($db);
         echo json_encode($orderDetails);
