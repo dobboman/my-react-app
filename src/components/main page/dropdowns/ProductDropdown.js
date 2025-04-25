@@ -6,7 +6,7 @@ import {useState} from "react"
 function ProductDropdown(props){
     //const drop = props.drop;
     const [drop, setDrop] = useState(false);
-    const [tableData, setTableData] = useState([[]]);
+    
 
     const getTableData = async() =>{
         console.log("breast of the jimmy");
@@ -18,7 +18,7 @@ function ProductDropdown(props){
         });
         const responseData = await requestData.json();
         console.log(responseData);
-        setTableData(
+        props.setItemsData(
             responseData
         );
     }
@@ -62,7 +62,7 @@ function ProductDropdown(props){
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductGrid catagory={props.catagory} data={tableData}/>
+                    <ProductGrid catagory={props.catagory} data={props.itemsData} addToCart = {props.addToCart}/>
                 </div>
             );
         }

@@ -6,6 +6,8 @@ import { useState } from "react";
 
 function Mainpage(props){
    const [loggedIn, setLoggedIn] = useState(false);
+   const [shoppingCartItems, setShoppingCartItems] = useState([]);
+   const [itemsData, setItemsData] = useState([[]]);
 
     if(props.username !== '' && props.password !== '' && loggedIn === false ){
         setLoggedIn(true);
@@ -24,6 +26,12 @@ function Mainpage(props){
         }
         
     }
+    const addItemToCart = (e) =>{
+        const id = e.target.id;
+        let shoppingCartItemsAmmend = shoppingCartItems;
+        shoppingCartItemsAmmend += {};
+        
+    }
 
     return(
         <>
@@ -38,7 +46,7 @@ function Mainpage(props){
                 </div>
                 <div className="pt-2">
                     <div className="products">
-                        <Products/>
+                        <Products itemsData={itemsData} setItemsData={setItemsData} addItemToCart={addItemToCart}/>
                     </div>
                 </div>
             </div>
