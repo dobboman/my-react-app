@@ -6,27 +6,43 @@ import {useState} from "react"
 function ProductDropdown(props){
     //const drop = props.drop;
     const [drop, setDrop] = useState(false);
-    //const [tableData, setTableData] = useState([[]]);
+    const [tableData, setTableData] = useState(null);
 
-    const getTableData = async() =>{
-        console.log("breast of the jimmy");
-        console.log(JSON.stringify(props.catagory));
-        const requestData = await fetch("http://localhost/GroceryGuys/PHP/getItems.php",{
-            method: "POST",
-            //headers: { "Content-Type": "application/json"},
-            body: JSON.stringify(props.catagory)
-        });
-        const responseData = await requestData.json();
-        console.log(responseData);
-        props.setTableData(
-            responseData
-        );
+    if(tableData === null && props.dataLoaded === true){
+        //console.log("catagory = "+props.catagory);
+        switch(props.catagory){
+            default:
+                break;
+                case "Chicken":
+                    console.log("tableData chicken set");
+                    setTableData(props.chickItems);
+                    break;
+                case "Beef":
+                    console.log("tableData beef set");
+                    setTableData(props.beefItems);
+                    break;
+                case "Pork":
+                    console.log("tableData pork set");
+                    setTableData(props.porkItems);
+                    break;
+                case "Fish":
+                    console.log("tableData fish set");
+                    setTableData(props.fishItems);
+                    break;
+                    //Vegetables
+                case "Vegetables":
+                    console.log("tableData veg set");
+                    setTableData(props.vegItems);
+                    break;
+        }
     }
+
+    
 
     function handleClick(){
         if(drop === false){
             //console.log("da fug");
-            getTableData();
+            //getTableData();
             setDrop(true);
         }else{
             //console.log("da fug 2");
@@ -45,24 +61,40 @@ function ProductDropdown(props){
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductDropdown className="dropdownSml" catagory="Chicken" tableData={props.tableData} setTableData={props.setTableData}/>
-                    <ProductDropdown className="dropdownSml" catagory="Beef" tableData={props.tableData} setTableData={props.setTableData}/>
-                    <ProductDropdown className="dropdownSml" catagory="Pork" tableData={props.tableData} setTableData={props.setTableData}/>
-                    <ProductDropdown className="dropdownSml" catagory="Fish" tableData={props.tableData} setTableData={props.setTableData}/>
+                    <ProductDropdown className="dropdownSml" catagory="Chicken" data={props.itemsData} setItemsData={props.setItemsData} addToCart = {props.addToCart}
+                        setVeg={props.setVegItems} setChick={props.setChickItems} setBeef={props.setBeefItems} setPork={props.setPorkItems} setFish={props.setFishItems}
+                        vegItems={props.vegItems} chickItems={props.chickItems} beefItems={props.beefItems} porkItems={props.porkItems} fishItems={props.fishItems}
+                        dataLoaded={props.dataLoaded}
+                    />
+                    <ProductDropdown className="dropdownSml" catagory="Beef" data={props.itemsData} setItemsData={props.setItemsData} addToCart = {props.addToCart}
+                        setVeg={props.setVegItems} setChick={props.setChickItems} setBeef={props.setBeefItems} setPork={props.setPorkItems} setFish={props.setFishItems}
+                        vegItems={props.vegItems} chickItems={props.chickItems} beefItems={props.beefItems} porkItems={props.porkItems} fishItems={props.fishItems}
+                        dataLoaded={props.dataLoaded}
+                    />
+                    <ProductDropdown className="dropdownSml" catagory="Pork" data={props.itemsData}  setItemsData={props.setItemsData} addToCart = {props.addToCart}
+                        setVeg={props.setVegItems} setChick={props.setChickItems} setBeef={props.setBeefItems} setPork={props.setPorkItems} setFish={props.setFishItems}
+                        vegItems={props.vegItems} chickItems={props.chickItems} beefItems={props.beefItems} porkItems={props.porkItems} fishItems={props.fishItems}
+                        dataLoaded={props.dataLoaded}
+                    />
+                    <ProductDropdown className="dropdownSml" catagory="Fish" data={props.itemsData}  setItemsData={props.setItemsData} addToCart = {props.addToCart}
+                        setVeg={props.setVegItems} setChick={props.setChickItems} setBeef={props.setBeefItems} setPork={props.setPorkItems} setFish={props.setFishItems}
+                        vegItems={props.vegItems} chickItems={props.chickItems} beefItems={props.beefItems} porkItems={props.porkItems} fishItems={props.fishItems}
+                        dataLoaded={props.dataLoaded}
+                    />
                 </div>
             );
-        } else if(props.catagory === "Vegetables"){
+        } /*else if(props.catagory === "Vegetables"){
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductGrid catagory={props.catagory} data={props.tableData}/>
+                    <ProductGrid catagory={props.catagory} data={tableData}/>
                 </div>
             );
-        }else{
+        }*/else{
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductGrid catagory={props.catagory} data={props.tableData}/>
+                    <ProductGrid catagory={props.catagory} data={tableData}/>
                 </div>
             );
         }
