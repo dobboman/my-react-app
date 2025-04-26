@@ -1,10 +1,18 @@
 const PasswordInput = (props) =>{
+    const onFocusHandler=(e)=>{
+        //show(e.target.name);
+        props.showPrompts("password");
+    }
+    const onBlurHandler=(e)=>{
+        //hide(e.target.name);
+        props.hidePrompts("password");
+    }
     return(
         <>
             <h3>Password</h3>
-            <input id="password" type="password" required onKeyUp={props.validate}/>
+            <input id="password" name="password" type="password" required onKeyUp={props.validate} onFocus={onFocusHandler} onBlur={onBlurHandler}/>
             <h3>Re-enter Password</h3>
-            <input id="passwordConfirm" type="password" required onClick={console.log("passowrd onclick")} onKeyUp={props.validate} onFocus={props.showPrompts("password")} onBlur={props.hidePrompts("password")} pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]) (?=.*[]).{8,}"/>
+            <input id="passwordConfirm" type="password" name="passworg" required onKeyUp={props.validate} onFocus={onFocusHandler} onBlur={onBlurHandler} pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]) (?=.*[]).{8,}"/>
 
             <div className={props.promptClass}>
                 <p id="spaces" className={props.spaces}><b>No Spaces</b> in password</p>

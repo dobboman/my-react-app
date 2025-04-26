@@ -1,8 +1,17 @@
 const EmailInput = (props) =>{
+    const onFocusHandler=(e)=>{
+        //show(e.target.name);
+        props.showPrompts("email");
+    }
+    const onBlurHandler=(e)=>{
+        //hide(e.target.name);
+        props.hidePrompts("email");
+    }
+    
     return(
         <>
             <h3>Email</h3>
-            <input id="email" type="email" required onKeyUp={props.validate} onFocus={props.showPrompts("email")} onBlur={props.hidePrompts("email")}/>
+            <input id="email" type="email" name="email" required onKeyUp={props.validate} onFocus={onFocusHandler} onBlur={onBlurHandler}/>
             <div className={props.promptClass}>
                 <p className={props.pClass}>{props.pClass} email address</p>
             </div>
