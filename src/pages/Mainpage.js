@@ -13,6 +13,7 @@ function Mainpage(props){
    const [porkItems, setPorkItems] = useState([[]]);
    const [fishItems, setFishItems] = useState([[]]);
    const [dataLoaded, setDataLoaded] = useState(false);
+   const [shoppingCartData, setShoppingCartData] = useState([]);
 
    const getTableData = async() =>{
     console.log("inside getTableData");
@@ -101,13 +102,14 @@ function Mainpage(props){
                 <div className="pt-2">
                     <div className="products">
                     <Products itemsData={itemsData} setItemsData={setItemsData} addItemToCart={addItemToCart} setVeg={setVegItems} setChick={setChickItems} setBeef={setBeefItems} setPork={setPorkItems} setFish={setFishItems}
-                                    vegItems={vegItems} chickItems={chickItems} beefItems={beefItems} porkItems={porkItems} fishItems={fishItems} dataLoaded={dataLoaded}
+                                vegItems={vegItems} chickItems={chickItems} beefItems={beefItems} porkItems={porkItems} fishItems={fishItems} dataLoaded={dataLoaded}
+                                    cartData={shoppingCartData} setCartData={setShoppingCartData}
                     />
                     </div>
                 </div>
             </div>
         </div>
-        <ShoppingCart/>
+        <ShoppingCart cartData={shoppingCartData} setCartData={setShoppingCartData} />
         </>
     );
 }

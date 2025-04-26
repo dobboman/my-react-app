@@ -64,22 +64,22 @@ function ProductDropdown(props){
                     <ProductDropdown className="dropdownSml" catagory="Chicken" data={props.itemsData} setItemsData={props.setItemsData} addToCart = {props.addToCart}
                         setVeg={props.setVegItems} setChick={props.setChickItems} setBeef={props.setBeefItems} setPork={props.setPorkItems} setFish={props.setFishItems}
                         vegItems={props.vegItems} chickItems={props.chickItems} beefItems={props.beefItems} porkItems={props.porkItems} fishItems={props.fishItems}
-                        dataLoaded={props.dataLoaded}
+                        dataLoaded={props.dataLoaded} cartData={props.cartData} setCartData={props.setCartData}
                     />
                     <ProductDropdown className="dropdownSml" catagory="Beef" data={props.itemsData} setItemsData={props.setItemsData} addToCart = {props.addToCart}
                         setVeg={props.setVegItems} setChick={props.setChickItems} setBeef={props.setBeefItems} setPork={props.setPorkItems} setFish={props.setFishItems}
                         vegItems={props.vegItems} chickItems={props.chickItems} beefItems={props.beefItems} porkItems={props.porkItems} fishItems={props.fishItems}
-                        dataLoaded={props.dataLoaded}
+                        dataLoaded={props.dataLoaded} cartData={props.cartData} setCartData={props.setCartData}
                     />
                     <ProductDropdown className="dropdownSml" catagory="Pork" data={props.itemsData}  setItemsData={props.setItemsData} addToCart = {props.addToCart}
                         setVeg={props.setVegItems} setChick={props.setChickItems} setBeef={props.setBeefItems} setPork={props.setPorkItems} setFish={props.setFishItems}
                         vegItems={props.vegItems} chickItems={props.chickItems} beefItems={props.beefItems} porkItems={props.porkItems} fishItems={props.fishItems}
-                        dataLoaded={props.dataLoaded}
+                        dataLoaded={props.dataLoaded} cartData={props.cartData} setCartData={props.setCartData}
                     />
                     <ProductDropdown className="dropdownSml" catagory="Fish" data={props.itemsData}  setItemsData={props.setItemsData} addToCart = {props.addToCart}
                         setVeg={props.setVegItems} setChick={props.setChickItems} setBeef={props.setBeefItems} setPork={props.setPorkItems} setFish={props.setFishItems}
                         vegItems={props.vegItems} chickItems={props.chickItems} beefItems={props.beefItems} porkItems={props.porkItems} fishItems={props.fishItems}
-                        dataLoaded={props.dataLoaded}
+                        dataLoaded={props.dataLoaded} cartData={props.cartData} setCartData={props.setCartData}
                     />
                 </div>
             );
@@ -94,7 +94,7 @@ function ProductDropdown(props){
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductGrid catagory={props.catagory} data={tableData}/>
+                    <ProductGrid catagory={props.catagory} data={tableData} cartData={props.cartData} setCartData={props.setCartData}/>
                 </div>
             );
         }
