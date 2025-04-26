@@ -6,6 +6,7 @@ import { useState } from "react";
 
 function Mainpage(props){
    const [loggedIn, setLoggedIn] = useState(false);
+   const [tableData, setTableData] = useState([[]]);
 
     if(props.username !== '' && props.password !== '' && loggedIn === false ){
         setLoggedIn(true);
@@ -38,7 +39,7 @@ function Mainpage(props){
                 </div>
                 <div className="pt-2">
                     <div className="products">
-                        <Products/>
+                        <Products tableData={tableData} setTableData={setTableData}/>
                     </div>
                 </div>
             </div>

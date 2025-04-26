@@ -6,7 +6,7 @@ import {useState} from "react"
 function ProductDropdown(props){
     //const drop = props.drop;
     const [drop, setDrop] = useState(false);
-    const [tableData, setTableData] = useState([[]]);
+    //const [tableData, setTableData] = useState([[]]);
 
     const getTableData = async() =>{
         console.log("breast of the jimmy");
@@ -18,7 +18,7 @@ function ProductDropdown(props){
         });
         const responseData = await requestData.json();
         console.log(responseData);
-        setTableData(
+        props.setTableData(
             responseData
         );
     }
@@ -33,7 +33,7 @@ function ProductDropdown(props){
             setDrop(false);
         }
     }
-
+   
     if(drop === false){
         return(
             <div>
@@ -45,24 +45,24 @@ function ProductDropdown(props){
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductDropdown className="dropdownSml" catagory="Chicken"/>
-                    <ProductDropdown className="dropdownSml" catagory="Beef"/>
-                    <ProductDropdown className="dropdownSml" catagory="Pork"/>
-                    <ProductDropdown className="dropdownSml" catagory="Fish"/>
+                    <ProductDropdown className="dropdownSml" catagory="Chicken" tableData={props.tableData} setTableData={props.setTableData}/>
+                    <ProductDropdown className="dropdownSml" catagory="Beef" tableData={props.tableData} setTableData={props.setTableData}/>
+                    <ProductDropdown className="dropdownSml" catagory="Pork" tableData={props.tableData} setTableData={props.setTableData}/>
+                    <ProductDropdown className="dropdownSml" catagory="Fish" tableData={props.tableData} setTableData={props.setTableData}/>
                 </div>
             );
-        } else if(props.catagory === "Vegetabels"){
+        } else if(props.catagory === "Vegetables"){
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductGrid catagory={props.catagory}/>
+                    <ProductGrid catagory={props.catagory} data={props.tableData}/>
                 </div>
             );
         }else{
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductGrid catagory={props.catagory} data={tableData}/>
+                    <ProductGrid catagory={props.catagory} data={props.tableData}/>
                 </div>
             );
         }
