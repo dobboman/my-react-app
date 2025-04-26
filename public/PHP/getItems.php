@@ -3,7 +3,7 @@
     $raw_req = file_get_contents('php://input');
     $catagory = json_decode($raw_req);
 
-    if($catagory == "Vegetables"){
+    /*if($catagory == "Vegetables"){
         $q = "SELECT * FROM Items WHERE ProductCatagory = 'Vegetables'";
     }
     if($catagory == "Chicken"){
@@ -17,7 +17,8 @@
     }
     if($catagory == "Fish"){
         $q = "SELECT * FROM Items WHERE ProductCatagory = 'Fish'";
-    }
+    }*/
+    $q = "SELECT * FROM Items;";
 
     
     

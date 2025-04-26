@@ -26,10 +26,11 @@ function Mainpage(props){
         }
         
     }
-    const addItemToCart = (e) =>{
-        const id = e.target.id;
+    const addItemToCart = (dataAmmend) =>{
+        /*const id = e.target.id;
         let shoppingCartItemsAmmend = shoppingCartItems;
-        shoppingCartItemsAmmend += {};
+        shoppingCartItemsAmmend += {};*/
+        
         
     }
 

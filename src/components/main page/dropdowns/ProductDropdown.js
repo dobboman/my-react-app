@@ -26,12 +26,29 @@ function ProductDropdown(props){
     function handleClick(){
         if(drop === false){
             //console.log("da fug");
-            getTableData();
+            if(props.itemsData === undefined){
+                getTableData();
+            }
             setDrop(true);
         }else{
             //console.log("da fug 2");
             setDrop(false);
         }
+    }
+    const setItemsData = (data) =>{
+        props.setItemsData(data);
+    }
+    const getData = (catagory) =>{
+        if(props.itemsData === undefined){return;}
+        let data =[];
+        let index=0;
+        for(let i=0; i < props.itemsData.length; i++){
+            if(props.itemsData[i][4] === catagory){
+                data[index] = props.itemsData[i];
+                index++;
+            }
+        }
+        return data;
     }
 
     if(drop === false){
@@ -45,24 +62,24 @@ function ProductDropdown(props){
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductDropdown className="dropdownSml" catagory="Chicken"/>
-                    <ProductDropdown className="dropdownSml" catagory="Beef"/>
-                    <ProductDropdown className="dropdownSml" catagory="Pork"/>
-                    <ProductDropdown className="dropdownSml" catagory="Fish"/>
+                    <ProductDropdown className="dropdownSml" catagory="Chicken" data={props.itemsData} setItemsData={setItemsData} addToCart = {props.addToCart}/>
+                    <ProductDropdown className="dropdownSml" catagory="Beef" data={props.itemsData} setItemsData={setItemsData} addToCart = {props.addToCart}/>
+                    <ProductDropdown className="dropdownSml" catagory="Pork" data={props.itemsData}  setItemsData={setItemsData} addToCart = {props.addToCart}/>
+                    <ProductDropdown className="dropdownSml" catagory="Fish" data={props.itemsData}  setItemsData={setItemsData} addToCart = {props.addToCart}/>
                 </div>
             );
         } else if(props.catagory === "Vegetabels"){
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductGrid catagory={props.catagory}/>
+                    <ProductGrid catagory={props.catagory} getData={getData} setItemsData={setItemsData} addToCart = {props.addToCart}/>
                 </div>
             );
         }else{
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductGrid catagory={props.catagory} data={props.itemsData} addToCart = {props.addToCart}/>
+                    <ProductGrid catagory={props.catagory} getData={getData} itemsData={props.itemsData} setItemsData={setItemsData} addToCart = {props.addToCart}/>
                 </div>
             );
         }
