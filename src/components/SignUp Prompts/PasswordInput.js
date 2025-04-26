@@ -12,7 +12,7 @@ const PasswordInput = (props) =>{
             <h3>Password</h3>
             <input id="password" name="password" type="password" required onKeyUp={props.validate} onFocus={onFocusHandler} onBlur={onBlurHandler}/>
             <h3>Re-enter Password</h3>
-            <input id="passwordConfirm" type="password" name="passworg" required onKeyUp={props.validate} onFocus={onFocusHandler} onBlur={onBlurHandler} pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]) (?=.*[]).{8,}"/>
+            <input id="passwordConfirm" type="password" name="passworg" required onKeyUp={props.validate} onFocus={onFocusHandler} onBlur={onBlurHandler}/>
 
             <div className={props.promptClass}>
                 <p id="spaces" className={props.spaces}><b>No Spaces</b> in password</p>

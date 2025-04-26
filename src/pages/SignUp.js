@@ -44,21 +44,26 @@ const SignUp = (props) =>{
     const signupRequest = async() =>{
         let errorMsgComponents = [];
         let validInputs = true;
+        let index = 0;
         console.log(errorMsgComponents.length);
         if(emailClass === "invalid"){
-            errorMsgComponents += "email";
+            errorMsgComponents[index] = "email";
+            index++
             validInputs = false;
         }
         if(nameSpacesClass === "invalid" || nameSpecialCharsClass === "invalid"){
-            errorMsgComponents += "name";
+            errorMsgComponents[index] = "name";
+            index++
             validInputs = false;
         }
         if(phoneClass === "invalid"){
-            errorMsgComponents += "phone";
+            errorMsgComponents[index] = "phone";
+            index++
             validInputs = false;
         }
         if(lowercaseClass === "invalid" || uppercaseClass === "invalid" || numberClass === "invalid" || specialCharClass === "invalid" || lengthClass === "invalid" || passwordClass === "invalid" || spaceClass === "invalid"){
-            errorMsgComponents += "password";
+            errorMsgComponents[index] = "password";
+            index++
             validInputs = false;
         }
         if(validInputs === false){
@@ -69,13 +74,15 @@ const SignUp = (props) =>{
                 if(i < errorMsgComponents.length-2){ errorMsg += ", "};
             }
             window.alert(errorMsg);
-        }else{
-            const pass = sha256(document.getElementById('password').value);
+        }else{//request server to make new entry in user table
             const email = document.getElementById('email').value;
+            const name = document.getElementById("fullname").value;
             const phoneNum = document.getElementById('phoneNum').value;
+            const pass = sha256(document.getElementById('password').value);
             console.log(pass, email, phoneNum);
             const data = {
-                username: email,
+                email: email,
+                username: name,
                 password: pass,
                 phoneNumber: phoneNum
             };
@@ -100,15 +107,46 @@ const SignUp = (props) =>{
     const numbers = /[0-9]/g;
     const specialChars = /[!-\/:-@[-`{-~]/g;
     const spaces = /\s/g;
+    const at = /@/g;
+    const dotCom = /.com/g;
+    const dotCoDotUk = /.co.uk/g;
+    const dotAcdotUk = /.ac.uk/g;
+    const phoneLength = /^\d{11,11}$/g;
     
-    const validateName = () =>{
-
-    }
     const validateEmail = () =>{
+        const email = document.getElementById("email").value;
+        if(email.match(at)){
+            if(email.match(dotCom) || email.match(dotCoDotUk) || email.match(dotAcdotUk)){
+                setEmailClass("valid");
+            }else{
+                setEmailClass("invalid");
+            }
+        }else{
+            setEmailClass("invalid");
+        }
 
     };
+    const validateName = () =>{
+        const name = document.getElementById("fullname").value;
+        if(name.match(specialChars)){
+            setNameSpecialCharsClass("invalid");
+        }else{
+            setNameSpecialCharsClass("valid");
+        }
+        if(name.match(spaces||[]).length > 1 || name.match(spaces||[]).length === 0){
+            setNameSpacesClass("invalid");
+        }else{
+            setNameSpacesClass("valid");
+        }
+    };
     const validatePhoneNum = () => {
-        
+        const phone = document.getElementById("phoneNum").value;
+        if(phone.match(phoneLength)){
+            setPhoneClass("valid");
+        }else{
+            setPhoneClass("invalid");
+        }
+
     };
     const validatePassword = () => {
         console.log("validate pass")
