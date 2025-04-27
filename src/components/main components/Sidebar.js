@@ -11,17 +11,16 @@ function Sidebar(props) {
     }
 
     console.log(props.getLoggedIn());
-    const loggedIn = props.getLoggedIn();
     if(props.getLoggedIn() === "loggedIn"){
         return(
             <>
                 <div className="sidebar">
                     <button type="button" className="loginBtn" onClick={logout}>Logout</button>
+                    <Link to="/Orders">
+                            <button type="button" className="loginbtn">Orders</button>
+                    </Link> 
                 </div>
                 
-                <Link to="/Orders">
-                        <button type="button" className="loginbtn">Orders</button>
-                </Link> 
             </>
         );
     }else{
@@ -30,13 +29,6 @@ function Sidebar(props) {
                 <Link to="/login">
                     <button type="button" className="loginBtn">Login</button>
                 </Link>
-                <Link to="/Orders">
-                        <button type="button" className="loginbtn">Orders</button>
-                </Link>
-                
-                {
-                    //if(){} if admin show orders page button
-                }
             </div>
         );
     }
