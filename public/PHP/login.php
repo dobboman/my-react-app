@@ -2,33 +2,32 @@
     $raw_req = file_get_contents("php://input");
     $req_data = json_decode($raw_req);
 
+    //validate inputs here 
+
     $db = new mysqli("localhost","root","","GrocceryGuyDatabase");
-    /*$q = "SELECT Salt FROM Users WHERE Email = '" . $req_data->username ."'";
-
-    $salt = mysqli_query( $db, $q );
-    $salt = mysqli_fetch_all($salt); */
-    //var_dump($salt);
-    //$passwordSalt = strval($req_data->password) . $salt[0][0];
-    //var_dump($passwordSalt);
-    //$hash = hash('sha256',$passwordSalt);
-    //$password = password_hash($req_data->password, PASSWORD_DEFAULT);
-        
-
-    $q = "SELECT PasswordHash FROM Users WHERE Email = '" . $req_data->username ."'";
-    $passwordHash = mysqli_query( $db, $q );
-    $passwordHash = mysqli_fetch_all($passwordHash)[0][0];
-    //var_dump($passwordHash);
-    //var_dump($hash);
-
-    /*if ($passwordHash != $password) {
-        $response = false;
-    } else {
-        $response = true;
-    }*/
+       
+    $q = "SELECT PasswordHash, UserID FROM Users WHERE Email = '" . $req_data->username ."'";
+    $userData = mysqli_query( $db, $q );
+    $userData = mysqli_fetch_all( $userData );
+    $passwordHash = $userData[0][0];
+    $userID = $userData[0][1];
+    $isStaff = $userData[0][2];
+    
     if(password_verify($req_data->password, $passwordHash)){
-        $response = true;
+        $response = array(
+            "success" => true,
+            "userID"=> $userID
+        );
+        session_start();
+        session_regenerate_id();
+        $_SESSION['ID'] = session_id();
+        $_SESSION['userID'] = $userID;
+        $_SESSION['password'] = $req_data->password;
+        $_SESSION['isStaff'] = $isStaff;
     }else{
-        $response = false;
+        $response = array(
+            'success'=> false
+        );
     }
     $responseData = json_encode($response);
     mysqli_close($db);

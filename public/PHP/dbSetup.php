@@ -17,7 +17,8 @@
                         FullName varchar(50) NOT NULL,
                         Email varchar(50) NOT NULL, 
                         PhoneNumber int NOT NULL,
-                        PasswordHash varchar(256) NOT NULL
+                        PasswordHash varchar(256) NOT NULL,
+                        IsStaff boolean NOT NULL
                         );";
         $db->query($sqlQuery);
         $sqlQuery = "CREATE TABLE Items(
@@ -57,8 +58,10 @@
                                                                                         ('Smoked Bacon', 9, 3.50, 'Pork'), ('Non-Smoked Bacon', 10, 3.50, 'Pork'), ('Gammon Steak', 11, 3.50, 'Pork'),
                                                                                         ('Rotisery Chicken', 12, 6.80, 'Chicken'), ('Chicken Drumsticks', 13, 4.50, 'Chicken'), ('Chiken Ceasar Salad', 14, 3.50, 'Chicken');";
         $db->query($sqlQuery);
-        
-        $sqlQuery = "INSERT INTO Users (FullName, Email,PhoneNumber,PasswordHash) VALUES ('Oscar Dobbin','oscar3098@googlemail.com',07711111111,'efed9e17f63ad0801351f7dae1bf5a5e5f9213e24de45cd23c965bc2ef775e10' );";
+
+        $pass = hash(CRYPT_SHA256, "password");
+        $pass = password_hash($pass,CRYPT_SHA256);
+        $sqlQuery = "INSERT INTO Users (FullName, Email,PhoneNumber,PasswordHash, IsStaff) VALUES ('Oscar Dobbin','demo@gmail.com',07711111111,'".$pass."', true );";
         $db->query($sqlQuery);
         
         /*$sqlQuery = "INSERT INTO OrderItems,  (OrderID, ItemID, Qauntity) VALUES (0,12,2), (0,7,1), (0,8,4)";
