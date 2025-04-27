@@ -12,8 +12,8 @@ import StaffOrdersPage from './pages/StaffOrdersPage';
 
 function App() {
   //const [page, setPage] = useState("home");
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [userID, setUserID] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState('');
 
   /*const router = createBrowserRouter([
     {path: '/', element: <Layout/>},
@@ -27,11 +27,11 @@ function App() {
     <BrowserRouter basename='GroceryGuys'>
       <Routes>
         <Route path='/HomePage' element={ <Layout/> }>
-          <Route index element={ <Mainpage setPassword={setPassword} setUsername={setUsername} username={username} password={password}/> }/>
+          <Route index element={ <Mainpage setUsername={setUserID} userID={userID}/> }/>
         </Route>
-          <Route path='/Login' element={ <Login setPassword={setPassword} setUsername={setUsername}/> }/>
-          <Route path='/SignUp' element={<SignUp setPassword={setPassword} setUsername={setUsername}/>}/>
-          <Route path='/Orders' element={<StaffOrdersPage password={password} username={username}/>}/>
+          <Route path='/Login' element={ <Login setUserID={setUserID}/> }/>
+          <Route path='/SignUp' element={<SignUp setUserID={setUserID}/>}/>
+          <Route path='/Orders' element={<StaffOrdersPage userID={userID} isLoggedIn={isLoggedIn}/>}/>
       </Routes>
     </BrowserRouter>
   );

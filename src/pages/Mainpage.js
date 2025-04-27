@@ -5,7 +5,7 @@ import ShoppingCart from "../components/main components/ShoppingCart";
 import { useState } from "react";
 
 function Mainpage(props){
-   const [loggedIn, setLoggedIn] = useState(false);
+   //const [loggedIn, setLoggedIn] = useState(false);
    const [itemsData, setItemsData] = useState(null);
    const [vegItems, setVegItems] = useState([[]]);
    const [chickItems, setChickItems] = useState([[]]);
@@ -69,20 +69,25 @@ function Mainpage(props){
         console.log("getTableData()")
         getTableData();
     }
-    if(props.username !== '' && props.password !== '' && loggedIn === false ){
-        setLoggedIn(true);
+    if(props.userID !== '' && props.isloggedIn === false ){
+        props.setIsLoggedIn(true);
         console.log(props.username);
         console.log(props.password);
         //console.log(loggedIn);
     }
 
-    const logout = () =>{
+    const logout = async() =>{
         //const confirmLogout = confirm("Are you sure you want to logout");
         if(window.confirm("Are you sure you want to logout") === true){
-            props.setUsername('');
-            props.setPassword('');
-            setLoggedIn(false);
-            console.log("usrnm & psswrd should be reset");
+            const serverRespone = await fetch("http://GroceryGuys/PHP/logout.php",{
+                method: "GET",
+            })
+            const response = await serverRespone.json();
+            if(response["success"] === true){
+                props.setUserID('');
+                props.setIsLoggedIn(false);
+                console.log("usrnm & psswrd should be reset");
+            }
         }
         
     }
@@ -90,7 +95,7 @@ function Mainpage(props){
 
     return(
         <>
-        <Sidebar logout={logout} loggedIn={loggedIn}/>
+        <Sidebar logout={logout} loggedIn={props.isLoggedIn}/>
         <div className="row">
             <div className="col-1 spacerCol">
                 <p>stuff</p>

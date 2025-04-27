@@ -11,11 +11,9 @@ const StaffOrdersPage = (props) =>{
         return requestOrders();
     }
     const requestOrders = async() =>{
-        const usrnm = props.username;
-        const pass = props.passowrd;
+        const userID = props.userID;
         const data = {
-            username: usrnm,
-            password: pass
+            userID: userID
         };
         const requestData = await fetch("http://localhost/GroceryGuys/PHP/getOrders.php",{
             method: "POST",

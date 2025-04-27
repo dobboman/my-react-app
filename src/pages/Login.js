@@ -7,7 +7,7 @@ import {sha256} from 'js-sha256';
 
 const Login = (props) =>{
 
-    const usernameRef = useRef();
+    const emailRef = useRef();
     const passwordRef = useRef();
     const nav = useNavigate();
 
@@ -27,9 +27,9 @@ const Login = (props) =>{
     }
     const loginRequest = async() =>{
         const pass = sha256(passwordRef.current.value); //hashed client side aswell as it will be stored for later use
-        const usrnm = usernameRef.current.value;
+        const email = emailRef.current.value;
         const data = {
-                username: usrnm,
+                email: email,
                 password: pass
             };
            
@@ -39,12 +39,12 @@ const Login = (props) =>{
         });
         const responseData = await requestData.json();
         console.log(responseData);
-        //console.log(responseData.data);
-        if(responseData === true){
+        
+        if(responseData["success"] === true){
             console.log('entered set pass and usr statement');
-            props.setUsername(usrnm);
-            props.setPassword(pass);
-            nav("http://localhost/GrocerGuys/HomePage");
+            
+            redirect("http://localhost/GrocerGuys/HomePage");
+
         }else{
             console.log("alert should show");
             window.alert("Email or Password was incorrect");
@@ -61,7 +61,7 @@ const Login = (props) =>{
             <div className="row">
                 <form id="loginInfo" onSubmit={loginHandler}>
                 <h3>Email</h3>
-                <input id="email" ref={usernameRef} type="email" required></input>
+                <input id="email" ref={emailRef} type="email" required></input>
                 <h3>Password</h3>
                 <input id="password" ref={passwordRef} type="password" required></input>
 
