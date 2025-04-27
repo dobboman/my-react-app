@@ -6,9 +6,10 @@
 
     $db = new mysqli("localhost","root","","GrocceryGuyDatabase");
        
-    $q = "SELECT PasswordHash, UserID FROM Users WHERE Email = '" . $req_data->username ."'";
+    $q = "SELECT PasswordHash, UserID, IsStaff FROM Users WHERE Email = '" . $req_data->email ."'";
     $userData = mysqli_query( $db, $q );
     $userData = mysqli_fetch_all( $userData );
+    //var_dump($userData);
     $passwordHash = $userData[0][0];
     $userID = $userData[0][1];
     $isStaff = $userData[0][2];
@@ -24,6 +25,7 @@
         $_SESSION['userID'] = $userID;
         $_SESSION['password'] = $req_data->password;
         $_SESSION['isStaff'] = $isStaff;
+        //setcookie('loggedIn', true, time() + 0,'/');
     }else{
         $response = array(
             'success'=> false

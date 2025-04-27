@@ -3,6 +3,7 @@ import Products from "../components/main page/Products";
 import Sidebar from "../components/main components/Sidebar";
 import ShoppingCart from "../components/main components/ShoppingCart";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 function Mainpage(props){
    //const [loggedIn, setLoggedIn] = useState(false);
@@ -79,23 +80,26 @@ function Mainpage(props){
     const logout = async() =>{
         //const confirmLogout = confirm("Are you sure you want to logout");
         if(window.confirm("Are you sure you want to logout") === true){
-            const serverRespone = await fetch("http://GroceryGuys/PHP/logout.php",{
+            const serverRespone = await fetch("http://localhost/GroceryGuys/PHP/logout.php",{
                 method: "GET",
             })
             const response = await serverRespone.json();
-            if(response["success"] === true){
-                props.setUserID('');
-                props.setIsLoggedIn(false);
-                console.log("usrnm & psswrd should be reset");
+            if(response["status"] === "logged out"){
+                //props.setIsLoggedIn(false);
+                console.log("logout complete");
+                props.setLoggedOut(false);
+                props.setUserID(...'');
             }
         }
         
     }
     const addItemToCart = () =>{}
 
+    console.log(props.getLoggedIn())
+
     return(
         <>
-        <Sidebar logout={logout} loggedIn={props.isLoggedIn}/>
+        <Sidebar logout={logout} getLoggedIn={props.getLoggedIn}/>
         <div className="row">
             <div className="col-1 spacerCol">
                 <p>stuff</p>

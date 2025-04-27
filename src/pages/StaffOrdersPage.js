@@ -20,7 +20,12 @@ const StaffOrdersPage = (props) =>{
             body: JSON.stringify(data)
         });
         const parsedData = await requestData.json();
-        setOrders(parsedData);
+        if(parsedData["success"] === true){
+            setOrders(parsedData["data"]);
+        }
+        else{
+            window.alert(parsedData["error"]);
+        }
     }
     if(orders === ""){
         requestOrders();
@@ -33,11 +38,11 @@ const StaffOrdersPage = (props) =>{
                 <div className="col-10">
                     <div className="row">
                         {selectedOrder === "none" &&
-                            <OrdersTable data = {orders} setSelectedOrder = {setSelectedOrder} username={props.username} password={props.password} />
+                            <OrdersTable data = {orders} setSelectedOrder={setSelectedOrder} userID={props.userID}/>
                             //requestOrders()
                         }
                         {selectedOrder !== "none" &&
-                        <OrderViewer selectedOrder = {selectedOrder} setSelectedOrder={setSelectedOrder} setOrders={setOrders} username={props.username} password={props.password} orderData={orders} />
+                        <OrderViewer selectedOrder = {selectedOrder} setSelectedOrder={setSelectedOrder} setOrders={setOrders} userID={props.userID} orderData={orders} />
                         }
                     </div>
                 </div>

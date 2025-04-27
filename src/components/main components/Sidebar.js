@@ -6,10 +6,13 @@ function Sidebar(props) {
     const logout = () =>{
         //props.setPassword('');
         //props.setUsername('');
+
         props.logout();
     }
 
-    if(props.loggedIn){
+    console.log(props.getLoggedIn());
+    const loggedIn = props.getLoggedIn();
+    if(props.getLoggedIn() === "loggedIn"){
         return(
             <>
                 <div className="sidebar">
@@ -21,7 +24,7 @@ function Sidebar(props) {
                 </Link> 
             </>
         );
-    }else {
+    }else{
         return (
             <div className="sidebar">
                 <Link to="/login">

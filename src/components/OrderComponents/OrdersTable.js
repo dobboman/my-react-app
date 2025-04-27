@@ -8,6 +8,7 @@ const OrdersTable = (props) =>{
         setSelected(e.target.id);
     }
     const data = props.data;
+    console.log(data);
     return(
         <table className="ordersTable">
             <thead>
@@ -22,7 +23,7 @@ const OrdersTable = (props) =>{
                 </tr>
                 </thead>
                     <tbody>
-                        { 
+                        { data !== undefined &&
                             data.map(d=> (
                                 <tr key = {d[0]}>
                                     <td>{d[0]}</td>

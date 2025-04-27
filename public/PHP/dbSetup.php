@@ -59,7 +59,7 @@
                                                                                         ('Rotisery Chicken', 12, 6.80, 'Chicken'), ('Chicken Drumsticks', 13, 4.50, 'Chicken'), ('Chiken Ceasar Salad', 14, 3.50, 'Chicken');";
         $db->query($sqlQuery);
 
-        $pass = hash(CRYPT_SHA256, "password");
+        $pass = hash("sha256", "password");
         $pass = password_hash($pass,CRYPT_SHA256);
         $sqlQuery = "INSERT INTO Users (FullName, Email,PhoneNumber,PasswordHash, IsStaff) VALUES ('Oscar Dobbin','demo@gmail.com',07711111111,'".$pass."', true );";
         $db->query($sqlQuery);

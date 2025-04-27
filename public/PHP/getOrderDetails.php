@@ -6,13 +6,13 @@
 
     $q = "SELECT PasswordHash, IsStaff FROM Users WHERE UserID = '". $_SESSION["userID"] ."'";
     $userData = mysqli_query($db, $q);
-    $userData = mysqli_fetch_all($passwordHash);
+    $userData = mysqli_fetch_all($userData);
     $passwordHash = $userData[0][0];
     $isStaff = $userData[0][1];
     
 
     if ($isStaff) {
-        if(password_verify($req_data->password, $passwordHash)){
+        if(password_verify($_SESSION["password"], $passwordHash)) {
             $q = "SELECT OrderItems.ItemID, Items.ItemName, OrderItems.Qauntity, Items.Price FROM 
                             OrderItems INNER JOIN Items ON OrderItems.ItemID = Items.ItemID
                                 WHERE OrderItems.OrderID = '". $req_data->orderID ."';";

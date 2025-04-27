@@ -8,8 +8,7 @@ const OrderViewer = (props) =>{
 
     const getOrderDetails = async() =>{
         const data = {
-            username: props.username,
-            password: props.password,
+            userID: props.userID,
             orderID: props.selectedOrder
         }
         const requestData = await fetch("http://localhost/GroceryGuys/PHP/getOrderDetails.php", {
@@ -17,7 +16,12 @@ const OrderViewer = (props) =>{
             body: JSON.stringify(data)
         });
         const parsedData = await requestData.json();
-        setOrderDetails(parsedData);
+        if(parsedData["success"]){
+            setOrderDetails(parsedData["data"]);
+        }
+        else{
+            window.alert(requestData["error"]);
+        }
     }
     const completeOrder = async(orderID)=>{
         //const orderID = document.getElementById("")

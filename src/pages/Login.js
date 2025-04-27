@@ -42,8 +42,11 @@ const Login = (props) =>{
         
         if(responseData["success"] === true){
             console.log('entered set pass and usr statement');
-            
+            props.setUserID(...responseData["userID"]);
+            //props.setIsLoggedIn(true);
+            props.setLoggedIn(true);
             redirect("http://localhost/GrocerGuys/HomePage");
+            nav(-1);
 
         }else{
             console.log("alert should show");
