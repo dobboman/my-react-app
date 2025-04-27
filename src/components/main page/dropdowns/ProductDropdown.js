@@ -50,7 +50,7 @@ function ProductDropdown(props){
         }
     }
    
-    console.log(props.quantity);
+    //console.log(props.quantity);
     if(drop === false){
         return(
             <div>

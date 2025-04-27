@@ -38,7 +38,8 @@ function ProductGrid(props){
         let dataAmmend = [[]];
         let dataIndex;
 
-        if(Array.isArray(props.cartData)){
+        //if(Array.isArray(props.cartData)){
+        if(props.cartData.length >1){
             for(let i=0; i < props.cartData.length; i++){//find item in cart
                 if (props.cartData[i][0] === itemID){
                     dataIndex = i;
@@ -57,18 +58,18 @@ function ProductGrid(props){
                 }
             }else{//change quantity of cart item
                 dataAmmend = props.cartData;
-                dataAmmend[dataIndex][3] = quantityAmmend[catagoryNum][itemID] -1;
+                dataAmmend[dataIndex][3] = quantityAmmend[catagoryNum][quantityIndex] -1;
             }
         }else{//if only one item in cart
-            if(props.qauntity[catagoryNum][quantityIndex] === 0){
+            if(quantityAmmend[catagoryNum][quantityIndex] === 0){
                 dataAmmend = props.cartData;
                 return;
             }
-            else if(props.qauntity[catagoryNum][quantityIndex] === 1){
+            else if(quantityAmmend[catagoryNum][quantityIndex] === 1){
                 dataAmmend = [];
             }else {
                 dataAmmend = props.cartData;
-                dataAmmend[3] = quantityAmmend[catagoryNum][quantityIndex]-1;
+                dataAmmend[0][3] = quantityAmmend[catagoryNum][quantityIndex]-1;
             }
         }
 

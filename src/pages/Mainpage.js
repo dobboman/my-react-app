@@ -169,7 +169,7 @@ function Mainpage(props){
                 </div>
             </div>
         </div>
-        <ShoppingCart cartData={shoppingCartData} setCartData={setShoppingCartData} />
+        <ShoppingCart cartData={shoppingCartData} setCartData={setShoppingCartData} quantity={quantity} setQuantity={setQuantity} />
         </>
     );
 }

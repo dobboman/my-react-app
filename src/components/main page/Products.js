@@ -2,7 +2,7 @@ import ProductDropdown from "./dropdowns/ProductDropdown";
 
 
 function Products(props){
-    console.log(props.quantity);
+    //console.log(props.quantity);
     return(
         <div className="row">
             <h2>Products</h2>

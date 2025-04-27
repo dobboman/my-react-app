@@ -11,7 +11,7 @@ function ShoppingCart(props){
             setHidden(true);
         }
     }
-    const removeItem = (e)=>{
+    /*const removeItem = (e)=>{
         const name = e.target.name.split("/");
         const itemID = parseInt(name[0]);
         const arrayIndex = parseInt(name[1]);
@@ -26,7 +26,7 @@ function ShoppingCart(props){
                 if (props.cartData[i][0] === itemID){
                     dataIndex = i;
                 }
-            }*/
+            }
 
             if(data[arrayIndex][3] === 0){//item not in cart
 
@@ -57,8 +57,8 @@ function ShoppingCart(props){
     const addItem = (e) =>{
         /*const index = e.traget.name;
         let dataAmmend = data;
-        dataAmmend[index][3] += 1;*/
-    }
+        dataAmmend[index][3] += 1;
+    }*/
     const checkout = async() =>{
         const reqData = {
             username: props.username,
@@ -80,6 +80,10 @@ function ShoppingCart(props){
         checkout();
     }
 
+    if(data.length > 1){
+
+    }
+
     if(hidden){
         return(
             <div className="col-1 shoppingCartHidden">
@@ -87,6 +91,8 @@ function ShoppingCart(props){
             </div>
         );
     }else{
+        console.log(data);
+        //console.log("data length"+data[0].length);
         return(
             <>
                 <div className="col-1 shoppingCart">
@@ -94,7 +100,7 @@ function ShoppingCart(props){
                     <button className="checkoutBtn">Checkout</button>
                     <div className="row ">
                                     <ul>
-                                        { 
+                                        { ( data.length > 1 || Array.isArray(data[0])) &&
                                             data.map((d, index)=>(
                                                 <>
                                                     <li className="row" id={d[0]+"itemName"}>
@@ -102,9 +108,6 @@ function ShoppingCart(props){
                                                     </li>
                                                     <li className="row" id={d[0]+"totalPrice"}>    
                                                         <p>{"price: "+d[4]/*total price*/}</p>
-                                                    </li>
-                                                    <li className="row" id={d[0]+"quantity"}>
-                                                        <button className="loginBtn" name={d[0]+"/"+index} id={"remove"+d[0]} onClick={removeItem}>-</button><button className="loginBtn" name={d[0]+"/"+index} id={"add"+d[0]} onClick={addItem}>+</button>
                                                     </li>
                                                 </>
                                             
@@ -121,4 +124,7 @@ function ShoppingCart(props){
     }
 }
 
+                                                   /* <li className="row" id={d[0]+"quantity"}>
+                                                        <button className="loginBtn" name={d[0]+"/"+index} id={"remove"+d[0]} onClick={removeItem}>-</button><button className="loginBtn" name={d[0]+"/"+index} id={"add"+d[0]} onClick={addItem}>+</button>
+                                                    </li>*/
 export default ShoppingCart;
