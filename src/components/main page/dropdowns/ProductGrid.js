@@ -3,14 +3,27 @@ import AddOrRemoveItem from "./AddOrRemoveItem";
 import TableData from "./tableData";
 
 function ProductGrid(props){
-    const [qauntity, setQuantity] = useState("");
+    //const [qauntity, setQuantity] = useState("");
     const data = props.data;
-    let qauntityIntial = [];
-    if(data !== undefined && qauntity === ""){
-        for(let i=0; i<data.length; i++){
-            qauntityIntial[i] = 0;
-        }
-        setQuantity(qauntityIntial);
+    let catagoryNum;
+    switch(props.catagory){
+        default:
+            break;
+        case "Chicken":
+            catagoryNum = 0;
+            break;
+        case "Beef":
+            catagoryNum = 1;
+            break;
+        case "Pork":
+            catagoryNum = 2;
+            break;
+        case "Fish":
+            catagoryNum = 3;
+            break;
+        case "Vegetables":
+            catagoryNum = 4;
+            break;
     }
 
     const handleClickRemove = (e) =>{
@@ -21,7 +34,7 @@ function ProductGrid(props){
         console.log("ItemId = "+ itemID);
         console.log("Index = "+ quantityIndex);
 
-        let qauntityAmmend = qauntity;
+        let quantityAmmend = props.quantity;
         let dataAmmend = [[]];
         let dataIndex;
 
@@ -31,10 +44,10 @@ function ProductGrid(props){
                     dataIndex = i;
                 }
             }
-            if(qauntity[quantityIndex] === 0){//no item to delete from cart
+            if(quantityAmmend[catagoryNum][quantityIndex] === 0){//no item to delete from cart
                 dataAmmend = props.cartData;
                 return;
-            }else if(qauntity[quantityIndex] === 1){//delete item from cart
+            }else if(quantityAmmend[catagoryNum][quantityIndex] === 1){//delete item from cart
                 for(let i=0; i < props.cartData.length - 1 ; i++){
                     if(i < dataIndex){
                         dataAmmend[i] = props.cartData[i];
@@ -44,25 +57,25 @@ function ProductGrid(props){
                 }
             }else{//change quantity of cart item
                 dataAmmend = props.cartData;
-                dataAmmend[dataIndex][3] = qauntityAmmend[itemID] -1;
+                dataAmmend[dataIndex][3] = quantityAmmend[catagoryNum][itemID] -1;
             }
         }else{//if only one item in cart
-            if(qauntity[quantityIndex] === 0){
+            if(props.qauntity[catagoryNum][quantityIndex] === 0){
                 dataAmmend = props.cartData;
                 return;
             }
-            else if(qauntity[quantityIndex] === 1){
+            else if(props.qauntity[catagoryNum][quantityIndex] === 1){
                 dataAmmend = [];
             }else {
                 dataAmmend = props.cartData;
-                dataAmmend[3] = qauntityAmmend[quantityIndex]-1;
+                dataAmmend[3] = quantityAmmend[catagoryNum][quantityIndex]-1;
             }
         }
 
-        qauntityAmmend[quantityIndex] -= 1;
+        quantityAmmend[catagoryNum][quantityIndex] -= 1;
         console.log(dataAmmend);
         props.setCartData([...dataAmmend]);
-        setQuantity([...qauntityAmmend]);
+        props.setQuantity([...quantityAmmend]);
     };
 
     const handleClickAdd = (e) =>{
@@ -73,10 +86,10 @@ function ProductGrid(props){
         console.log("ItemId = "+ itemID);
         console.log("Index = "+ quantityIndex);
 
-        let qauntityAmmend = qauntity;
+        let quantityAmmend = props.quantity;
         let dataIndex;
         
-        if(qauntityAmmend[quantityIndex] === 0){//if item not already in cart add to cart
+        if(quantityAmmend[catagoryNum][quantityIndex] === 0){//if item not already in cart add to cart
             let dataAmmend = [[]];
             if(Array.isArray(props.cartData[0])){
                 dataAmmend = props.cartData;
@@ -85,8 +98,8 @@ function ProductGrid(props){
             temp[0] = parseInt(data[quantityIndex][0]);//itemID
             temp[1] = data[quantityIndex][1];//itemName
             temp[2] = parseInt(data[quantityIndex][3]);//price
-            temp[3] = qauntityAmmend[quantityIndex]+1;//qauntity
-            temp[4] = parseInt(data[quantityIndex][3]) * (qauntityAmmend[quantityIndex]+1);//total price*/
+            temp[3] = quantityAmmend[catagoryNum][quantityIndex]+1;//qauntity
+            temp[4] = parseInt(data[quantityIndex][3]) * (quantityAmmend[catagoryNum][quantityIndex]+1);//total price*/
             dataAmmend[props.cartData.length] = temp;
             console.log("dataAmmend = "+dataAmmend);
             props.setCartData([...dataAmmend]);            
@@ -103,20 +116,20 @@ function ProductGrid(props){
                 }
                 console.log("dataAmmend = ");
                 console.log(dataAmmend);
-                dataAmmend[dataIndex][3] = qauntityAmmend[quantityIndex]+1;
+                dataAmmend[dataIndex][3] = quantityAmmend[catagoryNum][quantityIndex]+1;
             }else{//if there is one item in arra cartData is 1d array
-                dataAmmend[3] = qauntityAmmend[quantityIndex]+1;
+                dataAmmend[3] = quantityAmmend[catagoryNum][quantityIndex]+1;
                 console.log("dataAmmend = ");
                 console.log(dataAmmend);
                 
             }
             props.setCartData([...dataAmmend]);
         }
-        qauntityAmmend[quantityIndex] += 1;
-        setQuantity([...qauntityAmmend]);
+        quantityAmmend[catagoryNum][quantityIndex] += 1;
+        props.setQuantity([...quantityAmmend]);
     }
     
-
+    //console.log(props.quantity);
     return(
         <table className="productTable">
             <thead>
@@ -128,7 +141,7 @@ function ProductGrid(props){
                 </tr>
             </thead>
             <tbody>
-                <TableData data={data} onClickRemove={handleClickRemove} onClickAdd={handleClickAdd} qauntity={qauntity}/>
+                <TableData data={data} onClickRemove={handleClickRemove} onClickAdd={handleClickAdd} catagoryNum={catagoryNum} qauntity={props.quantity}/>
             </tbody>
         </table>
     );

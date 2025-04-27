@@ -14,66 +14,117 @@ function Mainpage(props){
    const [porkItems, setPorkItems] = useState([[]]);
    const [fishItems, setFishItems] = useState([[]]);
    const [dataLoaded, setDataLoaded] = useState(false);
-   const [shoppingCartData, setShoppingCartData] = useState([]);
+   const [shoppingCartData, setShoppingCartData] = useState(new Array(0));
+   const [quantity, setQuantity] = useState([[]]);
 
    const getTableData = async() =>{
-    console.log("inside getTableData");
-    //console.log(JSON.stringify(props.catagory));
-    const requestData = await fetch("http://localhost/GroceryGuys/PHP/getItems.php",{
-        method: "POST",
-        //headers: { "Content-Type": "application/json"},
-        body: JSON.stringify(props.catagory)
-    });
-    const responseData = await requestData.json();
-    console.log(responseData);
+        console.log("inside getTableData");
+        //console.log(JSON.stringify(props.catagory));
+        const requestData = await fetch("http://localhost/GroceryGuys/PHP/getItems.php",{
+            method: "POST",
+            //headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(props.catagory)
+        });
+        const responseData = await requestData.json();
+        console.log(responseData);
 
-    const catagories = ["Chicken", "Beef", "Pork", "Fish", "Vegetables"]
-    for(let c=0; c <5 ; c++){
-        let data =[];
-        let index=0;
-        for(let i=0; i < responseData.length; i++){
-            if(responseData[i][4] === catagories[c]){
-                data[index] = responseData[i];
-                index++;
+        const catagories = ["Chicken", "Beef", "Pork", "Fish", "Vegetables"]
+        let quantityTemp = [[],[],[],[],[]];
+        console.log(quantityTemp);
+        
+        for(let c=0; c <5 ; c++){
+            let data =[];
+            let index=0;
+            for(let i=0; i < responseData.length; i++){
+                if(responseData[i][4] === catagories[c]){
+                    data[index] = responseData[i];//add item of match catagory into temp array
+
+                    if( Array.isArray(shoppingCartData[0]) || shoppingCartData.length !== 0 ){//if cart !empty
+                        console.log("cart should have items");
+                        console.log(shoppingCartData);
+                        //console.log(shoppingCartData[0].length);
+                        for(let quantIndex=0; quantIndex < shoppingCartData.length ;quantIndex){
+                            if(requestData[i][0] === shoppingCartData[quantIndex][0]){// if itemID in itemData = itemID in cart
+                                quantityTemp[c][index] = shoppingCartData[quantIndex][3];//set quantity of item in cart 
+                            }else{
+                                console.log("catagory = "+c+ "index = "+index);
+                                quantityTemp[c][index] = 0;//else set 0 as item not in cart
+                            }
+                        }
+                    }else{
+                        console.log("catagory = "+c+ "index = "+index);
+                        quantityTemp[c][index] = 0;//cart empty so quantity of item must be 0
+                    }
+                    index++;
+                }
+            //console.log(catagories[c]+" data: "+data);
+            //console.log(quantityTemp);
+                switch(catagories[c]){//store value in temp arrray in corrosponding array for catagory
+                    default:
+                        break;
+                        case "Chicken":
+                            setChickItems(data);
+                            break;
+                        case "Beef":
+                            setBeefItems(data);
+                            break;
+                        case "Pork":
+                            setPorkItems(data);
+                            break;
+                        case "Fish":
+                            setFishItems(data);
+                            break;
+                        case "Vegetables":
+                            setVegItems(data);
+                            break;
+                }
             }
         }
-        console.log(catagories[c]+" data: "+data);
-        switch(catagories[c]){
-            default:
-                break;
-                case "Chicken":
-                    setChickItems(data);
-                    break;
-                case "Beef":
-                    setBeefItems(data);
-                    break;
-                case "Pork":
-                    setPorkItems(data);
-                    break;
-                case "Fish":
-                    setFishItems(data);
-                    break;
-                case "Vegetables":
-                    setVegItems(data);
-                    break;
-        }
+        //if item in cart get quantity
+        let quantityIndex;
+        let qauntityValue;
+        let currentItemCatagoty;
+        /*if( !Array.isArray(shoppingCartData[0]) || shoppingCartData[0].length === 0 )//if cart isnt empty
+        for(let i=0; i<shoppingCartData.length; i++){
+            for(let index=0; index < responseData.length; index++){
+                if(shoppingCartData[i][0] === responseData[index][0]){
+                    currentItemCatagoty = responseData[index][4];
+                    }
+                    for(let quantIndex=0; quantIndex < quantity[currentItemCatagoty].length ; quantIndex++){
+                        if(quantity[currentItemCatagoty][quantIndex]){
+                            
+                        }
+                        }
+                        }
+                        }*/
+                       
+        setDataLoaded(true);
+        setItemsData(requestData);
+        setQuantity(quantityTemp);
+        console.log("/////////////////////////inside getData///////////////////////")
+        console.log(quantityTemp);
+        console.log(vegItems);
+        console.log(fishItems);
+        console.log(porkItems);
+        console.log(beefItems);
+        console.log(chickItems);
     }
-    setDataLoaded(true);
-    setItemsData(requestData);
-    
-    /*props.setTableData(
-        responseData
-    );*/
-}
+
 
     if(itemsData === null){
         console.log("getTableData()")
         getTableData();
+    }else{
+        console.log("/////////////////////////after data is set///////////////////////");
+        console.log(quantity);
+        console.log(vegItems);
+        console.log(fishItems);
+        console.log(porkItems);
+        console.log(beefItems);
+        console.log(chickItems);
     }
     if(props.userID !== '' && props.isloggedIn === false ){
         props.setIsLoggedIn(true);
-        console.log(props.username);
-        console.log(props.password);
         //console.log(loggedIn);
     }
 
@@ -110,9 +161,9 @@ function Mainpage(props){
                 </div>
                 <div className="pt-2">
                     <div className="products">
-                    <Products itemsData={itemsData} setItemsData={setItemsData} addItemToCart={addItemToCart} setVeg={setVegItems} setChick={setChickItems} setBeef={setBeefItems} setPork={setPorkItems} setFish={setFishItems}
-                                vegItems={vegItems} chickItems={chickItems} beefItems={beefItems} porkItems={porkItems} fishItems={fishItems} dataLoaded={dataLoaded}
-                                    cartData={shoppingCartData} setCartData={setShoppingCartData}
+                    <Products itemsData={itemsData} setItemsData={setItemsData} cartData={shoppingCartData} setCartData={setShoppingCartData}
+                        vegItems={vegItems} chickItems={chickItems} beefItems={beefItems} porkItems={porkItems} fishItems={fishItems} dataLoaded={dataLoaded}
+                        quantity={quantity} setQuantity={setQuantity}                                    
                     />
                     </div>
                 </div>
