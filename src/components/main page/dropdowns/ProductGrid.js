@@ -22,25 +22,43 @@ function ProductGrid(props){
         console.log("Index = "+ quantityIndex);
 
         let qauntityAmmend = qauntity;
-        let dataAmmend;
+        let dataAmmend = [[]];
         let dataIndex;
-        for(let i=0; i < props.cartData.length; i++){//find item in cart
-            if (props.cartData[i][0] === itemID){
-            dataIndex = i;
-            }
-        }
-        if(qauntity[quantityIndex] === 0){//no item to delete from cart
-            return;
-        }else if(qauntity[quantityIndex] ===0){//delete item from cart
-            for(let i=0; i < props.cartData.length ; i++){
-                if(i !== dataIndex){
-                    dataAmmend[i] = props.cartData[i];
+
+        if(Array.isArray(props.cartData)){
+            for(let i=0; i < props.cartData.length; i++){//find item in cart
+                if (props.cartData[i][0] === itemID){
+                    dataIndex = i;
                 }
             }
-        }else{//change quantity of cart item
-            dataAmmend = props.cartData;
-            dataAmmend[dataIndex][3] = qauntityAmmend[itemID] -1;
+            if(qauntity[quantityIndex] === 0){//no item to delete from cart
+                dataAmmend = props.cartData;
+                return;
+            }else if(qauntity[quantityIndex] === 1){//delete item from cart
+                for(let i=0; i < props.cartData.length - 1 ; i++){
+                    if(i < dataIndex){
+                        dataAmmend[i] = props.cartData[i];
+                    }else{
+                        dataAmmend[i] = props.cartData[i+1];
+                    }
+                }
+            }else{//change quantity of cart item
+                dataAmmend = props.cartData;
+                dataAmmend[dataIndex][3] = qauntityAmmend[itemID] -1;
+            }
+        }else{//if only one item in cart
+            if(qauntity[quantityIndex] === 0){
+                dataAmmend = props.cartData;
+                return;
+            }
+            else if(qauntity[quantityIndex] === 1){
+                dataAmmend = [];
+            }else {
+                dataAmmend = props.cartData;
+                dataAmmend[3] = qauntityAmmend[quantityIndex]-1;
+            }
         }
+
         qauntityAmmend[quantityIndex] -= 1;
         console.log(dataAmmend);
         props.setCartData([...dataAmmend]);
@@ -79,14 +97,17 @@ function ProductGrid(props){
                 for(let i=0; i < props.cartData.length; i++){
                     if (props.cartData[i][0] === itemID){
                         dataIndex = i;
-                        console.log("dataIndex = "+dataIndex);
+                        console.log("dataIndex = ");
+                        console.log(dataAmmend);
                     }
                 }
-                console.log("dataAmmend = "+dataAmmend);
+                console.log("dataAmmend = ");
+                console.log(dataAmmend);
                 dataAmmend[dataIndex][3] = qauntityAmmend[quantityIndex]+1;
             }else{//if there is one item in arra cartData is 1d array
                 dataAmmend[3] = qauntityAmmend[quantityIndex]+1;
-                console.log("dataAmmend = "+dataAmmend);
+                console.log("dataAmmend = ");
+                console.log(dataAmmend);
                 
             }
             props.setCartData([...dataAmmend]);
