@@ -1,4 +1,5 @@
 import { useState } from "react";
+import currencyFormatter from "./currencyFormatter";
 
 function ShoppingCart(props){
     const [hidden, setHidden] = useState(true);
@@ -33,9 +34,16 @@ function ShoppingCart(props){
         checkout();
     }
 
-    if(data.length > 1){
-
+    let totalOrderPrice = 0;
+    /*for(let i=0; i < data.length; i++){
+        totalOrderPrice += data[i][4];
+    }*/
+    for(let i=0; i < data.length; i++){
+        totalOrderPrice += parseFloat(data[i][3]) * parseFloat(data[i][4]);
+        //console.log(parseFloat(data[i][3])+" + "+parseFloat(data[i][4]) );
     }
+    //console.log(data+"+"+)
+    console.log( totalOrderPrice);
 
     if(hidden){
         return(
@@ -45,7 +53,6 @@ function ShoppingCart(props){
         );
     }else{
         console.log(data);
-        //console.log("data length"+data[0].length);
         return(
             <>
                 <div className="col-1 shoppingCart">
@@ -59,12 +66,12 @@ function ShoppingCart(props){
                                                     <li className="row" id={d[0]+"itemName"}>
                                                         <p>{d[1]+"(x"+d[3]+")"}</p>
                                                     </li>
-                                                    <li className="row" id={d[0]+"totalPrice"}>    
-                                                        <p>{"price: "+d[4]/*total price*/}</p>
-                                                    </li>
                                                 </>
                                             
                                         ))}
+                                        <li className="row" id="total price">
+                                            <p>Total: {currencyFormatter.format(totalOrderPrice)}</p>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div className="buttons row">
@@ -77,4 +84,7 @@ function ShoppingCart(props){
     }
 }
 
+/*<li className="row" id={d[0]+"totalPrice"}>    
+                                                        <p>{"price: "+currencyFormatter.format(d[4]*d[3])/*total price}</p>
+                                                    </li>*/
 export default ShoppingCart;

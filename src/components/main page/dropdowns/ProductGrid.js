@@ -98,9 +98,9 @@ function ProductGrid(props){
             let temp = [];            
             temp[0] = parseInt(data[quantityIndex][0]);//itemID
             temp[1] = data[quantityIndex][1];//itemName
-            temp[2] = parseInt(data[quantityIndex][3]);//price
+            temp[2] = parseFloat(data[quantityIndex][3]);//price
             temp[3] = quantityAmmend[catagoryNum][quantityIndex]+1;//qauntity
-            temp[4] = parseInt(data[quantityIndex][3]) * (quantityAmmend[catagoryNum][quantityIndex]+1);//total price*/
+            temp[4] = parseFloat(data[quantityIndex][3]) * (quantityAmmend[catagoryNum][quantityIndex]+1);//total price*/
             dataAmmend[props.cartData.length] = temp;
             console.log("dataAmmend = "+dataAmmend);
             props.setCartData([...dataAmmend]);            
