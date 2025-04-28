@@ -12,15 +12,15 @@ const OrdersTable = (props) =>{
     return(
         <table className="ordersTable">
             <thead>
-                <tr>
-                    <th>OrderID</th>
-                    <th>User Email</th>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Price</th>
-                    <th>View order</th>
-                </tr>
+                
+                    <th className="ordersTh">OrderID</th>
+                    <th className="ordersTh">User Email</th>
+                    <th className="ordersTh">Name</th>
+                    <th className="ordersTh">Date</th>
+                    <th className="ordersTh">Status</th>
+                    <th className="ordersTh">Price</th>
+                    <th className="ordersTh">View order</th>
+                
                 </thead>
                     <tbody>
                         { data !== undefined &&

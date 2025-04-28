@@ -5,6 +5,7 @@ import EmailInput from "../components/SignUp Prompts/EmailInput";
 import PasswordInput from "../components/SignUp Prompts/PasswordInput";
 import PhoneInput from "../components/SignUp Prompts/PhoneInput";
 import NameInput from "../components/SignUp Prompts/NameInput";
+import Banner from "../components/main components/Banner";
 
 
 
@@ -264,6 +265,7 @@ const SignUp = (props) =>{
     
     return(
         <>
+            <Banner/>
             <div className="col-1"></div>
             <div className="col-10 login">
                 <div className="row">

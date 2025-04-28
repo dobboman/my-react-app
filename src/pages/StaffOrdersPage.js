@@ -1,3 +1,4 @@
+import Banner from "../components/main components/Banner";
 import OrdersTable from "../components/OrderComponents/OrdersTable";
 import OrderViewer from '../components/OrderComponents/OrderViewer';
 import {useState} from 'react';
@@ -34,9 +35,10 @@ const StaffOrdersPage = (props) =>{
         console.log(selectedOrder);
         return(
             <>
+                <Banner/>
                 <div className="col-1"></div>
-                <div className="col-10">
-                    <div className="row">
+                <div className="col-10 login">
+                    <div className="">
                         {selectedOrder === "none" &&
                             <OrdersTable data = {orders} setSelectedOrder={setSelectedOrder} userID={props.userID}/>
                             //requestOrders()

@@ -15,9 +15,9 @@ function Sidebar(props) {
         return(
             <>
                 <div className="sidebar">
-                    <button type="button" className="loginBtn" onClick={logout}>Logout</button>
+                    <button type="button" className="sidebarBtn" onClick={logout}>Logout</button>
                     <Link to="/Orders">
-                            <button type="button" className="loginbtn">Orders</button>
+                            <button type="button" className="sidebarBtn">Orders</button>
                     </Link> 
                 </div>
                 
@@ -27,7 +27,7 @@ function Sidebar(props) {
         return (
             <div className="sidebar">
                 <Link to="/login">
-                    <button type="button" className="loginBtn">Login</button>
+                    <button type="button" className="sidebarBtn">Login</button>
                 </Link>
             </div>
         );

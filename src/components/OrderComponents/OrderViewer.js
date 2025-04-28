@@ -82,7 +82,7 @@ const OrderViewer = (props) =>{
                         }
                     </tbody>
                 </table>
-                <button id={orderData[props.selectedOrder - 1][0]} onClick={clickHandlerComplete}>Complete Order</button>
+                <button id={orderData[props.selectedOrder - 1][0]} onClick={clickHandlerComplete} className='completeOrdersBtn'>Complete Order</button>
             </>
         );
     }else{

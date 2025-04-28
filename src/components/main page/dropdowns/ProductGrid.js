@@ -135,10 +135,10 @@ function ProductGrid(props){
         <table className="productTable">
             <thead>
                 <tr className="tableContent">
-                    <th>Item</th>
-                    <th>Image</th>
-                    <th>Price</th>
-                    <th>add/remove</th>
+                    <th className="itemsTh">Item</th>
+                    <th className="itemsTh">Image</th>
+                    <th className="itemsTh">Price</th>
+                    <th className="itemsTh">add/remove</th>
                 </tr>
             </thead>
             <tbody>

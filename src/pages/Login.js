@@ -5,6 +5,7 @@ import { useNavigation } from "react-router-dom";
 import {sha256} from 'js-sha256';
 import CAPTCHA from "../components/CAPTCHA";
 import { useState } from "react";
+import Banner from "../components/main components/Banner";
 
 
 const Login = (props) =>{
@@ -81,11 +82,9 @@ const Login = (props) =>{
     
     return(
     <>
+        <Banner/>
         <div className="col-1"></div>
         <div className="col-10 login">
-            <div className="row">
-                <h2>Login</h2>
-            </div>
             <div className="row">
                 <form id="loginInfo" onSubmit={loginHandler}>
                 <h3>Email</h3>
@@ -99,7 +98,7 @@ const Login = (props) =>{
                 </form>
             </div>
             <div className="row">
-                <h3>Dont have an account with us?</h3>
+                <h3>Don't have an account with us?</h3>
                 <Link to="/SignUp">
                     <button id="signUpBtn" className="signUpBtn">Signup</button>
                 </Link>

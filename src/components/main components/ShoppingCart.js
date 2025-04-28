@@ -26,6 +26,7 @@ function ShoppingCart(props){
         const response = await request.json();
         if(response["success"] === true){
             window.alert("Order has been succesfully placed");
+            props.setCartData([]);
         }else{
             window.alert(response["error"]);
         }
@@ -57,7 +58,6 @@ function ShoppingCart(props){
             <>
                 <div className="col-1 shoppingCart">
                     <h2>My Cart</h2>
-                    <button className="checkoutBtn">Checkout</button>
                     <div className="row ">
                                     <ul>
                                         { ( data.length > 1 || Array.isArray(data[0])) &&
@@ -74,9 +74,9 @@ function ShoppingCart(props){
                                         </li>
                                     </ul>
                     </div>
-                    <div className="cartButtons row">
-                        <button className="hideCart" onClick={handleClick}><img src="./hideCart.png" alt="hideCartIco"/></button>
+                    <div className="cartButtons">
                         <button className="checkoutBtn" onClick={handleCheckout}>Checkout</button>
+                        <button className="cartBtn" onClick={handleClick}><img src="./hideCart.png" alt="hideCartIco"/></button>
                     </div>
                 </div>
             </>
