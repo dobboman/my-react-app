@@ -24,11 +24,9 @@
         $sqlQuery = "CREATE TABLE Items(
                         ItemID int UNSIGNED AUTO_INCREMENT NOT NULL,
                         ItemName varchar(30) NOT NULL,
-                        ImageID int UNSIGNED NOT NULL,
+                        ImageURL varchar(80) NOT NULL,
                         Price float UNSIGNED NOT NULL,
                         ProductCatagory varchar(30) NOT NULL,
-                        SubCatagory varchar(30),
-
                         PRIMARY KEY (ItemID)
 
                     );";
@@ -52,11 +50,19 @@
                         FOREIGN KEY (ItemID) REFERENCES Items (ItemID)
                     );";
         $db->query($sqlQuery);
-        $sqlQuery = "   INSERT INTO Items (ItemName, ImageID, price, ProductCatagory) VALUES ('Carrot', 0, 10.00, 'Vegetables'), ('Cabbage', 1, 10.50, 'Vegetables'), ('Sprout', 2, 11.99, 'Vegetables'),
-                                                                                        ('8oz Rump Steak', 3, 14.99, 'Beef'), ('Minced Beef 500g', 4, 8.89, 'Beef'), ('10oz Sirlion Steak', 5, 16.00, 'Beef'),
-                                                                                        ('Salmon Slices', 6, 6.50, 'Fish'), ('Tuna Can', 7, 4.59, 'Fish'), ('Sushi Box', 8, 5.70, 'Fish'),
-                                                                                        ('Smoked Bacon', 9, 3.50, 'Pork'), ('Non-Smoked Bacon', 10, 3.50, 'Pork'), ('Gammon Steak', 11, 3.50, 'Pork'),
-                                                                                        ('Rotisery Chicken', 12, 6.80, 'Chicken'), ('Chicken Drumsticks', 13, 4.50, 'Chicken'), ('Chiken Ceasar Salad', 14, 3.50, 'Chicken');";
+        $sqlQuery = "CREATE TABLE CAPTCHA (
+                        CAPTCHAID int UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+                        Answer VARCHAR(5) NOT NULL
+        );";
+        $db->query($sqlQuery);
+
+        $sqlQuery = "INSERT INTO CAPTCHA (Answer) VALUES ('Aeik2'), ('ecb4f'), ('7plbJ8'), ('24quJ')";
+        $db->query($sqlQuery);
+        $sqlQuery = "   INSERT INTO Items (ItemName, ImageURL, price, ProductCatagory) VALUES ('Carrot', 'http://localhost/GroceryGuys/productImages/carrot.png', 10.00, 'Vegetables'), ('Cabbage', 'http://localhost/GroceryGuys/productImages/cabbage.png', 10.50, 'Vegetables'), ('Sprouts 200g', 'http://localhost/GroceryGuys/productImages/sprouts.png', 11.99, 'Vegetables'),
+                                                                                        ('8oz Rump Steak', 'http://localhost/GroceryGuys/productImages/rumpSteak8oz.png', 14.99, 'Beef'), ('Minced Beef 500g', 'http://localhost/GroceryGuys/productImages/mincedBeef500g.png', 8.89, 'Beef'), ('10oz Sirlion Steak', 'http://localhost/GroceryGuys/productImages/sirlionSteak10oz.png', 16.00, 'Beef'),
+                                                                                        ('Salmon Slices', 'http://localhost/GroceryGuys/productImages/salmonSlices.png', 6.50, 'Fish'), ('Tuna Can', 'http://localhost/GroceryGuys/productImages/tunaCan.png', 4.59, 'Fish'), ('Sushi Box', 'http://localhost/GroceryGuys/productImages/sushiBox.png', 5.70, 'Fish'),
+                                                                                        ('Smoked Bacon', 'http://localhost/GroceryGuys/productImages/smokedBacon.png', 3.50, 'Pork'), ('Un-Smoked Bacon', 'http://localhost/GroceryGuys/productImages/unsmokedBacon.png', 3.50, 'Pork'), ('Gammon Steak', 'http://localhost/GroceryGuys/productImages/gammonSteak.png', 3.50, 'Pork'),
+                                                                                        ('Rotisery Chicken', 'http://localhost/GroceryGuys/productImages/rotiseryChicken.png', 6.80, 'Chicken'), ('Chicken Drumsticks', 'http://localhost/GroceryGuys/productImages/chickenDrumsticks.png', 4.50, 'Chicken'), ('Chiken Ceasar Salad', 'http://localhost/GroceryGuys/productImages/chickenCaeserSalad.png', 3.50, 'Chicken');";
         $db->query($sqlQuery);
 
         $pass = hash("sha256", "password");

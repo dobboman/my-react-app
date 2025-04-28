@@ -70,10 +70,10 @@ function ShoppingCart(props){
             body: JSON.stringify(reqData)
         })
         const response = await request.json();
-        if(response === true){
+        if(response["success"] === true){
             window.alert("Order has been succesfully placed");
         }else{
-            window.alert("Order has failed");
+            window.alert(response["error"]);
         }
     }
     const handleCheckout = () =>{
@@ -87,7 +87,7 @@ function ShoppingCart(props){
     if(hidden){
         return(
             <div className="col-1 shoppingCartHidden">
-                <button className="shoppingCartBtn" onClick={handleClick}><img src="./leftArrow.png"></img><img src="./cartIcon.png" alt="cannyfind"></img></button>
+                <button className="shoppingCartBtn" onClick={handleClick}><img src="./showCart.png" alt="showCartIco"></img></button>
             </div>
         );
     }else{
@@ -115,7 +115,7 @@ function ShoppingCart(props){
                                     </ul>
                                 </div>
                                 <div className="buttons row">
-                                    <button className="hideCart"><image src="./hideCart"></image></button>
+                                    <button className="hideCart"><img src="./hideCart.png" alt="hideCartIco"/></button>
                                     <button className="checkoutBtn" onClick={handleCheckout}>Checkout</button>
                     </div>
                 </div>

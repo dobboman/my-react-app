@@ -3,16 +3,17 @@
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "cartIcon.png",
-      "sizes": "800x800",
+      "src": "showCart.png",
+      "sizes": "340x180",
       "type": "image/png"
     },
     {
-      "src": "leftArrow.png",
-      "sizes": "900x900",
+      "src": "hideCart.png",
+      "sizes": "120x180",
       "type": "image/png"
     }
   ],
+  
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",

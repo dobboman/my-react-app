@@ -13,24 +13,40 @@
     $passwordHash = $userData[0][0];
     $userID = $userData[0][1];
     $isStaff = $userData[0][2];
-    
-    if(password_verify($req_data->password, $passwordHash)){
-        $response = array(
-            "success" => true,
-            "userID"=> $userID
-        );
-        session_start();
-        session_regenerate_id();
-        $_SESSION['ID'] = session_id();
-        $_SESSION['userID'] = $userID;
-        $_SESSION['password'] = $req_data->password;
-        $_SESSION['isStaff'] = $isStaff;
-        //setcookie('loggedIn', true, time() + 0,'/');
+
+    $q = "SELECT Answer FROM CAPTCHA WHERE CAPTCHAID = ".$req_data->captchaID.";";
+    $captchaAns = mysqli_query( $db, $q );
+    $captchaAns = mysqli_fetch_all( $captchaAns )[0][0];
+
+    /*var_dump( $captchaAns );
+    var_dump($req_data->captchaAns);*/
+
+    if($captchaAns === $req_data->captchaAns){
+        if(password_verify($req_data->password, $passwordHash)){
+            $response = array(
+                "success" => true,
+                "userID"=> $userID
+            );
+            session_start();
+            session_regenerate_id();
+            $_SESSION['ID'] = session_id();
+            $_SESSION['userID'] = $userID;
+            $_SESSION['password'] = $req_data->password;
+            $_SESSION['isStaff'] = $isStaff;
+            //setcookie('loggedIn', true, time() + 0,'/');
+        }else{
+            $response = array(
+                'success'=> false,
+                'error'=> "invalid login info"
+            );
+        }
     }else{
         $response = array(
-            'success'=> false
+            "success"=> false,
+            "error"=> "invalid CAPTCHA"
         );
     }
+
     $responseData = json_encode($response);
     mysqli_close($db);
     echo $responseData;

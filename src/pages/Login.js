@@ -3,34 +3,33 @@ import Sidebar from "../components/main components/Sidebar";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { useNavigation } from "react-router-dom";
 import {sha256} from 'js-sha256';
+import CAPTCHA from "../components/CAPTCHA";
+import { useState } from "react";
 
 
 const Login = (props) =>{
 
     const emailRef = useRef();
     const passwordRef = useRef();
+    const captchaRef = useRef();
     const nav = useNavigate();
+    const [captchaInfo, setCaptchaInfo] = useState(null);
 
     const loginHandler = (event) =>{
         event.preventDefault();
         console.log("login handeler callled")
         loginRequest();
-        /*const success = loginRequest();
-        console.log("rtn form loginReq ".success);
-        if(success){
-            nav(-1);
-            //redirect("http://localhost");
-        } else{
-            window.alert("Email address or password is incorrect");
-        }*/
         
     }
     const loginRequest = async() =>{
         const pass = sha256(passwordRef.current.value); //hashed client side aswell as it will be stored for later use
         const email = emailRef.current.value;
+        const captchaAns = captchaRef.current.value;
         const data = {
                 email: email,
-                password: pass
+                password: pass,
+                captchaID: captchaInfo[0],
+                captchaAns: captchaAns
             };
            
         const requestData = await fetch("http://localhost/GroceryGuys/PHP/login.php" ,{ 
@@ -50,8 +49,34 @@ const Login = (props) =>{
 
         }else{
             console.log("alert should show");
-            window.alert("Email or Password was incorrect");
+            window.alert(responseData["error"]);
         }
+    }
+    const getCaptchaInfo = async() =>{
+        const request = await fetch("http://localhost/GroceryGuys/PHP/getCAPTCHA.php",{
+            method: "GET"
+        })
+        const response = await request.json();
+        switch(response){
+            case 1:
+                setCaptchaInfo(["1","http://localhost/GroceryGuys/CAPTCHA/image1.jpg"]);
+                break;
+            case 2:
+                setCaptchaInfo(["2","http://localhost/GroceryGuys/CAPTCHA/image2.jpg"]);
+                break;
+            case 3:
+                setCaptchaInfo(["3","http://localhost/GroceryGuys/CAPTCHA/image3.jpg"]);
+                break;
+            case 4:
+                setCaptchaInfo(["4","http://localhost/GroceryGuys/CAPTCHA/image4.jpg"]);
+                break;
+            default:
+                break;
+        }
+        
+    }
+    if(captchaInfo === null){
+        getCaptchaInfo();
     }
     
     return(
@@ -67,9 +92,10 @@ const Login = (props) =>{
                 <input id="email" ref={emailRef} type="email" required></input>
                 <h3>Password</h3>
                 <input id="password" ref={passwordRef} type="password" required></input>
-
-                    <button id="loginBtn" className="loginBtn" >Login</button>    
-
+                {captchaInfo !== null &&
+                    <CAPTCHA ref={captchaRef} img={captchaInfo[1]}/>    
+                }
+                <button id="loginBtn" className="loginBtn" >Login</button>
                 </form>
             </div>
             <div className="row">
