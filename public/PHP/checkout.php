@@ -17,8 +17,19 @@
         $quantityError = "invalid quantity \r\n";
     }
 
+    //get IP of connecting device
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+        $ip=$_SERVER['HTTP_CLIENT_IP'];
+      }
+      elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+        $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+      }
+      else{
+        $ip=$_SERVER['REMOTE_ADDR'];
+      }
+
     if($validItemID && $validQuantity){
-        if(isset($_SESSION["userID"])){
+        if($_SESSION["IP"] === $ip){
             $q = "SELECT PasswordHash FROM Users WHERE UserID = ".$_SESSION["userID"].";";
             $passwordHash = mysqli_query($db, $q);
             $passwordHash = mysqli_fetch_all($passwordHash)[0][0];

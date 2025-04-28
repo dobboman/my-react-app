@@ -10,8 +10,17 @@
     $passwordHash = $userData[0][0];
     $isStaff = $userData[0][1];
     
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+        $ip=$_SERVER['HTTP_CLIENT_IP'];
+      }
+      elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+        $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+      }
+      else{
+        $ip=$_SERVER['REMOTE_ADDR'];
+      }
 
-    if ($isStaff) {
+    if ($isStaff && $_SESSION["IP"] === $ip) {
         if(password_verify($_SESSION["password"], $passwordHash)) {
             $q = "SELECT OrderItems.ItemID, Items.ItemName, OrderItems.Qauntity, Items.Price FROM 
                             OrderItems INNER JOIN Items ON OrderItems.ItemID = Items.ItemID

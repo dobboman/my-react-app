@@ -10,7 +10,17 @@
     $passwordHash = $userData[0][0];
     //$isStaff = $userData[0][1];
 
-    if($_SESSION["isStaff"]){
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+        $ip=$_SERVER['HTTP_CLIENT_IP'];
+      }
+      elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+        $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+      }
+      else{
+        $ip=$_SERVER['REMOTE_ADDR'];
+      }
+
+    if($_SESSION["isStaff"] && $_SESSION["IP"] === $ip){
         if(password_verify($_SESSION["password"], $passwordHash)){
             $q = "UPDATE Orders SET OrderStatus = 'Complete' WHERE OrderID = '".$req_data->orderID."';";
             $result = mysqli_query($db, $q);
