@@ -18,7 +18,7 @@
         $validUsername = false;
         $usernameError = "users full name is invalid (only spaces and letters allowed) \r\n";
     }
-    if(preg_match("/^[1-9]*$/", $req_data->phoneNumber)){
+    if(preg_match("/^[0-9]*$/", $req_data->phoneNumber)){
         $validPhoneNumber = true;
     }
     else{

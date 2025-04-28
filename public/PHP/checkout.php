@@ -4,18 +4,28 @@
     $req_data = json_decode($raw_req);
     $db = new mysqli("localhost", "root", "","GrocceryGuyDatabase");
 
-    if(preg_match("/^[1-9]*$/", $req_data->data[1])){
-        $validItemID = true;
-    }else{
-        $validItemID = false;
-        $itemIDError = "invalid ItemID \r\n";
+    //validate inputs
+    $req_data_length = count($req_data->data);
+    $validItemID = null;
+    for($i=0; $i < $req_data_length; $i++){
+        if(preg_match("/^[0-9]*$/", $req_data->data[$i][0]) && $validItemID !== false){
+            $validItemID = true;
+        }else{
+            $validItemID = false;
+            $itemIDError = "invalid ItemID \r\n";
+            //$i = $req_data_lenght-1;//exit out of for loop if any of the data items is invalid
+        }
     }
-    if(preg_match("/^[1-9]*$/", $req_data->data[3])){
-        $validQuantity = true;
-    }else{
-        $validQuantity = false;
-        $quantityError = "invalid quantity \r\n";
-    }
+    $validQuantity=null;    
+    for($i=0; $i < $req_data_length; $i++){
+        if(preg_match("/^[1-9]*$/", $req_data->data[$i][3])&& $validQuantity !== false){
+            $validQuantity = true;
+        }else{
+            $validQuantity = false;
+            $quantityError = "invalid quantity \r\n";
+            //$i = $req_data_lenght-1;//exit out of for loop if any of the data items is invalid
+        }
+    }    
 
     //get IP of connecting device
     if(!empty($_SERVER['HTTP_CLIENT_IP'])){
@@ -37,10 +47,10 @@
                 //get data needed for entry
                 $orderStatus = "Pending";
                 $date = date("Y-m-d H:i:s");
-                var_dump($date);
+                //var_dump($date);
                 $orderPrice = 00.00;
             
-                var_dump($req_data->data);
+                //var_dump($req_data->data);
                 for ($i = 0; $i < count($req_data->data); $i++) {//get price from db to stop user submiting incorrect price by editing js
                     $q = "SELECT Price FROM Items WHERE ItemID = ".$req_data->data[$i][0].";";
                     $price = mysqli_query($db, $q);

@@ -1,6 +1,8 @@
 <?php
     $raw_req = file_get_contents("php://input");
     $req_data = json_decode($raw_req);
+    $db = new mysqli("localhost","root","","GrocceryGuyDatabase");
+
 
     //var_dump($_SERVER['REMOTE_ADDR']);
     //Validation / sanitization of inputs
@@ -10,14 +12,14 @@
         $validEmail = false;
         $emailError = "email is invalid \r\n";
     }
-    if(preg_match("/^[1-9a-z]*$/", $req_data->password)) {//password should be hashed server side therfore only letters and numbers allowed
+    if(preg_match("/^[0-9a-z]*$/", $req_data->password)) {//password should be hashed server side therfore only letters and numbers allowed
         $validPassword = true;
     }
     else{
         $validPassword = false;
         $passwordError = "password is invalid \r\n";
     }
-    if(preg_match("/^[a-zA-z1-9]*$/", $req_data->captchaAns)){//only letters and numbers allowed
+    if(preg_match("/^[a-zA-z0-9]*$/", $req_data->captchaAns)){//only letters and numbers allowed
         $validCaptcha = true;
     }else{
         $validCaptcha = false;
@@ -25,8 +27,7 @@
     }
 
     if($validPassword && $validEmail && $validCaptcha) {
-        $db = new mysqli("localhost","root","","GrocceryGuyDatabase");
-        
+                
         //get user info for target account
         $q = "SELECT PasswordHash, UserID, IsStaff FROM Users WHERE Email = '" . $req_data->email ."'";
         $userData = mysqli_query( $db, $q );
@@ -90,6 +91,7 @@
             "success"=> false,
             "error"=> $errorMsg
         );
+        var_dump($req_data->password);
     }
     
     $responseData = json_encode($response);
