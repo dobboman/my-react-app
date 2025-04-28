@@ -73,10 +73,10 @@ function ShoppingCart(props){
                                             <p>Total: {currencyFormatter.format(totalOrderPrice)}</p>
                                         </li>
                                     </ul>
-                                </div>
-                                <div className="buttons row">
-                                    <button className="hideCart"><img src="./hideCart.png" alt="hideCartIco"/></button>
-                                    <button className="checkoutBtn" onClick={handleCheckout}>Checkout</button>
+                    </div>
+                    <div className="cartButtons row">
+                        <button className="hideCart" onClick={handleClick}><img src="./hideCart.png" alt="hideCartIco"/></button>
+                        <button className="checkoutBtn" onClick={handleCheckout}>Checkout</button>
                     </div>
                 </div>
             </>
