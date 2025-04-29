@@ -1,10 +1,8 @@
 const EmailInput = (props) =>{
     const onFocusHandler=(e)=>{
-        //show(e.target.name);
         props.showPrompts("email");
     }
     const onBlurHandler=(e)=>{
-        //hide(e.target.name);
         props.hidePrompts("email");
     }
     

@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 
 function Mainpage(props){
-   //const [loggedIn, setLoggedIn] = useState(false);
    const [itemsData, setItemsData] = useState(null);
    const [vegItems, setVegItems] = useState([[]]);
    const [chickItems, setChickItems] = useState([[]]);
@@ -19,14 +18,13 @@ function Mainpage(props){
 
    const getTableData = async() =>{
         console.log("inside getTableData");
-        //console.log(JSON.stringify(props.catagory));
         const requestData = await fetch("http://localhost/GroceryGuys/PHP/getItems.php",{
-            method: "POST",
+            method: "GET",
             //headers: { "Content-Type": "application/json"},
-            body: JSON.stringify(props.catagory)
+            //body: JSON.stringify(props.catagory)
         });
         const responseData = await requestData.json();
-        console.log(responseData);
+        //console.log(responseData);
 
         const catagories = ["Chicken", "Beef", "Pork", "Fish", "Vegetables"]
         let quantityTemp = [[],[],[],[],[]];
@@ -57,8 +55,6 @@ function Mainpage(props){
                     }
                     index++;
                 }
-            //console.log(catagories[c]+" data: "+data);
-            //console.log(quantityTemp);
                 switch(catagories[c]){//store value in temp arrray in corrosponding array for catagory
                     default:
                         break;
@@ -79,57 +75,36 @@ function Mainpage(props){
                             break;
                 }
             }
-        }
-        //if item in cart get quantity
-        let quantityIndex;
-        let qauntityValue;
-        let currentItemCatagoty;
-        /*if( !Array.isArray(shoppingCartData[0]) || shoppingCartData[0].length === 0 )//if cart isnt empty
-        for(let i=0; i<shoppingCartData.length; i++){
-            for(let index=0; index < responseData.length; index++){
-                if(shoppingCartData[i][0] === responseData[index][0]){
-                    currentItemCatagoty = responseData[index][4];
-                    }
-                    for(let quantIndex=0; quantIndex < quantity[currentItemCatagoty].length ; quantIndex++){
-                        if(quantity[currentItemCatagoty][quantIndex]){
-                            
-                        }
-                        }
-                        }
-                        }*/
-                       
+        }                       
         setDataLoaded(true);
         setItemsData(requestData);
         setQuantity(quantityTemp);
-        console.log("/////////////////////////inside getData///////////////////////")
+        /*console.log("/////////////////////////inside getData///////////////////////")
         console.log(quantityTemp);
         console.log(vegItems);
         console.log(fishItems);
         console.log(porkItems);
         console.log(beefItems);
-        console.log(chickItems);
+        console.log(chickItems);*/
     }
 
 
-    if(itemsData === null){
-        console.log("getTableData()")
+    if(itemsData === null){//only req data if data is not set to avoid re-render loop
         getTableData();
     }else{
-        console.log("/////////////////////////after data is set///////////////////////");
+        /*console.log("/////////////////////////after data is set///////////////////////");
         console.log(quantity);
         console.log(vegItems);
         console.log(fishItems);
         console.log(porkItems);
         console.log(beefItems);
-        console.log(chickItems);
+        console.log(chickItems);*/
     }
     if(props.userID !== '' && props.isloggedIn === false ){
         props.setIsLoggedIn(true);
-        //console.log(loggedIn);
     }
 
     const logout = async() =>{
-        //const confirmLogout = confirm("Are you sure you want to logout");
         if(window.confirm("Are you sure you want to logout") === true){
             const serverRespone = await fetch("http://localhost/GroceryGuys/PHP/logout.php",{
                 method: "GET",
@@ -144,9 +119,8 @@ function Mainpage(props){
         }
         
     }
-    const addItemToCart = () =>{}
 
-    console.log(props.getLoggedIn())
+    //console.log(props.getLoggedIn())
 
     return(
         <>

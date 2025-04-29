@@ -36,14 +36,9 @@ function ShoppingCart(props){
     }
 
     let totalOrderPrice = 0;
-    /*for(let i=0; i < data.length; i++){
-        totalOrderPrice += data[i][4];
-    }*/
-    for(let i=0; i < data.length; i++){
+    for(let i=0; i < data.length; i++){//this wont make the function in pure as the value is dependant on values in state array this is just formatting
         totalOrderPrice += parseFloat(data[i][3]) * parseFloat(data[i][4]);
-        //console.log(parseFloat(data[i][3])+" + "+parseFloat(data[i][4]) );
     }
-    //console.log(data+"+"+)
     console.log( totalOrderPrice);
 
     if(hidden){
@@ -84,7 +79,4 @@ function ShoppingCart(props){
     }
 }
 
-/*<li className="row" id={d[0]+"totalPrice"}>    
-                                                        <p>{"price: "+currencyFormatter.format(d[4]*d[3])/*total price}</p>
-                                                    </li>*/
 export default ShoppingCart;

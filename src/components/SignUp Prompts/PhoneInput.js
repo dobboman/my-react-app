@@ -1,10 +1,8 @@
 const PhoneInput = (props) =>{
     const onFocusHandler=(e)=>{
-        //show(e.target.name);
         props.showPrompts("phone")
     }
     const onBlurHandler=(e)=>{
-        //hide(e.target.name);
         props.hidePrompts("phone");
     }
    

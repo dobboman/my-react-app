@@ -1,10 +1,8 @@
 const NameInput = (props) =>{
     const onFocusHandler=(e)=>{
-        //show(e.target.name);
         props.showPrompts("fullName");
     }
     const onBlurHandler=(e)=>{
-        //hide(e.target.name);
         props.hidePrompts("fullName");
     }
 return(

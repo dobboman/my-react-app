@@ -7,10 +7,6 @@ const StaffOrdersPage = (props) =>{
     const [selectedOrder, setSelectedOrder] = useState("none");
     const [orders, setOrders] = useState("");
 
-
-    const getOrders = () =>{
-        return requestOrders();
-    }
     const requestOrders = async() =>{
         const userID = props.userID;
         const data = {
@@ -41,7 +37,6 @@ const StaffOrdersPage = (props) =>{
                     <div className="">
                         {selectedOrder === "none" &&
                             <OrdersTable data = {orders} setSelectedOrder={setSelectedOrder} userID={props.userID}/>
-                            //requestOrders()
                         }
                         {selectedOrder !== "none" &&
                         <OrderViewer selectedOrder = {selectedOrder} setSelectedOrder={setSelectedOrder} setOrders={setOrders} userID={props.userID} orderData={orders} />

@@ -1,15 +1,11 @@
 import ProductGrid from "./ProductGrid";
 import {useState} from "react"
-
-//const dropdown = false;
     
 function ProductDropdown(props){
-    //const drop = props.drop;
     const [drop, setDrop] = useState(false);
     const [tableData, setTableData] = useState(null);
 
     if(tableData === null && props.dataLoaded === true){
-        //console.log("catagory = "+props.catagory);
         switch(props.catagory){
             default:
                 break;
@@ -41,16 +37,12 @@ function ProductDropdown(props){
 
     function handleClick(){
         if(drop === false){
-            //console.log("da fug");
-            //getTableData();
             setDrop(true);
         }else{
-            //console.log("da fug 2");
             setDrop(false);
         }
     }
    
-    //console.log(props.quantity);
     if(drop === false){
         return(
             <div>
@@ -80,14 +72,7 @@ function ProductDropdown(props){
                     />
                 </div>
             );
-        } /*else if(props.catagory === "Vegetables"){
-            return(
-                <div>
-                    <button className={props.className} onClick={handleClick}>{props.catagory}</button>
-                    <ProductGrid catagory={props.catagory} data={tableData}/>
-                </div>
-            );
-        }*/else{
+        }else{
             return(
                 <div>
                     <button className={props.className} onClick={handleClick}>{props.catagory}</button>

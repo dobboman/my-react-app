@@ -3,7 +3,6 @@ import AddOrRemoveItem from "./AddOrRemoveItem";
 import TableData from "./tableData";
 
 function ProductGrid(props){
-    //const [qauntity, setQuantity] = useState("");
     const data = props.data;
     let catagoryNum;
     switch(props.catagory){
@@ -38,7 +37,6 @@ function ProductGrid(props){
         let dataAmmend = [[]];
         let dataIndex;
 
-        //if(Array.isArray(props.cartData)){
         if(props.cartData.length >1){
             for(let i=0; i < props.cartData.length; i++){//find item in cart
                 if (props.cartData[i][0] === itemID){
@@ -106,7 +104,6 @@ function ProductGrid(props){
             props.setCartData([...dataAmmend]);            
         }else{//if item already exists in car ammend quantity in cart
             let dataAmmend = props.cartData;
-            //console.log("cartData = "+props.cartData);
             if(Array.isArray(props.cartData[0])){//if there is more than one item in cart cartData is 2d array
                 for(let i=0; i < props.cartData.length; i++){
                     if (props.cartData[i][0] === itemID){
@@ -130,7 +127,6 @@ function ProductGrid(props){
         props.setQuantity([...quantityAmmend]);
     }
     
-    //console.log(props.quantity);
     return(
         <table className="productTable">
             <thead>
@@ -148,14 +144,4 @@ function ProductGrid(props){
     );
 }
 
-/*{qauntity !== null &&
-    data.map((d,index) => (
-        <tr key={d[0]}>     
-            <td>{d[1]}</td>
-            <td>{d[2]}</td>
-            <td>{d[3]}</td>
-            <td><AddOrRemoveItem name={d[0]+"/"+index} onClickRemove={handleClickRemove} onClickAdd={handleClickAdd} qauntity={qauntity[index]} /></td>
-        </tr>
-    ))
-}*/
 export default ProductGrid;

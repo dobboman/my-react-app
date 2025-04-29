@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 
 function Sidebar(props) {
     const logout = () =>{
-        //props.setPassword('');
-        //props.setUsername('');
-
         props.logout();
     }
 

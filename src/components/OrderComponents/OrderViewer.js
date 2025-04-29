@@ -4,7 +4,6 @@ import { useState } from 'react';
 const OrderViewer = (props) =>{
     const nav = useNavigate();
     const [orderDetails, setOrderDetails] = useState(null);
-    //const setSelected = (id) =>{props.setSelectedOrder(id)}
 
     const getOrderDetails = async() =>{
         const data = {
@@ -24,7 +23,6 @@ const OrderViewer = (props) =>{
         }
     }
     const completeOrder = async(orderID)=>{
-        //const orderID = document.getElementById("")
         const data = {
             username: props.username,
             password: props.password,
@@ -41,7 +39,7 @@ const OrderViewer = (props) =>{
             props.setOrders("");
             props.setSelectedOrder("none");
             window.alert("Order has been marked as completed");
-            //nav("http://localhost/GroceryGuys/HomePage");
+            nav(-1);
         }
 
     }

@@ -35,10 +35,7 @@ const SignUp = (props) =>{
         if(lowercaseClass === "valid" && uppercaseClass === "valid" && numberClass === "valid" && specialCharClass === "valid" && lengthClass === "valid" && passwordClass === "valid" && spaceClass === "valid"){
             signupRequest();
         }else{
-            /*if(lowercaseClass === "invalid"){window.alert("Lowercase letters needed");};
-            if(passwordClass === "invalid"){window.alert("Passwors do not match");};*/
             window.alert("Password invalid or don't match please see below");
-            
         };
     };
 
@@ -178,9 +175,9 @@ const SignUp = (props) =>{
             setSpecialCharClass("invalid");
         }
         if(pass.match(spaces) || passConfirm.match(spaces)){
-            setSpecialCharClass("invalid");
+            setspaceClass("invalid");
         }else{
-            setSpecialCharClass("valid");
+            setspaceClass("valid");
         }
 
         if(pass.length > 8  || passConfirm.length > 8){
@@ -203,24 +200,18 @@ const SignUp = (props) =>{
                 if(passwordPromptsClass !== "passwordPromtsVisible"){
                     setPasswordPromptsClass("passwordPromtsVisible");
                 }
-                /*hidePrompts("email");
-                hidePrompts("phone");*/
                 break;
             case "email":
                 console.log("email focused");
                 if(emailPromtsClass !== "visible"){
                     setEmailPromptsClass("visible");
                 }
-                /*hidePrompts("password");
-                hidePrompts("phone");*/
                 break;
             case "phone":
                 console.log("phone focused");
                 if(phonePromtsClass !== "visible"){
                     setPhonePromptsClass("visible");
                 }
-                /*hidePrompts("email");
-                hidePrompts("password");*/
                 break;
             case "fullName":
                 console.log("fullName focused");

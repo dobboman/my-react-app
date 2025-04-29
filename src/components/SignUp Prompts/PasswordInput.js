@@ -1,10 +1,8 @@
 const PasswordInput = (props) =>{
     const onFocusHandler=(e)=>{
-        //show(e.target.name);
         props.showPrompts("password");
     }
     const onBlurHandler=(e)=>{
-        //hide(e.target.name);
         props.hidePrompts("password");
     }
     return(

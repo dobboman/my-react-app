@@ -43,7 +43,6 @@ const Login = (props) =>{
         if(responseData["success"] === true){
             console.log('entered set pass and usr statement');
             props.setUserID(...responseData["userID"]);
-            //props.setIsLoggedIn(true);
             props.setLoggedIn(true);
             redirect("http://localhost/GrocerGuys/HomePage");
             nav(-1);
@@ -58,7 +57,7 @@ const Login = (props) =>{
             method: "GET"
         })
         const response = await request.json();
-        switch(response){
+        /*switch(response){
             case 1:
                 setCaptchaInfo(["1","http://localhost/GroceryGuys/CAPTCHA/image1.jpg"]);
                 break;
@@ -73,7 +72,8 @@ const Login = (props) =>{
                 break;
             default:
                 break;
-        }
+        }*/
+       setCaptchaInfo([...response]);
         
     }
     if(captchaInfo === null){
