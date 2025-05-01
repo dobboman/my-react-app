@@ -39,7 +39,6 @@ const OrderViewer = (props) =>{
             props.setOrders("");
             props.setSelectedOrder("none");
             window.alert("Order has been marked as completed");
-            nav(-1);
         }
 
     }

@@ -17,6 +17,6 @@
         default:
             break;
         }
-    echo json_encode($randCAPTCHAID);
+    echo json_encode($response);
     
 ?>

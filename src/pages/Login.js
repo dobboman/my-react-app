@@ -57,23 +57,8 @@ const Login = (props) =>{
             method: "GET"
         })
         const response = await request.json();
-        /*switch(response){
-            case 1:
-                setCaptchaInfo(["1","http://localhost/GroceryGuys/CAPTCHA/image1.jpg"]);
-                break;
-            case 2:
-                setCaptchaInfo(["2","http://localhost/GroceryGuys/CAPTCHA/image2.jpg"]);
-                break;
-            case 3:
-                setCaptchaInfo(["3","http://localhost/GroceryGuys/CAPTCHA/image3.jpg"]);
-                break;
-            case 4:
-                setCaptchaInfo(["4","http://localhost/GroceryGuys/CAPTCHA/image4.jpg"]);
-                break;
-            default:
-                break;
-        }*/
-       setCaptchaInfo([...response]);
+       
+       setCaptchaInfo(response);
         
     }
     if(captchaInfo === null){
