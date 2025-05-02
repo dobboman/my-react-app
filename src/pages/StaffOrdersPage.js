@@ -24,7 +24,7 @@ const StaffOrdersPage = (props) =>{
             window.alert(parsedData["error"]);
         }
     }
-    if(orders === ""){
+    if(orders === ""){//request orders if orders state array is empty
         requestOrders();
         console.log(orders);
     }else{

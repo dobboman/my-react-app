@@ -4,12 +4,14 @@
     $raw_req = file_get_contents('php://input');
     $req_data = json_decode($raw_req);
 
+    //get stored user data
     $q = "SELECT PasswordHash, IsStaff FROM Users WHERE UserID = '". $_SESSION["userID"] ."'";
     $userData = mysqli_query($db, $q);
     $userData = mysqli_fetch_all($userData);
     $passwordHash = $userData[0][0];
     $isStaff = $userData[0][1];
     
+    //get user IP
     if(!empty($_SERVER['HTTP_CLIENT_IP'])){
         $ip=$_SERVER['HTTP_CLIENT_IP'];
       }
@@ -20,15 +22,12 @@
         $ip=$_SERVER['REMOTE_ADDR'];
       }
 
-    if ($isStaff && $_SESSION["IP"] === $ip) {
-        if(password_verify($_SESSION["password"], $passwordHash)) {
+    if ($isStaff && $_SESSION["IP"] === $ip) {//validate user IP to stop session hijacking
+        if(password_verify($_SESSION["password"], $passwordHash)) {//verify password 
             $q = "SELECT OrderItems.ItemID, Items.ItemName, OrderItems.Qauntity, Items.Price FROM 
                             OrderItems INNER JOIN Items ON OrderItems.ItemID = Items.ItemID
                                 WHERE OrderItems.OrderID = '". $req_data->orderID ."';";
-            //echo $q;
-            //WHERE OrderItems.OrderID = '". $req_data->orderID ."';";
             $orderDetails = mysqli_query($db,$q);
-            //mysqli_fetch_array($orderDetails);
             $response = array(
                 "success" => true,
                 "data" => mysqli_fetch_all($orderDetails)

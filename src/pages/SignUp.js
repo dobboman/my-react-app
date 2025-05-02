@@ -1,6 +1,6 @@
 import { sha256 } from "js-sha256";
 import { useState } from "react";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import EmailInput from "../components/SignUp Prompts/EmailInput";
 import PasswordInput from "../components/SignUp Prompts/PasswordInput";
 import PhoneInput from "../components/SignUp Prompts/PhoneInput";
@@ -35,7 +35,7 @@ const SignUp = (props) =>{
         if(lowercaseClass === "valid" && uppercaseClass === "valid" && numberClass === "valid" && specialCharClass === "valid" && lengthClass === "valid" && passwordClass === "valid" && spaceClass === "valid"){
             signupRequest();
         }else{
-            window.alert("Password invalid or don't match please see below");
+            window.alert("Passwords invalid please see propmts below");
         };
     };
 
@@ -65,6 +65,7 @@ const SignUp = (props) =>{
             validInputs = false;
         }
         if(validInputs === false){
+            //formulate and display error message
             let errorMsg = "invalid: ";
             for(let i=0; i < errorMsgComponents.length; i++){
                 errorMsg += errorMsgComponents[i];
@@ -77,7 +78,7 @@ const SignUp = (props) =>{
             const name = document.getElementById("fullname").value;
             const phoneNum = document.getElementById('phoneNum').value;
             const pass = sha256(document.getElementById('password').value);
-            console.log(pass, email, phoneNum);
+            //console.log(pass, email, phoneNum);
             const data = {
                 email: email,
                 username: name,
@@ -90,16 +91,17 @@ const SignUp = (props) =>{
             });
             const response = await serverRequest.json();
             console.log(response);
-            if(response === true){
-                console.log('entered set pass and usr statement');
-                props.setUsername(email);
-                props.setPassword(pass);
-                nav("http://localhost/GrocerGuys/HomePage");
+            if(response["success"] === true){
+                props.setLoggedIn();
+                
+                nav(-2);
             }else{
                 window.alert("there is already an account with this email adress");
             };
         }
     };
+
+    //regex to validate inputs with
     const lowercaseLetters = /[a-z]/g;
     const uppercaseLetters = /[A-Z]/g;
     const numbers = /[0-9]/g;
@@ -192,7 +194,7 @@ const SignUp = (props) =>{
             setPasswordClass("invalid");
         }
     };
-    const showPrompts = (prompt) =>{
+    const showPrompts = (prompt) =>{//handler to show prompts for only focused input field
         
         switch(prompt){
             case "password":
@@ -215,15 +217,15 @@ const SignUp = (props) =>{
                 break;
             case "fullName":
                 console.log("fullName focused");
-                if(phonePromtsClass !== "visible"){
-                    setNamePromptsClass("visible");
+                if(phonePromtsClass !== "invisible"){
+                    setNamePromptsClass("invisible");
                 }
                 break;
             default:
                 break;
             }
     };
-    const hidePrompts = (prompt) =>{
+    const hidePrompts = (prompt) =>{//handler to hide prompts whe input field in blurred
         switch(prompt){
             case "password":
                 console.log("password unFocused");

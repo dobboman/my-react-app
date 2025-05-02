@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 
@@ -7,7 +6,7 @@ function Sidebar(props) {
         props.logout();
     }
 
-    console.log(props.getLoggedIn());
+    //console.log(props.getLoggedIn());
     if(props.getLoggedIn() === "loggedIn"){
         return(
             <>

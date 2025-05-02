@@ -15,8 +15,8 @@ function ShoppingCart(props){
     
     const checkout = async() =>{
         const reqData = {
-            username: props.username,
-            password: props.password,
+            /*username: props.username,
+            password: props.password,*/
             data: data
         }
         const request = await fetch("http://localhost/GroceryGuys/PHP/checkout.php",{
@@ -26,7 +26,7 @@ function ShoppingCart(props){
         const response = await request.json();
         if(response["success"] === true){
             window.alert("Order has been succesfully placed");
-            props.setCartData([]);
+            props.setCartData([]);//set cart to empty
         }else{
             window.alert(response["error"]);
         }
@@ -36,7 +36,7 @@ function ShoppingCart(props){
     }
 
     let totalOrderPrice = 0;
-    for(let i=0; i < data.length; i++){//this wont make the function in pure as the value is dependant on values in state array this is just formatting
+    for(let i=0; i < data.length; i++){//this wont make the function inpure as the value is dependant on values in state array this is just formatting
         totalOrderPrice += parseFloat(data[i][3]) * parseFloat(data[i][4]);
     }
     console.log( totalOrderPrice);
@@ -55,7 +55,7 @@ function ShoppingCart(props){
                     <h2>My Cart</h2>
                     <div className="row ">
                                     <ul>
-                                        { ( data.length > 1 || Array.isArray(data[0])) &&
+                                        { ( data.length > 1 || Array.isArray(data[0])) && //only try to map data if there are items in cart to avoid mapping error
                                             data.map((d, index)=>(
                                                 <>
                                                     <li className="row" id={d[0]+"itemName"}>

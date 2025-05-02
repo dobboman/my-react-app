@@ -1,8 +1,6 @@
 <?php
     $db = new mysqli("localhost", "root", "","GrocceryGuyDatabase");
     $raw_req = file_get_contents('php://input');
-    
-    //sanitize input here
 
     $q = "SELECT * FROM Items;";
     $result = mysqli_query($db, $q);

@@ -3,8 +3,7 @@ import './App.css';
 import Mainpage from './pages/Mainpage';
 import { useState } from 'react';
 import Login from './pages/Login';
-import {BrowserRouter, Routes, Route, createBrowserRouter, RouterProvider} from "react-router-dom";
-import {CookiesProvider, useCookies} from 'react-cookie';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import SignUp from './pages/SignUp';
 import Layout from './pages/Layout';
 import StaffOrdersPage from './pages/StaffOrdersPage';
@@ -25,13 +24,13 @@ function App() {
   const getLoggedIn = () =>{
     return Cookies.get("loggedIn");
   }
-  const setLoggedIn = (input) =>{
+  const setLoggedIn = () =>{
     console.log("setLoggedIn called");
     Cookies.remove("loggedIn");
     Cookies.set("loggedIn", "loggedIn");
     console.log(Cookies.get('loggedIn'));
   }
-  const setLoggedOut = (input) =>{
+  const setLoggedOut = () =>{
     console.log("setLoggedOut called");
     Cookies.remove("loggedIn");
     Cookies.set("loggedIn", "loggedOut");

@@ -6,19 +6,19 @@
     $password = password_hash($req_data->password, CRYPT_SHA256);/*no need to validate pass as validation is done client-side 
                                                                                     and sql injection isn't possible as hash will be string
                                                                                     representation of hex value */
-    if (filter_var($req_data->email, FILTER_VALIDATE_EMAIL)) {
+    if (filter_var($req_data->email, FILTER_VALIDATE_EMAIL)) {//validate email is in correct format
         $validEmail = true;
     }else{
         $validEmail = false;
         $emailError = "email is invalid \r\n";
     }
-    if(preg_match("/^[a-zA-Z ]*$/", $req_data->username)){
+    if(preg_match("/^[a-zA-Z ]*$/", $req_data->username)){//validate that only letters and spaces are present 
         $validUsername = true;
     }else{
         $validUsername = false;
         $usernameError = "users full name is invalid (only spaces and letters allowed) \r\n";
     }
-    if(preg_match("/^[0-9]*$/", $req_data->phoneNumber)){
+    if(preg_match("/^[0-9]*$/", $req_data->phoneNumber)){//validate only numbers are present 
         $validPhoneNumber = true;
     }
     else{
@@ -26,22 +26,31 @@
         $phoneNumberError = "invalid phone number (only numbers allowed) \r\n";
     }
     
-    if($validEmail && $validPhoneNumber && $validUsername){
+    if($validEmail && $validPhoneNumber && $validUsername){//if all inputs are valid then attempt to make new account
         $db = new mysqli("localhost","root","","GrocceryGuyDatabase");
-        $q = "SELECT Email FROM Users WHERE Email = '".$req_data->username."'";
+        $q = "SELECT Email FROM Users WHERE Email = '".$req_data->email."'";
         $req_email = mysqli_query($db, $q);
-        $email = mysqli_fetch_all($req_email)[0][0];
+        //var_dump($req_email);
+        if($req_email->num_rows > 0){
+            $email = mysqli_fetch_all($req_email);
+            //var_dump($email);
+            $email = $email[0][0];
+
+        }else{
+            $email ="";
+        }
     
-        if ($email == $req_data->username){
+        //var_dump($email);
+        if ($email == $req_data->email){//check there is no user with provided email 
             $response = array(
                 "sucess"=>false,
                 "error"=> "account with this email address already exists"
             );
-        }else{
-            $q = "INSERT INTO Users (email, FullName, PhoneNumber ,passwordHash, IsStaff) VALUES ('". $req_data->email ."', ". $req_data->username .", ". strval($req_data->phoneNumber) .", '". $password ."', false)";
+        }else{//if no user exists then add a new entry into user table
+            $q = "INSERT INTO Users (email, FullName, PhoneNumber ,passwordHash, IsStaff) VALUES ('". $req_data->email ."', '". $req_data->username ."', ". strval($req_data->phoneNumber) .", '". $password ."', false)";
             mysqli_query($db, $q);
     
-            $q = "SELECT UserID for Users WHERE Email = " . $req_data->email .";";
+            $q = "SELECT UserID FROM Users WHERE Email = '" . $req_data->email ."';";
             $userID = mysqli_query($db, $q);
             $userID = mysqli_fetch_all($userID)[0][0];
     
@@ -67,7 +76,7 @@
                 "userID"=> $userID
             );
         }
-    }else{
+    }else{//if any input is invalid build error msg and return this 
         $errorMsg = "";
         if(!$validEmail){
             $errorMsg .= $emailError;

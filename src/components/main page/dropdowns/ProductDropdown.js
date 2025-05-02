@@ -6,7 +6,7 @@ function ProductDropdown(props){
     const [tableData, setTableData] = useState(null);
 
     if(tableData === null && props.dataLoaded === true){
-        switch(props.catagory){
+        switch(props.catagory){//set table data to corrosponding catagory
             default:
                 break;
                 case "Chicken":

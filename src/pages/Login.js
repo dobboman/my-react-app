@@ -1,7 +1,5 @@
 import { useRef } from "react";
-import Sidebar from "../components/main components/Sidebar";
 import { Link, redirect, useNavigate } from "react-router-dom";
-import { useNavigation } from "react-router-dom";
 import {sha256} from 'js-sha256';
 import CAPTCHA from "../components/CAPTCHA";
 import { useState } from "react";
@@ -23,7 +21,7 @@ const Login = (props) =>{
         
     }
     const loginRequest = async() =>{
-        const pass = sha256(passwordRef.current.value); //hashed client side aswell as it will be stored for later use
+        const pass = sha256(passwordRef.current.value); //hashed client side aswell to minimize risk of post being intersepted, also allows this value passed to server to be stored in session as it is not in plain text form
         const email = emailRef.current.value;
         const captchaAns = captchaRef.current.value;
         const data = {
@@ -38,7 +36,7 @@ const Login = (props) =>{
             body: JSON.stringify(data)
         });
         const responseData = await requestData.json();
-        console.log(responseData);
+        //console.log(responseData);
         
         if(responseData["success"] === true){
             console.log('entered set pass and usr statement');
@@ -61,7 +59,7 @@ const Login = (props) =>{
        setCaptchaInfo(response);
         
     }
-    if(captchaInfo === null){
+    if(captchaInfo === null){//get captcha ID and URL
         getCaptchaInfo();
     }
     
@@ -96,5 +94,4 @@ const Login = (props) =>{
     );
 }
 
-//<button id="loginBtn" type="submit" className="loginBtn" onClick={loginHandler}>Login</button>    
 export default Login;

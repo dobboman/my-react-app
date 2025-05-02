@@ -4,7 +4,7 @@
     $db = new mysqli("localhost","root","","GrocceryGuyDatabase");
 
 
-    //var_dump($_SERVER['REMOTE_ADDR']);
+    
     //Validation / sanitization of inputs
     if (filter_var($req_data->email, FILTER_VALIDATE_EMAIL)) {//check email is of correct format
         $validEmail = true;
@@ -26,7 +26,7 @@
         $captchaError = "invalid CAPTCHA only letters and numbers allowed \r\n";
     }
 
-    if($validPassword && $validEmail && $validCaptcha) {
+    if($validPassword && $validEmail && $validCaptcha) {//if all inputs are valid then check them again db
                 
         //get user info for target account
         $q = "SELECT PasswordHash, UserID, IsStaff FROM Users WHERE Email = '" . $req_data->email ."'";
@@ -37,11 +37,13 @@
         $userID = $userData[0][1];
         $isStaff = $userData[0][2];
     
-        //get corrent CAPTCHA answer
+        //get correct CAPTCHA answer
         $q = "SELECT Answer FROM CAPTCHA WHERE CAPTCHAID = ".$req_data->captchaID.";";
         $captchaAns = mysqli_query( $db, $q );
         $captchaAns = mysqli_fetch_all( $captchaAns )[0][0];
     
+        //var_dump( $captchaAns );
+        //var_dump($req_data->captchaAns);
         if($captchaAns === $req_data->captchaAns){// if CAPTCHA ans is correct check password
             if(password_verify($req_data->password, $passwordHash)){//check if (hashses of) passwords match
                 $response = array(
@@ -76,7 +78,7 @@
                 "error"=> "incorrect CAPTCHA submitted"
             );
         }
-    }else{
+    }else{//build error msg for invalid input(s)
         $errorMsg = "";
         if(!$validCaptcha){
             $errorMsg .= $captchaError;

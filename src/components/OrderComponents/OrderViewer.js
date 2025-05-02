@@ -1,8 +1,6 @@
-import {useNavigate} from 'react-router-dom';
 import { useState } from 'react';
 
 const OrderViewer = (props) =>{
-    const nav = useNavigate();
     const [orderDetails, setOrderDetails] = useState(null);
 
     const getOrderDetails = async() =>{
@@ -36,7 +34,7 @@ const OrderViewer = (props) =>{
         if(requestComplete === false){
             window.alert("Complete order request failed");
         }else{
-            props.setOrders("");
+            props.setOrders("");//used to force re render and reloading of order data to reflect that the order has been complete
             props.setSelectedOrder("none");
             window.alert("Order has been marked as completed");
         }
@@ -82,7 +80,7 @@ const OrderViewer = (props) =>{
                 <button id={orderData[props.selectedOrder - 1][0]} onClick={clickHandlerComplete} className='completeOrdersBtn'>Complete Order</button>
             </>
         );
-    }else{
+    }else{//only request order details form server if component does not have them
         getOrderDetails();
     }
 }

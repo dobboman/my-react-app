@@ -23,7 +23,7 @@ const OrdersTable = (props) =>{
                 
                 </thead>
                     <tbody>
-                        { data !== undefined &&
+                        { data !== undefined && //only map data if data is defined 
                             data.map(d=> (
                                 <tr key = {d[0]}>
                                     <td>{d[0]}</td>

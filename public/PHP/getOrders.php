@@ -4,6 +4,7 @@
     $raw_req = file_get_contents('php://input');
     $req_data = json_decode($raw_req);
 
+    //get stored user data
     $q = "SELECT PasswordHash, IsStaff FROM Users WHERE UserID = '". $_SESSION["userID"] ."'";
     $userData = mysqli_query($db, $q);
     $userData = mysqli_fetch_all($userData);
@@ -21,8 +22,8 @@
         $ip=$_SERVER['REMOTE_ADDR'];
       }
     
-    if ($isStaff && $_SESSION["IP"] === $ip){
-        if(password_verify($_SESSION["password"], $passwordHash)){ //comented out for testing 
+    if ($isStaff && $_SESSION["IP"] === $ip){//verify IP to stop session hijacking
+        if(password_verify($_SESSION["password"], $passwordHash)){ //verify password
             $q = "SELECT Orders.OrderID, Users.Email, Users.FullName, Orders.OrderDate, Orders.OrderStatus, Orders.OrderPrice FROM Orders
                     INNER JOIN Users ON Users.UserID=Orders.UserID;";
             $orderData = mysqli_query($db,$q);

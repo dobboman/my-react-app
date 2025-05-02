@@ -6,7 +6,7 @@ const TableData = (props) => {
     return(
         <>
             
-            {props.qauntity !== null &&
+            {props.qauntity !== null && //only map data all the data is present 
                 props.data.map((d,index) => (
                 <tr key={d[0]}>     
                     <td>{d[1]}</td>

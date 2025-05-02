@@ -1,11 +1,9 @@
-import { useState } from "react";
-import AddOrRemoveItem from "./AddOrRemoveItem";
 import TableData from "./tableData";
 
 function ProductGrid(props){
     const data = props.data;
     let catagoryNum;
-    switch(props.catagory){
+    switch(props.catagory){//used to reference index of quantity array corrosponding to this product grid
         default:
             break;
         case "Chicken":
@@ -26,27 +24,27 @@ function ProductGrid(props){
     }
 
     const handleClickRemove = (e) =>{
-        const name = e.target.name.split("/");
+        const name = e.target.name.split("/");//get itemID and quaunty index stored in name
         const itemID = parseInt(name[0]);
         const quantityIndex = parseInt(name[1]);
 
-        console.log("ItemId = "+ itemID);
-        console.log("Index = "+ quantityIndex);
+        /*console.log("ItemId = "+ itemID);
+        console.log("Index = "+ quantityIndex);*/
 
-        let quantityAmmend = props.quantity;
-        let dataAmmend = [[]];
+        let quantityAmmend = props.quantity;//temporay variable to allow for editing values in quantity array to then set quantity later
+        let dataAmmend = [[]];//same for cart array
         let dataIndex;
 
-        if(props.cartData.length >1){
+        if(props.cartData.length >1){// if length > 1 then the cart has items inside
             for(let i=0; i < props.cartData.length; i++){//find item in cart
                 if (props.cartData[i][0] === itemID){
                     dataIndex = i;
                 }
             }
-            if(quantityAmmend[catagoryNum][quantityIndex] === 0){//no item to delete from cart
+            if(quantityAmmend[catagoryNum][quantityIndex] === 0){//no item of that type to delete from cart
                 dataAmmend = props.cartData;
                 return;
-            }else if(quantityAmmend[catagoryNum][quantityIndex] === 1){//delete item from cart
+            }else if(quantityAmmend[catagoryNum][quantityIndex] === 1){//delete item from cart if only one of that item is present
                 for(let i=0; i < props.cartData.length - 1 ; i++){
                     if(i < dataIndex){
                         dataAmmend[i] = props.cartData[i];
@@ -56,25 +54,25 @@ function ProductGrid(props){
                 }
             }else{//change quantity of cart item
                 dataAmmend = props.cartData;
-                dataAmmend[dataIndex][3] = quantityAmmend[catagoryNum][quantityIndex] -1;
+                dataAmmend[dataIndex][3] = quantityAmmend[catagoryNum][quantityIndex] -1;//set quantity in cart arary
             }
         }else{//if only one item in cart
-            if(quantityAmmend[catagoryNum][quantityIndex] === 0){
+            if(quantityAmmend[catagoryNum][quantityIndex] === 0){//no item of that type in cart therefore cart array should stay the same
                 dataAmmend = props.cartData;
                 return;
             }
-            else if(quantityAmmend[catagoryNum][quantityIndex] === 1){
+            else if(quantityAmmend[catagoryNum][quantityIndex] === 1){// there is only one item in cart of quantity 1 so cart should be set to empty
                 dataAmmend = [];
-            }else {
+            }else {// if item has a quantity of > 1 then then quantity should be reduced by one 
                 dataAmmend = props.cartData;
-                dataAmmend[0][3] = quantityAmmend[catagoryNum][quantityIndex]-1;
+                dataAmmend[0][3] = quantityAmmend[catagoryNum][quantityIndex]-1;//set quantity is cart array
             }
         }
 
-        quantityAmmend[catagoryNum][quantityIndex] -= 1;
-        console.log(dataAmmend);
+        //console.log(dataAmmend);
+        quantityAmmend[catagoryNum][quantityIndex] -= 1; 
         props.setCartData([...dataAmmend]);
-        props.setQuantity([...quantityAmmend]);
+        props.setQuantity([...quantityAmmend]);//quantity state array set down here to avoid a re render to early
     };
 
     const handleClickAdd = (e) =>{
@@ -89,18 +87,20 @@ function ProductGrid(props){
         let dataIndex;
         
         if(quantityAmmend[catagoryNum][quantityIndex] === 0){//if item not already in cart add to cart
+            //initilize dataAmmend
             let dataAmmend = [[]];
-            if(Array.isArray(props.cartData[0])){
+            if(Array.isArray(props.cartData[0])){//if cart data alredy an array of arrays set dataAmmend to cartData
                 dataAmmend = props.cartData;
-            }else{ dataAmmend[0] = props.cartData; }// if only 1 item make dataAmmend 2d array
-            let temp = [];            
+            }else{ dataAmmend[0] = props.cartData; }// if only 1 item make dataAmmend an array of arrays
+
+            let temp = [];//temporay array to add in item info            
             temp[0] = parseInt(data[quantityIndex][0]);//itemID
             temp[1] = data[quantityIndex][1];//itemName
             temp[2] = parseFloat(data[quantityIndex][3]);//price
             temp[3] = quantityAmmend[catagoryNum][quantityIndex]+1;//qauntity
             temp[4] = parseFloat(data[quantityIndex][3]) * (quantityAmmend[catagoryNum][quantityIndex]+1);//total price*/
-            dataAmmend[props.cartData.length] = temp;
-            console.log("dataAmmend = "+dataAmmend);
+            dataAmmend[props.cartData.length] = temp;//and new item array to the end of dataAmmend array
+            //console.log("dataAmmend = "+dataAmmend);
             props.setCartData([...dataAmmend]);            
         }else{//if item already exists in car ammend quantity in cart
             let dataAmmend = props.cartData;
@@ -112,13 +112,13 @@ function ProductGrid(props){
                         console.log(dataAmmend);
                     }
                 }
-                console.log("dataAmmend = ");
-                console.log(dataAmmend);
-                dataAmmend[dataIndex][3] = quantityAmmend[catagoryNum][quantityIndex]+1;
+                /*console.log("dataAmmend = ");
+                console.log(dataAmmend);*/
+                dataAmmend[dataIndex][3] = quantityAmmend[catagoryNum][quantityIndex]+1;//set quantity is dataAmmend
             }else{//if there is one item in arra cartData is 1d array
                 dataAmmend[3] = quantityAmmend[catagoryNum][quantityIndex]+1;
-                console.log("dataAmmend = ");
-                console.log(dataAmmend);
+                /*console.log("dataAmmend = ");
+                console.log(dataAmmend);*/
                 
             }
             props.setCartData([...dataAmmend]);

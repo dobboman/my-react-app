@@ -52,11 +52,11 @@
         $db->query($sqlQuery);
         $sqlQuery = "CREATE TABLE CAPTCHA (
                         CAPTCHAID int UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-                        Answer VARCHAR(5) NOT NULL
+                        Answer VARCHAR(10) NOT NULL
         );";
         $db->query($sqlQuery);
 
-        $sqlQuery = "INSERT INTO CAPTCHA (Answer) VALUES ('Aeik2'), ('ecb4f'), ('7plbJ8'), ('24quJ')";
+        $sqlQuery = "INSERT INTO CAPTCHA (Answer) VALUES ('Aeik2'), ('ecb4f'), ('7plBJ8'), ('24quJ')";
         $db->query($sqlQuery);
         $sqlQuery = "   INSERT INTO Items (ItemName, ImageURL, price, ProductCatagory) VALUES ('Carrot', 'http://localhost/GroceryGuys/productImages/carrot.png', 10.00, 'Vegetables'), ('Cabbage', 'http://localhost/GroceryGuys/productImages/cabbage.png', 10.50, 'Vegetables'), ('Sprouts 200g', 'http://localhost/GroceryGuys/productImages/sprouts.png', 11.99, 'Vegetables'),
                                                                                         ('8oz Rump Steak', 'http://localhost/GroceryGuys/productImages/rumpSteak8oz.png', 14.99, 'Beef'), ('Minced Beef 500g', 'http://localhost/GroceryGuys/productImages/mincedBeef500g.png', 8.89, 'Beef'), ('10oz Sirlion Steak', 'http://localhost/GroceryGuys/productImages/sirlionSteak10oz.png', 16.00, 'Beef'),
@@ -69,12 +69,9 @@
         $pass = password_hash($pass,CRYPT_SHA256);
         $sqlQuery = "INSERT INTO Users (FullName, Email,PhoneNumber,PasswordHash, IsStaff) VALUES ('Oscar Dobbin','demo@gmail.com',07711111111,'".$pass."', true );";
         $db->query($sqlQuery);
-        
-        /*$sqlQuery = "INSERT INTO OrderItems,  (OrderID, ItemID, Qauntity) VALUES (0,12,2), (0,7,1), (0,8,4)";
-        $db->query($sqlQuery);*/
 
         $sqlQuery = "INSERT INTO Orders (UserID, OrderDate, OrderPrice, OrderStatus) VALUES (1,'2025-03-13 11:20:00','20.00','Pending'),(1,'2025-03-13 11:00:00','40.00','Pending'),(1,'2025-03-13 10:01:00','20.00','Pending'),(1,'2025-03-14 09:15:00','20.00','Pending');";
-                                                                //SELECT UserID FROM Users WHERE UserID = 0;";
+                                                                
         $db->query($sqlQuery);
 
         $sqlQuery = "INSERT INTO OrderItems (OrderID, ItemID, Qauntity) VALUES (1,1,1), (1,2,1), (1,3,2);";

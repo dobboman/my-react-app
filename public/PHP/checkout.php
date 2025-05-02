@@ -38,8 +38,8 @@
         $ip=$_SERVER['REMOTE_ADDR'];
       }
 
-    if($validItemID && $validQuantity){
-        if($_SESSION["IP"] === $ip){
+    if($validItemID && $validQuantity){//if inputs are valid then add them to the database
+        if($_SESSION["IP"] === $ip){//check session not hijacked
             $q = "SELECT PasswordHash FROM Users WHERE UserID = ".$_SESSION["userID"].";";
             $passwordHash = mysqli_query($db, $q);
             $passwordHash = mysqli_fetch_all($passwordHash)[0][0];
@@ -47,10 +47,10 @@
                 //get data needed for entry
                 $orderStatus = "Pending";
                 $date = date("Y-m-d H:i:s");
-                //var_dump($date);
                 $orderPrice = 00.00;
             
-                //var_dump($req_data->data);
+
+                //total up order price
                 for ($i = 0; $i < count($req_data->data); $i++) {//get price from db to stop user submiting incorrect price by editing js
                     $q = "SELECT Price FROM Items WHERE ItemID = ".$req_data->data[$i][0].";";
                     $price = mysqli_query($db, $q);
@@ -58,14 +58,14 @@
                     $orderPrice += $req_data->data[$i][3] * $price;
                 }
             
-                $q = "INSERT INTO Orders(UserID, OrderDate, OrderPrice, OrderStatus) VALUES (".$_SESSION["userID"].", '".$date."',".$orderPrice.",'".$orderStatus."')";
+                $q = "INSERT INTO Orders(UserID, OrderDate, OrderPrice, OrderStatus) VALUES (".$_SESSION["userID"].", '".$date."',".$orderPrice.",'".$orderStatus."')";//insert to orders table
                 $result = mysqli_query($db, $q);
             
-                $q = "SELECT OrderID FROM Orders WHERE OrderDate = '".$date."' AND UserID =".$_SESSION["userID"].";";
+                $q = "SELECT OrderID FROM Orders WHERE OrderDate = '".$date."' AND UserID =".$_SESSION["userID"].";";//get OrderID to be able to make corrosponding entry(s) into OrderItems
                 $orderID = mysqli_query($db, $q);
                 $orderID = mysqli_fetch_all($orderID)[0][0];
             
-                for ($i = 0; $i < count($req_data->data); $i++) {
+                for ($i = 0; $i < count($req_data->data); $i++) {//create entry(s) into OrderItems
                     $q = "INSERT INTO OrderItems(OrderID, ItemID, Qauntity) VALUES (".$orderID.",".$req_data->data[$i][0].",".$req_data->data[$i][3].");";
                     mysqli_query($db, $q);
                 }
@@ -86,7 +86,7 @@
                 "error"=> "please login to order items"
             );
         }
-    }else{
+    }else{//formulate error msg
         $errorMsg = "";
         if(!$validItemID){
             $errorMsg .= $itemIDError;

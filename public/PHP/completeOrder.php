@@ -4,12 +4,13 @@
     $req_data = json_decode($raw_req);
     $db = new mysqli("localhost", "root", "","GrocceryGuyDatabase");
 
+    //get user details from database 
     $q = "SELECT PasswordHash FROM Users WHERE UserID = ". $_SESSION["userID"] .";";
     $userData = mysqli_query($db, $q);
     $userData = mysqli_fetch_all($userData);
     $passwordHash = $userData[0][0];
-    //$isStaff = $userData[0][1];
 
+    //get IP adress of user
     if(!empty($_SERVER['HTTP_CLIENT_IP'])){
         $ip=$_SERVER['HTTP_CLIENT_IP'];
       }
@@ -20,8 +21,8 @@
         $ip=$_SERVER['REMOTE_ADDR'];
       }
 
-    if($_SESSION["isStaff"] && $_SESSION["IP"] === $ip){
-        if(password_verify($_SESSION["password"], $passwordHash)){
+    if($_SESSION["isStaff"] && $_SESSION["IP"] === $ip){//check user is staff member and session not hijacked
+        if(password_verify($_SESSION["password"], $passwordHash)){//verify password
             $q = "UPDATE Orders SET OrderStatus = 'Complete' WHERE OrderID = '".$req_data->orderID."';";
             $result = mysqli_query($db, $q);
             $response = array(
