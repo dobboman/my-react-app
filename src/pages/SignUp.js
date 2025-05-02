@@ -93,7 +93,6 @@ const SignUp = (props) =>{
             console.log(response);
             if(response["success"] === true){
                 props.setLoggedIn();
-                
                 nav(-2);
             }else{
                 window.alert("there is already an account with this email adress");
