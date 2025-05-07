@@ -42,7 +42,7 @@ const Login = (props) =>{
             console.log('entered set pass and usr statement');
             props.setUserID(...responseData["userID"]);
             props.setLoggedIn(true);
-            redirect("http://localhost/GrocerGuys/HomePage");
+            //redirect("http://localhost/GrocerGuys/HomePage");
             nav(-1);
 
         }else{
